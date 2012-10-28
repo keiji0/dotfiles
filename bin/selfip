@@ -1,0 +1,2 @@
+#!/bin/sh
+wget -qO - 'http://dyn.value-domain.com/cgi-bin/dyn.fcg?ip'
