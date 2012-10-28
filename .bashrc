@@ -39,7 +39,7 @@ if _has git; then
 	GIT_PS1_SHOWDIRTYSTATE=true
 	_load $DOTDIR/share/git-completion.bash
 	_load $DOTDIR/share/git-prompt.sh
-	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE$RED'$(__git_ps1 '[%s]') \$ '$DEFAULT
+	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE$RED'$(__git_ps1 '[%s]')\$ '$DEFAULT
 else
-	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE' \$ '$DEFAULT
+	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE'\$ '$DEFAULT
 fi
