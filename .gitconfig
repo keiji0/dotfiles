@@ -1,0 +1,14 @@
+[user]
+	name = Keiji Ohara
+	email = keiji0@gmail.com
+[color]
+	ui = auto
+[alias]
+	st = status
+	sh = show
+	df = diff
+	ad = add
+	br = branch
+	co = checkout
+	lg = log -p
+	graph = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
