@@ -1,6 +1,6 @@
 # add ~/.bash_profile
-#   export DOTDIR=~/.dotfiles
-#   source $DOTDIR/.bash_profile
+#   export DOTDIR=$HOME/.dotfiles
+#   . $DOTDIR/.bash_profile
 
 export LANG=ja_JP.UTF-8
 export LANGUAGE=ja_JP.UTF-8
@@ -14,5 +14,3 @@ export PAGER=less
 export EDITOR=vim
 export FTP=ncftp
 export LESS='-X -i -R'
-
-[ -f ~/.bashrc ] && . ~/.bashrc

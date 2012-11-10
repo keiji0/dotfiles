@@ -8,7 +8,7 @@ MAGENTA="\[\033[0;35m\]"    # magenta
 CYAN="\[\033[0;36m\]"    # cyan
 WHITE="\[\033[0;37m\]"    # white
 
-_has () { which $1 > /dev/null; }
+_has(){ which $1 > /dev/null; }
 _load(){ [ -f $1 ] && . $1; }
 
 function cdls(){
