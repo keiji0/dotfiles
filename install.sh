@@ -2,11 +2,12 @@
 
 cd $(dirname $0)
 ins(){ ln -fFs "$PWD/$1" "$2" && echo install $1; }
+cpy(){ cp -Rpf "$PWD/$1" "$2" && echo install $1; }
 has(){ which $1 > /dev/null; }
 
 ins .gitconfig ~/
 ins .Xdefaults ~/
-ins .config/user-dirs.dirs ~/.config/user-dirs.dirs
+cpy .config/user-dirs.dirs ~/.config/user-dirs.dirs
 
 if has gsettings; then
 	# nautilus
