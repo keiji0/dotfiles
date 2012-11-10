@@ -5,6 +5,7 @@ ins(){ ln -fFs "$PWD/$1" "$2" && echo install $1; }
 cpy(){ cp -Rpf "$PWD/$1" "$2" && echo install $1; }
 has(){ which $1 > /dev/null; }
 
+ins .profile ~/
 ins .gitconfig ~/
 ins .Xdefaults ~/
 cpy .config/user-dirs.dirs ~/.config/user-dirs.dirs
