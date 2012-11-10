@@ -35,8 +35,8 @@ alias ln='ln -i'
 if _has git; then
 	alias gi=git
 	GIT_PS1_SHOWDIRTYSTATE=true
-	_load $DOTDIR/share/git-completion.bash
-	_load $DOTDIR/share/git-prompt.sh
+	_load $DOTDIR/share/bash/git-completion.bash
+	_load $DOTDIR/share/bash/git-prompt.sh
 	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE$RED'$(__git_ps1 '[%s]')\$ '$DEFAULT
 else
 	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE'\$ '$DEFAULT

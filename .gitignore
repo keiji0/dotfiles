@@ -1,2 +1,2 @@
 share/*
-!share/Makefile
+!share/install.sh
