@@ -31,8 +31,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -I'
 alias ln='ln -i'
-alias genpass='openssl rand -base64 12'
-alias openports='netstat --all --numeric --programs --inet -t tcp'
 
 if _has git; then
 	alias gi=git
