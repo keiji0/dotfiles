@@ -1,4 +1,3 @@
-[ -n "$PS1" ] && . $DOTDIR/.bash_profile
 . $DOTDIR/.bash_fun
 
 stty stop undef

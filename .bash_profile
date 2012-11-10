@@ -14,3 +14,5 @@ export PAGER=less
 export EDITOR=vim
 export FTP=ncftp
 export LESS='-X -i -R'
+
+[ -f $DOTDIR/.bashrc ] && . $DOTDIR/.bashrc
