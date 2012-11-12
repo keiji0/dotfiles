@@ -13,3 +13,5 @@ export PAGER=less
 export EDITOR=vim
 export FTP=ncftp
 export LESS='-X -i -R'
+
+export MYVIM=$DOTDIR/.vim
