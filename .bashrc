@@ -31,6 +31,9 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -I'
 alias ln='ln -i'
+alias vibashrc='vi $DOTDIR/.bashrc'
+alias viprofile='vi $DOTDIR/.profile'
+alias vivimrc='vi $DOTDIR/.vimrc'
 
 if _has git; then
 	alias gi=git
