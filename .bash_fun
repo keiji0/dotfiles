@@ -1,3 +1,5 @@
+#!/bin/bash
+
 DEFAULT="\[\033[0m\]"    # default
 BLACK="\[\033[0;30m\]"    # black
 RED="\[\033[0;31m\]"    # red
@@ -8,8 +10,8 @@ MAGENTA="\[\033[0;35m\]"    # magenta
 CYAN="\[\033[0;36m\]"    # cyan
 WHITE="\[\033[0;37m\]"    # white
 
-_has(){ which $1 > /dev/null; }
-_load(){ [ -f $1 ] && . $1; }
+_has(){ which "$1" > /dev/null; }
+_load(){ [ -f "$1" ] && . "$1"; }
 
 function cdls(){
 	\cd $1

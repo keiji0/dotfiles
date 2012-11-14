@@ -44,3 +44,5 @@ if _has git; then
 else
 	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE'\$ '$DEFAULT
 fi
+
+_load "$MYHOME/.bashrc"
