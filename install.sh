@@ -10,6 +10,7 @@ has(){ which $1 > /dev/null; }
 lnk .gitconfig ~/
 
 if [ $dist = Ubuntu ]; then
+	cpy .xprofile ~/.xprofile
 	cpy .config/user-dirs.dirs ~/.config/user-dirs.dirs
 	# nautilus
 	(cd ~ && mkdir Desktop Downloads Templates Public Documents Music Pictures Videos)

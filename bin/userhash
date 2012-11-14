@@ -1,0 +1,2 @@
+#!/bin/sh
+echo -n keiji0 | shasum | cut -f1 -d' '

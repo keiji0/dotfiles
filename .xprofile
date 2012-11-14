@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ -d "$DISKRAM" ]; then
+	which chromium-browser > /dev/null \
+		&& mkdir -p "$DISKRAM/chromium" \
+		&& rm -rf "$HOME/.cache/chromium" \
+		&& ln -s "$DISKRAM/chromium" "$HOME/.cache/chromium"
+fi
