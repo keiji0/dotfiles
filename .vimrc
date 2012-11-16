@@ -1,5 +1,3 @@
-"vim:se ts=2 sts=2 sw=2 tw=0 noet
-
 syntax on
 filetype plugin indent on
 
@@ -33,9 +31,9 @@ set visualbell
 set vb t_vb=
 set t_Co=256
 set ts=4 sts=4 sw=4 tw=0 noet
+set expandtab
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
-set runtimepath+=$MYVIM/plugin
 
 let mapleader = " "
 let g:netrw_banner=0
@@ -68,20 +66,19 @@ hi Folded gui=bold term=standout ctermbg=NONE ctermfg=2 guifg=Grey80
 hi FoldColumn gui=bold term=standout ctermbg=NONE ctermfg=2 guifg=DarkBlue
 
 if has("autocmd")
-	au BufNewFile,BufRead *.pl,*.cgi,*.pm,*.psgi set filetype=perl
-
-	au filetype perl compiler perl
-	au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
-	au BufEnter * execute ":lcd " . expand("%:p:h")
-	au BufNewFile * silent! 0r $HOME/.vim/template/%:e
-	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+    au BufNewFile,BufRead *.pl,*.cgi,*.pm,*.psgi set filetype=perl
+    au filetype perl compiler perl
+    au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
+    au BufEnter * execute ":lcd " . expand("%:p:h")
+    au BufNewFile * silent! 0r $HOME/.vim/template/%:e
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 endif
 
 if has("wildmenu")
-	set wildmenu
-	set wildmode=list:longest
-	set wildignore+=*.a,*.o
-	set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-	set wildignore+=*~,*.swp,*.tmp
-	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+    set wildmenu
+    set wildmode=list:longest
+    set wildignore+=*.a,*.o
+    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+    set wildignore+=*~,*.swp,*.tmp
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 endif
