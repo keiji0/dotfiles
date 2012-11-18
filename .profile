@@ -9,7 +9,6 @@ export MYHASH=0ebf87e0591d0d4b31d182e259de277345e23188
 
 if [ -d "$DOTDIR" ]; then
 	export PATH=$DOTDIR/bin:$PATH
-	export WORK=$HOME/work
 	export PAGER=less
 	export EDITOR=vim
 	export FTP=ncftp
@@ -19,6 +18,10 @@ if [ -d "$DOTDIR" ]; then
 	[ -d /run/shm ] && export DISKRAM=/run/shm/${MYHASH}
 	[ -d "$DISKRAM" ] || mkdir -p "$DISKRAM"
 	[ $(cat $DOTDIR/../.hash) = $MYHASH ] && export MYHOME=$DOTDIR/..
+fi
+
+if [ -n "$MYHOME" ]; then
+	export WORK=$MYHOME/work
 	[ -f "$MYHOME/.profile" ] && . $MYHOME/.profile
 	[ -d "$MYHOME/bin" ] && export PATH=$MYHOME/bin:$PATH
 fi

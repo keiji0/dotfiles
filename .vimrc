@@ -34,6 +34,7 @@ set ts=4 sts=4 sw=4 tw=0 noet
 set expandtab
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
+set runtimepath+=$MYVIM
 
 let mapleader = " "
 let g:netrw_banner=0
@@ -45,7 +46,6 @@ nnoremap <leader>m :<c-u>marks
 nnoremap <leader>r :<c-u>registers
 nnoremap <leader>b :ls<cr>:buf 
 nnoremap <leader>a :ls<cr>:buf 
-nnoremap <leader>c :!perl -c %<cr>
 nnoremap <leader>eu :e ++enc=utf-8<cr>
 nnoremap <leader>es :e ++enc=shift_jis<cr>
 nnoremap <leader>ee :e ++enc=euc-jp<cr>
@@ -65,15 +65,6 @@ se fillchars=vert:\|
 hi Folded gui=bold term=standout ctermbg=NONE ctermfg=2 guifg=Grey80
 hi FoldColumn gui=bold term=standout ctermbg=NONE ctermfg=2 guifg=DarkBlue
 
-if has("autocmd")
-    au BufNewFile,BufRead *.pl,*.cgi,*.pm,*.psgi set filetype=perl
-    au filetype perl compiler perl
-    au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
-    au BufEnter * execute ":lcd " . expand("%:p:h")
-    au BufNewFile * silent! 0r $HOME/.vim/template/%:e
-    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-endif
-
 if has("wildmenu")
     set wildmenu
     set wildmode=list:longest
@@ -81,4 +72,20 @@ if has("wildmenu")
     set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
     set wildignore+=*~,*.swp,*.tmp
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+endif
+
+if has("autocmd")
+    au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
+    au BufEnter * execute ":lcd " . expand("%:p:h")
+    au BufNewFile * silent! 0r $HOME/.vim/template/%:e
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+    "filetype
+    au BufNewFile,BufRead *.pl,*.cgi,*.pm,*.psgi set filetype=perl | call _perl()
+    fu _perl()
+        nn <buffer> <leader>c :!perl -c %<cr>
+        nn <buffer> <leader>e :!perl -MData::Dumper -w %<cr>
+        au filetype perl compiler perl
+        setl ts=4 sts=4 sw=4 tw=0 noet
+    endf
 endif
