@@ -17,7 +17,7 @@ if [ -d "$DOTDIR" ]; then
 
 	[ -d /run/shm ] && export DISKRAM=/run/shm/${MYHASH}
 	[ -d "$DISKRAM" ] || mkdir -p "$DISKRAM"
-	[ $(cat $DOTDIR/../.hash) = $MYHASH ] && export MYHOME=$DOTDIR/..
+	[ $(cat $DOTDIR/../.hash) = $MYHASH ] && export MYHOME=$(realpath $DOTDIR/..)
 fi
 
 if [ -n "$MYHOME" ]; then
