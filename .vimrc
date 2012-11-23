@@ -42,8 +42,8 @@ noremap ; :
 nmap <esc><esc> :nohlsearch<CR><esc>
 nnoremap <tab> %
 vnoremap <tab> %
-nnoremap <leader>m :<c-u>marks
-nnoremap <leader>r :<c-u>registers
+nnoremap <leader>m :<c-u>marks<cr>
+nnoremap <leader>r :<c-u>registers<cr>
 nnoremap <leader>b :ls<cr>:buf 
 nnoremap <leader>a :ls<cr>:buf 
 nnoremap <leader>eu :e ++enc=utf-8<cr>
