@@ -22,6 +22,7 @@ if [ $dist = Ubuntu ]; then
 	sudo apt-get install vlc
 	sudo apt-get install synapse
 	sudo apt-get install ibus-mozc
+	sudo apt-get install inkscape gimp
 	# media
 	sudo apt-get install ubuntu-restricted-extras
 	sudo /usr/share/doc/libdvdread4/install-css.sh
