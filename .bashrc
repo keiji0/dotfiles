@@ -1,5 +1,3 @@
-. $DOTDIR/.bash_fun
-
 stty stop undef
 
 HISTTIMEFORMAT='%y/%m/%d %H:%M:%S	'
@@ -35,6 +33,19 @@ alias vibashrc='vi $DOTDIR/.bashrc'
 alias viprofile='vi $DOTDIR/.profile'
 alias vivimrc='vi $DOTDIR/.vimrc'
 
+DEFAULT="\[\033[0m\]"
+BLACK="\[\033[0;30m\]"
+RED="\[\033[0;31m\]"
+GREEN="\[\033[0;32m\]"
+YELLOW="\[\033[0;33m\]"
+BLUE="\[\033[0;34m\]"
+MAGENTA="\[\033[0;35m\]"
+CYAN="\[\033[0;36m\]"
+WHITE="\[\033[0;37m\]"
+
+_has(){ which "$1" > /dev/null; }
+_load(){ [ -f "$1" ] && . "$1"; }
+
 if _has git; then
 	alias gi=git
 	GIT_PS1_SHOWDIRTYSTATE=true
@@ -44,5 +55,26 @@ if _has git; then
 else
 	PS1=$GREEN'\H:'$YELLOW'\w'$WHITE'\$ '$DEFAULT
 fi
+
+function cdls(){
+	\cd $1
+	
+	# display ls
+	if [ 150 -le $(ls | wc -l) ]; then
+		ls | fmt -w 100 | head -n 5
+		echo '...'
+		ls | fmt -w 100 | tail -n 5
+		echo "$(ls |wc -l ) files exist"
+	elif [ 25 -ge $(ls | wc -l) ]; then
+		ls -v -F -l --color=auto
+	else 
+		ls -v -F --color=auto
+	fi
+
+	# ウィンドウごとの現在ディレクトリを変数に保存
+	[[ -n $TMUX ]] && tmux setenv TMUXPWD_$(tmux display -p "#I") "$PWD"
+	# ウィンドウの名前を変更
+	[[ -n $TMUX ]] && tmux rename-window "$(basename "$PWD")"
+}
 
 _load "$MYHOME/.bashrc"
