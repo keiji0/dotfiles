@@ -31,7 +31,7 @@ set visualbell
 set vb t_vb=
 set t_Co=256
 set ts=4 sts=4 sw=4 tw=0 noet
-set expandtab
+set noexpandtab
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
 set runtimepath+=$MYVIM
