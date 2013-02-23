@@ -1,10 +1,11 @@
 stty stop undef
 
-HISTTIMEFORMAT='%y/%m/%d %H:%M:%S	'
-HISTCONTROL=ignoreboth
-HISTIGNORE=ls:la:ll:lla:history:h:pwd
-HISTSIZE=1000
-HISTFILESIZE=2000
+export HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S	'
+export HISTCONTROL=ignoreboth
+export HISTIGNORE=ls:la:ll:lla:history*:h:pwd:f:j
+export HISTSIZE=10000
+export HISTFILESIZE=100000
+shopt -s histappend
 
 alias ls='ls --color=always -Fhv'
 alias l='ls'
@@ -20,6 +21,7 @@ alias pu='pushd'
 alias po='popd'
 alias fn='find . -name'
 alias vim='vim -u $DOTDIR/.vimrc'
+alias vimdiff='vimdiff -u $DOTDIR/.vimrc'
 alias vi='vim'
 alias grep='grep --color=auto'
 alias gr='grep'

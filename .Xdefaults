@@ -11,11 +11,11 @@ urxvt*termName:screen-256color
 urxvt.scrollBar: off
 urxvt.cursorBlink: false
 urxvt.preeditType: OverTheSpot
-urxvt.letterSpace: -1
+urxvt.letterSpace: 0
 urxvt.*depth: 32
 urxvt.shading: 10
 urxvt.fading: 40
-urxvt.lineSpace: 1
+urxvt.lineSpace: 0
 urxvt.font: xft:Ricty for Powerline:size=12:hinting=true
 urxvt.boldFont: xft:Ricty for Powerline:size=12:hinting=true
 
