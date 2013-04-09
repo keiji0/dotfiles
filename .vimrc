@@ -30,7 +30,6 @@ set visualbell
 set vb t_vb=
 set t_Co=256
 set ts=4 sts=4 sw=4 tw=0 noet
-set noet
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
 set runtimepath+=$MYVIM
@@ -89,8 +88,17 @@ if has("autocmd")
 	fu _perl()
 		set filetype=perl
 		nn <buffer> <leader>c :!perl -c %<cr>
-		nn <buffer> <leader>e :!perl -MData::Dumper -w  %<left><left>
+		nn <buffer> <leader>r :!perl -MData::Dumper -w  %<left><left>
 		au filetype perl compiler perl
+		setl ts=4 sts=4 sw=4 tw=0 noet
+	endf
+
+	"shell
+	au BufNewFile,BufRead *.sh call _sh()
+	fu _sh()
+		set filetype=sh
+		nn <buffer> <leader>c :!sh -n %<cr>
+		nn <buffer> <leader>r :!sh %<cr>
 		setl ts=4 sts=4 sw=4 tw=0 noet
 	endf
 	
@@ -101,11 +109,19 @@ if has("autocmd")
 		setl ts=4 sts=4 sw=4 tw=0 noet
 		setl fileencoding=utf-8
 	endf
+
+	"forth
+	au BufNewFile,BufRead *.fh call _forth()
+	fu _forth()
+		setl filetype=forth
+		nn <buffer> <leader>r :!gforth %<cr>
+		setl ts=2 sts=2 sw=2 tw=0 noet
+	endf
 	
 	"ocaml
 	au BufNewFile,BufRead *.ml,*.mli call _ocaml()
 	fu _ocaml()
-		nn <buffer> <leader>e :!ocaml %<cr>
+		nn <buffer> <leader>r :!ocaml %<cr>
 		setl ts=2 sts=2 sw=2 tw=0 noet
 	endf
 endif
