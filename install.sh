@@ -15,6 +15,9 @@ if [ $dist = Ubuntu ]; then
 	# nautilus
 	(cd ~ && mkdir Desktop Downloads Templates Public Documents Music Pictures Videos)
 	gsettings set org.gnome.nautilus.preferences always-use-location-entry true
+	lnk share/applications ~/.local/share/applications
+	# unity
+	dconf write /com/canonical/unity-2d/launcher/use-strut true
 	# package
 	sudo apt-get install git vim
 	sudo apt-get install rxvt-unicode-256color && lnk .Xdefaults ~/

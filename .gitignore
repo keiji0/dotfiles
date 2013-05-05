@@ -1,2 +1,3 @@
 share/*
+!share/applications/
 !share/install.sh
