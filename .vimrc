@@ -20,7 +20,6 @@ set hlsearch
 set hidden
 set foldmethod=indent
 set foldlevel=2
-set clipboard=unnamed
 set lazyredraw
 set ttyfast
 set t_ti=
@@ -33,6 +32,7 @@ set ts=4 sts=4 sw=4 tw=0 noet
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
 set runtimepath+=$MYVIM
+set matchtime=3
 
 com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 
@@ -42,6 +42,7 @@ noremap ; :
 nmap <esc><esc> :nohlsearch<CR><esc>
 nnoremap <tab> %
 vnoremap <tab> %
+vnoremap y y`>
 nnoremap <leader>a :!pushfile $(realpath %) $MYHOME/var/vim/memo.md<cr>
 nnoremap <leader>l :e $MYHOME/var/vim/memo.md<cr>
 nnoremap <leader>m :<c-u>marks<cr>
@@ -75,6 +76,15 @@ if has("wildmenu")
 	set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
 	set wildignore+=*~,*.swp,*.tmp
 	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+endif
+
+if has('gui_running')
+	set guioptions-=T
+	set guioptions+=a
+	set guifont=Ricty\ 12
+	set clipboard=unnamed,autoselect
+	set background=dark
+	colorscheme solarized
 endif
 
 if has("autocmd")
