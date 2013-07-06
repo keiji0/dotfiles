@@ -1,3 +1,13 @@
+set nocompatible
+filetype off
+
+if has('vim_starting')
+	set runtimepath+=$MYHOME/.vim/neobundle.vim.git
+	call neobundle#rc("$MYHOME/.vim/neobundle")
+
+	NeoBundle 'VimClojure'
+endif
+
 syntax on
 filetype plugin indent on
 
@@ -134,4 +144,24 @@ if has("autocmd")
 		nn <buffer> <leader>r :!ocaml %<cr>
 		setl ts=2 sts=2 sw=2 tw=0 noet
 	endf
+
+	"clojure
+	au BufNewFile,BufRead *.clj, call _clojure()
+	fu _clojure()
+		nn <buffer> <leader>r :!clojure %<cr>
+		setl ts=2 sts=2 sw=2 tw=0 noet
+	endf
+
+	"vimwiki
+	au BufNewFile,BufRead *.mkd call _vimwiki_markdown()
+	fu _vimwiki_markdown()
+		setl ts=2 sts=2 sw=2 tw=0 noet
+	endf
 endif
+
+" External plugin
+" ===============
+
+let g:vimwiki_list = [
+	\ {	'path': '~/var/wiki/', 'syntax': 'markdown', 'ext': '.mkd' },
+\ ]

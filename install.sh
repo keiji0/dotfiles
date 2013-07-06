@@ -33,4 +33,5 @@ if [ $dist = Ubuntu ]; then
 	sudo apt-get remove unity-lens-shopping
 	sudo apt-get remove unity-webapps-common xul-ext-websites-integration
 	sudo apt-get remove ubuntuone-client python-ubuntuone-client python-ubuntuone-storageprotocol
+	sudo apt-get remove thunderbird
 fi

@@ -15,7 +15,7 @@ alias lla='ls -la'
 alias f='fg'
 alias j='jobs -l'
 alias q='exit'
-alias cd=cdls
+#alias cd=cdls
 alias ..='cd ..'
 alias pu='pushd'
 alias po='popd'
@@ -52,7 +52,7 @@ _has(){ which "$1" > /dev/null; }
 _load(){ [ -f "$1" ] && . "$1"; }
 
 if _has git; then
-	alias gi=git
+	alias g=git
 	GIT_PS1_SHOWDIRTYSTATE=true
 	_load $DOTDIR/share/bash/git-completion.bash
 	_load $DOTDIR/share/bash/git-prompt.sh
@@ -62,7 +62,7 @@ else
 fi
 
 function cdls(){
-	\cd $1
+	\cd "$1"
 	
 	# display ls
 	if [ 150 -le $(ls | wc -l) ]; then
