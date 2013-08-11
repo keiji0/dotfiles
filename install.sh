@@ -12,12 +12,15 @@ lnk .gitconfig ~/
 if [ $dist = Ubuntu ]; then
 	cpy .xprofile ~/.xprofile
 	cpy .config/user-dirs.dirs ~/.config/user-dirs.dirs
+
 	# nautilus
 	(cd ~ && mkdir Desktop Downloads Templates Public Documents Music Pictures Videos)
 	gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 	lnk share/applications ~/.local/share/applications
+
 	# unity
 	dconf write /com/canonical/unity-2d/launcher/use-strut true
+
 	# package
 	sudo apt-get install git vim
 	sudo apt-get install rxvt-unicode-256color && lnk .Xdefaults ~/
@@ -26,12 +29,23 @@ if [ $dist = Ubuntu ]; then
 	sudo apt-get install synapse
 	sudo apt-get install ibus-mozc
 	sudo apt-get install inkscape gimp
+
 	# media
 	sudo apt-get install ubuntu-restricted-extras
 	sudo /usr/share/doc/libdvdread4/install-css.sh
+
 	# uninstall
 	sudo apt-get remove unity-lens-shopping
 	sudo apt-get remove unity-webapps-common xul-ext-websites-integration
 	sudo apt-get remove ubuntuone-client python-ubuntuone-client python-ubuntuone-storageprotocol
 	sudo apt-get remove thunderbird
+
+	# font setup
+	if [ ! -d /usr/share/fonts/truetype/arphic/uming.ttc ]; then
+		(
+			cd /usr/share/fonts/truetype/arphic
+			sudo apt-get install fonts-arphic-uming
+			sudo cp ../takao-gothic/TakaoPGothic.ttf uming.ttc
+		)
+	fi
 fi
