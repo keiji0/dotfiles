@@ -1,0 +1,2 @@
+#compdef cdw
+_files -/ -W $WORK
