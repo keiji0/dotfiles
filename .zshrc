@@ -1,10 +1,9 @@
-source ~/.zshenv
-fpath=(~/.zsh/comp ${fpath})
+fpath=($DOTDIR/.zsh/comp ${fpath})
 
 # intractive variable
-HISTFILE=$HOME/var/zsh/history
+HISTFILE=$MYHOME/var/zsh/history
 HISTSIZE=100000
-SAVEHIST=100000
+SAVEHIST=1000000
 WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
 # keybind
@@ -35,33 +34,18 @@ alias pu='pushd'
 alias po='popd'
 alias j='jobs -l'
 alias fn='find . -name'
+alias vim='vim -u $DOTDIR/.vimrc'
+alias vimdiff='vimdiff -u $DOTDIR/.vimrc'
 alias vi='vim'
-alias sm='smemo'
 alias grep='grep --color=auto'
 alias gr='grep'
 alias shutdown='sudo shutdown -h now'
 alias reboot='sudo reboot'
-alias fs='fossil'
-alias cdw='cd $WORK/'
+alias tmux='tmux -2 -u -f $DOTDIR/.tmux.conf'
+alias cdw='cd $WORK'
+alias cdh='cd $MYHOME'
+alias cdd='cd $DOTDIR'
 type htop >/dev/null && alias top=htop
-
-# safety features
-alias cp='cp -i'
-alias mv='mv -i'
-#alias rm='rm -I'
-alias ln='ln -i'
-
-# privileged access
-if [ $UID -ne 0 ]; then
-	alias sudo='sudo '
-	alias scat='sudo cat'
-	alias svim='sudo vim'
-	alias root='sudo su'
-	alias reboot='sudo reboot'
-	alias halt='sudo halt'
-	alias update='sudo pacman -Su'
-	alias netcfg='sudo netcfg2'
-fi
 
 # global alias
 alias -g L='| less'
@@ -71,7 +55,6 @@ alias -g W='| wc'
 alias -g P='| perl -ne'
 alias -g S='| sort'
 alias -g X='| xargs'
-alias -g CA='| canything'
 
 # completion
 autoload -U compinit && compinit
@@ -96,12 +79,13 @@ if grep --help | grep -q -- --exclude-dir; then
 fi
 
 # colors
-local RED=$'%{\e[1;31m%}'
-local GREEN=$'%{\e[1;32m%}'
-local YELLOW=$'%{\e[1;33m%}'
-local BLUE=$'%{\e[1;34m%}'
+local RED=$'%{\e[0;31m%}'
+local GREEN=$'%{\e[0;32m%}'
+local YELLOW=$'%{\e[0;33m%}'
+local BLUE=$'%{\e[0;34m%}'
 local DEFAULT=$'%{\e[1;m%}'
-PROMPT=$RED'%m:%~'$DEFAULT' %# '
+local WHITE=$'%{\e[0;37m%}'
+PROMPT=$GREEN'%m'$YELLOW':%~'$DEFAULT'%# '
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -128,9 +112,4 @@ function chpwd(){
 	[[ -n $TMUX ]] && tmux setenv TMUXPWD_$(tmux display -p "#I") "$PWD"
 	# ウィンドウの名前を変更
 	[[ -n $TMUX ]] && tmux rename-window "$(basename "$PWD")"
-}
-
-function precmd(){
-	# nextcdがあればディレクトリを移動する
-	[ -f ~/var/nextcd ] && cd $( cat ~/var/nextcd ) && rm ~/var/nextcd
 }
