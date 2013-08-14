@@ -23,7 +23,6 @@ if [ $dist = Ubuntu ]; then
 
 	# package
 	sudo apt-get install git vim
-	sudo apt-get install rxvt-unicode-256color && lnk .Xdefaults ~/
 	sudo apt-get install p7zip-full
 	sudo apt-get install vlc
 	sudo apt-get install synapse
@@ -48,4 +47,7 @@ if [ $dist = Ubuntu ]; then
 			sudo cp ../takao-gothic/TakaoPGothic.ttf uming.ttc
 		)
 	fi
+
+	# gnome terminal setup
+	gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ricty Regular 13"
 fi
