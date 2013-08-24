@@ -1,15 +1,17 @@
 #!/bin/sh
 
 cd $(dirname $0)
+
 dist=$(lsb_release -si)
 
 lnk(){ ln -fFs "$PWD/$1" "$2" && echo install $1; }
 cpy(){ cp -Rpf "$PWD/$1" "$2" && echo install $1; }
-has(){ which $1 > /dev/null; }
+has(){ which "$1" > /dev/null; }
 
 lnk .gitconfig ~/
 
 if [ $dist = Ubuntu ]; then
+	# x settings
 	cpy .xprofile ~/.xprofile
 	cpy .config/user-dirs.dirs ~/.config/user-dirs.dirs
 

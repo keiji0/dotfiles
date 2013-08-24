@@ -5,6 +5,7 @@
 	ui = auto
 [alias]
 	st = status
+	co = commit
 	sh = show
 	df = diff
 	ad = add
@@ -12,5 +13,3 @@
 	co = checkout
 	lg = log -p
 	graph = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-[push]
-	default = simple

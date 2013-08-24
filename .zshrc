@@ -1,7 +1,7 @@
 fpath=($DOTDIR/.zsh/comp ${fpath})
 
 # intractive variable
-HISTFILE=$MYHOME/var/zsh/history
+HISTFILE=$DOTDIR/var/zsh/history && mkdir -p $DOTDIR/var/zsh
 HISTSIZE=100000
 SAVEHIST=1000000
 WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
@@ -39,8 +39,6 @@ alias vimdiff='vimdiff -u $DOTDIR/.vimrc'
 alias vi='vim'
 alias grep='grep --color=auto'
 alias gr='grep'
-alias shutdown='sudo shutdown -h now'
-alias reboot='sudo reboot'
 alias tmux='tmux -2 -u -f $DOTDIR/.tmux.conf'
 alias cdw='cd $WORK'
 alias cdh='cd $MYHOME'
