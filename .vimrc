@@ -6,6 +6,9 @@ if has('vim_starting')
 	call neobundle#rc("$MYHOME/.vim/neobundle")
 
 	NeoBundle 'VimClojure'
+	NeoBundle 'bling/vim-airline'
+		let g:airline_left_sep=''
+		let g:airline_right_sep=''
 endif
 
 syntax on
