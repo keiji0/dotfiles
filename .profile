@@ -21,8 +21,8 @@ if [ -d "$DOTDIR" ]; then
 	[ -d "$DISKRAM" ] || mkdir -p "$DISKRAM"
 
 	# myhome
-	[ $(cat $DOTDIR/../.hash) = $MYHASH ] && export MYHOME=$(realpath $DOTDIR/..)
-	if [ -n "$MYHOME" ]; then
+	if [ -r $DOTDIR/../.hash ] && [ $(cat $DOTDIR/../.hash) = $MYHASH ]; then
+		export MYHOME=$(realpath $DOTDIR/..)
 		export WORK=$MYHOME/work
 		[ -f "$MYHOME/.profile" ] && . $MYHOME/.profile
 		[ -d "$MYHOME/bin" ] && export PATH=$MYHOME/bin:$PATH
