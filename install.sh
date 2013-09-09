@@ -10,6 +10,12 @@ has(){ which "$1" > /dev/null; }
 
 lnk .gitconfig ~/
 
+if [ $dist = Debian ]; then
+	sudo apt-get install git
+	sudo apt-get install curl
+	sudo apt-get install vim
+fi
+
 if [ $dist = Ubuntu ]; then
 	# x settings
 	cpy .xprofile ~/.xprofile

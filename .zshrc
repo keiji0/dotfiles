@@ -1,7 +1,7 @@
 fpath=($DOTDIR/.zsh/comp ${fpath})
 
 # intractive variable
-HISTFILE=$DOTDIR/var/zsh/history && mkdir -p $DOTDIR/var/zsh
+HISTFILE=$MYHOME/var/zsh/history && mkdir -p $MYHOME/var/zsh
 HISTSIZE=100000
 SAVEHIST=1000000
 WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"

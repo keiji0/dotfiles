@@ -1,0 +1,4 @@
+#!/bin/sh
+dir=$(echo $(cd "$(dirname $0)" && cd .. && pwd))
+echo "export DOTDIR='$dir';"
+echo "source $dir/.profile;"
