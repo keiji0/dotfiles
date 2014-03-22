@@ -7,8 +7,8 @@ if has('vim_starting')
 
 	NeoBundle 'VimClojure'
 	NeoBundle 'bling/vim-airline'
-		let g:airline_left_sep=''
-		let g:airline_right_sep=''
+	let g:airline_left_sep=''
+	let g:airline_right_sep=''
 endif
 
 syntax on
@@ -97,7 +97,6 @@ if has('gui_running')
 	set guifont=Ricty\ 12
 	set clipboard=unnamed,autoselect
 	set background=dark
-	colorscheme solarized
 endif
 
 if has("autocmd")
@@ -154,17 +153,4 @@ if has("autocmd")
 		nn <buffer> <leader>r :!clojure %<cr>
 		setl ts=2 sts=2 sw=2 tw=0 noet
 	endf
-
-	"vimwiki
-	au BufNewFile,BufRead *.mkd call _vimwiki_markdown()
-	fu _vimwiki_markdown()
-		setl ts=2 sts=2 sw=2 tw=0 noet
-	endf
 endif
-
-" External plugin
-" ===============
-
-let g:vimwiki_list = [
-	\ {	'path': '~/var/wiki/', 'syntax': 'markdown', 'ext': '.mkd' },
-\ ]
