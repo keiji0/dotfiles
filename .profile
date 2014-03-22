@@ -18,3 +18,7 @@ if [ -d "$DOTDIR" ]; then
 	# myhome
 	export MYHOME=$HOME
 fi
+
+if [ -d "$HOME/git/go" ]; then
+	export PATH="$HOME/git/go/bin:$PATH"
+fi
