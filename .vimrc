@@ -7,6 +7,7 @@ if has('vim_starting')
 
 	NeoBundle 'VimClojure'
 	NeoBundle 'bling/vim-airline'
+	NeoBundle 'Blackrush/vim-gocode'
 	let g:airline_left_sep=''
 	let g:airline_right_sep=''
 endif
@@ -110,7 +111,7 @@ if has("autocmd")
 	fu _perl()
 		set filetype=perl
 		nn <buffer> <leader>c :!perl -c %<cr>
-		nn <buffer> <leader>r :!perl -MData::Dumper -w  %<left><left>
+		nn <buffer> <leader>r :!perl -MData::Dumper %<cr>
 		au filetype perl compiler perl
 		setl ts=4 sts=4 sw=4 tw=0 noet
 	endf
@@ -147,10 +148,22 @@ if has("autocmd")
 		setl ts=2 sts=2 sw=2 tw=0 noet
 	endf
 
+	"go
+	au BufNewFile,BufRead *.go call _go()
+	fu _go()
+	endf
+
 	"clojure
 	au BufNewFile,BufRead *.clj, call _clojure()
 	fu _clojure()
 		nn <buffer> <leader>r :!clojure %<cr>
 		setl ts=2 sts=2 sw=2 tw=0 noet
+	endf
+
+	"scheme
+	au BufNewFile,BufRead *.scm, call _scheme()
+	fu _scheme()
+		nn <buffer> <leader>r :!gosh %<cr>
+		setl ts=2 sts=2 sw=2 tw=0 et
 	endf
 endif
