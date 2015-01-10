@@ -1,2 +1,10 @@
 #!/bin/sh
-wget -qO - 'http://dyn.value-domain.com/cgi-bin/dyn.fcg?ip'
+set -e
+
+URL='http://dyn.value-domain.com/cgi-bin/dyn.fcg?ip'
+
+if which curl > /dev/null; then
+	curl -o - "${URL}"
+else
+	wget -qO - "${URL}"
+fi
