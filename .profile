@@ -1,5 +1,6 @@
 # ~/.profile <<SRC
-# export DOTDIR=$HOME/.keiji0/dot
+# export MYHOME=$HOME/my
+# export DOTDIR=$MYHOME/dotfiles
 # . $DOTDIR/.profile
 
 export LANG=ja_JP.UTF-8
@@ -19,9 +20,6 @@ if [ -d "$DOTDIR" ]; then
 	export LESS='-X -i -R'
 	export MYVIM=$DOTDIR/.vim
 	export GOPATH=$HOME/git/_go
-
-	# myhome
-	export MYHOME=$HOME
 fi
 
 if [ -d "$HOME/git/go" ]; then
