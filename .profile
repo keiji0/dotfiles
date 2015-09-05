@@ -19,16 +19,19 @@ if [ -d "$DOTDIR" ]; then
 	export FTP=ncftp
 	export LESS='-X -i -R'
 	export MYVIM=$DOTDIR/.vim
-	export GOPATH=$HOME/git/_go
 fi
 
-if [ -d "$HOME/git/go" ]; then
-	export PATH="$HOME/git/go/bin:$PATH"
+if [ -d "$MYHOME" ]; then
+	export PATH="$MYHOME/homebrew/bin:$PATH"
 fi
 
-if [ -d "$HOME/var/llvm" ]; then
-	export PATH="$HOME/var/llvm/bin:$PATH"
+if [ -d "/usr/local/opt/llvm/bin" ]; then
+	export PATH="/usr/local/opt/llvm/bin:$PATH"
 fi
+
+export GOROOT=$HOME/local/go
+export GOPATH=$HOME/go
+export PATH="$GOROOT/bin:$PATH"
 
 export OCAMLPARAM=_,g=1,bin-annot=1
 export OPAMKEEPBUILDDIR=1

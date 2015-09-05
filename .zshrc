@@ -75,7 +75,14 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
+# util
+
+function _has(){
+	which "$1" > /dev/null
+}
+
 # functions
+
 function chpwd(){
 	# ウィンドウごとの現在ディレクトリを変数に保存
 	[[ -n $TMUX ]] && tmux setenv TMUXPWD_$(tmux display -p "#I") "$PWD"
@@ -84,5 +91,5 @@ function chpwd(){
 }
 
 function cdg(){
-	cd "~/git/$1"
+	cd "$HOME/git/$1"
 }
