@@ -1,0 +1,21 @@
+#!/bin/sh
+# MacのアニメーションのOn,Offを切り替える
+
+# Mission Controlが表示されるアニメーションをオフにする
+defaults write com.apple.dock expose-animation-duration -float 0
+killall Dock
+
+# LaunchPadが表示されるまでの待ち時間をゼロにする
+defaults write com.apple.dock springboard-show-duration -int 0
+defaults write com.apple.dock springboard-hide-duration -int 0
+killall Dock
+
+# Finderのアニメーションをオフ
+defaults write com.apple.finder DisableAllAnimations -boolean true
+killall Finder
+
+# 新規ウィンドウを開く時のアニメーションを無効化
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool NO
+
+# 「ツールチップ」が素早く現れるようにする
+defaults write -g NSInitialToolTipDelay -integer 100
