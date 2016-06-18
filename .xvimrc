@@ -1,5 +1,0 @@
-nmap ; :
-nmap <C-n> :xccmd jumpToNextCounterpart<CR>
-nmap <C-p> :xccmd jumpToPreviousCounterpart<CR>
-nmap <C-o> :xccmd goBackInHistoryByCommand<CR>
-nmap gf :xccmd openQuickly<CR>

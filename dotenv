@@ -1,5 +1,5 @@
 #!/bin/sh
 # dotfilesの環境変数とデフォルトプロファイルの読み込み
-_dir=$(echo $(cd "$(dirname $0)" && cd .. && pwd))
+_dir=$(echo $(cd "$(dirname $0)" && pwd))
 echo "export DOTDIR='$_dir';"
-echo "source $_dir/.profile;"
+echo "source $_dir/profile;"

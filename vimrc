@@ -1,17 +1,6 @@
 set nocompatible
 filetype off
 
-if has('vim_starting')
-	set runtimepath+=$MYHOME/.vim/neobundle.vim.git
-	call neobundle#rc("$MYHOME/.vim/neobundle")
-
-	NeoBundle 'VimClojure'
-	NeoBundle 'bling/vim-airline'
-	NeoBundle 'Blackrush/vim-gocode'
-	let g:airline_left_sep=''
-	let g:airline_right_sep=''
-endif
-
 syntax on
 filetype plugin indent on
 
@@ -45,10 +34,8 @@ set t_Co=256
 set ts=4 sts=4 sw=4 tw=0 noet
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
-set runtimepath+=$MYVIM
+set runtimepath+=$DOTDIR/vim
 set matchtime=3
-
-com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 
 let mapleader = " "
 let g:netrw_banner=0
@@ -57,10 +44,6 @@ nmap <esc><esc> :nohlsearch<CR><esc>
 nnoremap <tab> %
 vnoremap <tab> %
 vnoremap y y`>
-nnoremap <leader>a :!pushfile $(realpath %) $MYHOME/var/vim/memo.md<cr>
-nnoremap <leader>l :e $MYHOME/var/vim/memo.md<cr>
-nnoremap <leader>m :<c-u>marks<cr>
-nnoremap <leader>r :<c-u>registers<cr>
 nnoremap <leader>b :ls<cr>:buf 
 nnoremap <leader>x :Kwbd<cr>
 nnoremap <leader>eu :e ++enc=utf-8<cr>
@@ -75,7 +58,6 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <c-f> <right>
 cnoremap <c-b> <left>
-inoremap jj <esc>
 inoremap <c-r>t <c-r>=strftime('%Y/%m/%d %H:%M:%S')<cr>
 inoremap <c-r>T <c-r>=strftime('%Y/%m/%d')<cr>
 
@@ -149,8 +131,12 @@ if has("autocmd")
 	endf
 
 	"go
+	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+	au FileType go nmap <leader>r <Plug>(go-run)
 	au BufNewFile,BufRead *.go call _go()
 	fu _go()
+		set completeopt=menu,preview
+
 	endf
 
 	"clojure

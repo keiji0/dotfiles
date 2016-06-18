@@ -1,15 +1,16 @@
-fpath=($DOTDIR/.zsh/comp ${fpath})
+#!/usr/bin/env zsh
 
-# intractive variable
-HISTFILE=$MYHOME/var/zsh/history && mkdir -p $MYHOME/var/zsh
+fpath=($DOTDIR/zsh/comp ${fpath})
+
+HISTFILE=$HOME/var/zsh/history && mkdir -p $HOME/var/zsh
 HISTSIZE=100000
 SAVEHIST=1000000
 WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
-# keybind
+# キーバインド設定
 bindkey -e
 
-# options
+# オプション設定
 setopt share_history
 setopt extended_history
 setopt hist_ignore_all_dups
@@ -23,7 +24,7 @@ setopt mark_dirs
 setopt list_packed
 setopt autocd
 
-# base alias
+# エイリアス設定
 alias ls='ls -Fhv'
 alias l='ls'
 alias la='ls -a'
@@ -34,18 +35,12 @@ alias pu='pushd'
 alias po='popd'
 alias j='jobs -l'
 alias fn='find . -name'
-alias vim='vim -u $DOTDIR/.vimrc'
-alias vimdiff='vimdiff -u $DOTDIR/.vimrc'
 alias vi='vim'
 alias grep='grep --color=auto'
 alias gr='grep'
-alias tmux='tmux -2 -u -f $DOTDIR/.tmux.conf'
-alias cdw='cd $WORK'
-alias cdh='cd $MYHOME'
-alias cdd='cd $DOTDIR'
-type htop >/dev/null && alias top=htop
+alias tmux='tmux -2 -u'
 
-# global alias
+# グローバルエイリアス設定
 alias -g L='| less'
 alias -g G='| grep'
 alias -g T='| tail'
@@ -54,7 +49,7 @@ alias -g P='| perl -ne'
 alias -g S='| sort'
 alias -g X='| xargs'
 
-# completion
+# コマンドライン補完設定
 autoload -U compinit && compinit
 autoload -Uz colors && colors
 #zstyle ':completion:*' format '%B%d%b'
@@ -63,7 +58,7 @@ autoload -Uz colors && colors
 zstyle ':completion:*:default' list-colors ""
 zstyle ':completion:*' use-cache yes
 
-# colors
+# プロンプト設定
 PROMPT="%B%F{green}%m%F{yellow}:%~%F{red}%#%f "
 #PROMPT=$GREEN'%m'$YELLOW':%~'$RED'%# '$DEFAULT
 
@@ -75,21 +70,3 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-# util
-
-function _has(){
-	which "$1" > /dev/null
-}
-
-# functions
-
-function chpwd(){
-	# ウィンドウごとの現在ディレクトリを変数に保存
-	[[ -n $TMUX ]] && tmux setenv TMUXPWD_$(tmux display -p "#I") "$PWD"
-	# ウィンドウの名前を変更
-	[[ -n $TMUX ]] && tmux rename-window "$(basename "$PWD")"
-}
-
-function cdg(){
-	cd "$HOME/git/$1"
-}
