@@ -1,11 +1,18 @@
 #!/usr/bin/env zsh
 
-fpath=($DOTDIR/zsh/comp ${fpath})
+if [ -d "$DOTDIR" ]; then
+	fpath=($DOTDIR/zsh/comp ${fpath})
+fi
 
-HISTFILE=$HOME/var/zsh/history && mkdir -p $HOME/var/zsh
+HISTFILE=$MY_VAR/zsh/history && mkdir -p $MY_VAR/zsh
 HISTSIZE=100000
 SAVEHIST=1000000
 WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+
+# ログインシェル環境設定
+export PAGER=less
+export LESS='-X -i -R'
+export EDITOR="vim"
 
 # キーバインド設定
 bindkey -e
