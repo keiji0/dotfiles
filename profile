@@ -23,10 +23,19 @@ export PATH="$GOPATH/bin:$PATH"
 
 # プラットフォームごとの設定
 case $(uname) in
+	# MacOS固有の設定
 	Darwin)
-		export HOMEBREW_DIR=$MY_LOCAL/homebrew
+		# homebrewの設定
+		HOMEBREW_DIR=$MY_LOCAL/homebrew
 		if [ -d "$HOMEBREW_DIR" ]; then
+			export HOMEBREW_DIR
 			export PATH="$HOMEBREW_DIR/bin:$PATH"
+		fi
+		# vmwareの設定
+		VMWARE_APP_DIR=/Applications/VMware\ Fusion.app
+		if [ -d "$VMWARE_APP_DIR" ]; then
+			export VMWARE_APP_DIR
+			export PATH="$VMWARE_APP_DIR/Contents/Library:$PATH"
 		fi
 		;;
 esac
