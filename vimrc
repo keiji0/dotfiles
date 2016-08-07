@@ -4,6 +4,11 @@ filetype off
 syntax on
 filetype plugin indent on
 
+call plug#begin('~/.vim/plugged')
+Plug 'google/vim-ft-go'
+Plug 'vim-jp/vim-go-extra'
+call plug#end()
+
 set nocompatible
 set laststatus=2
 set encoding=utf-8
@@ -136,7 +141,6 @@ if has("autocmd")
 	au BufNewFile,BufRead *.go call _go()
 	fu _go()
 		set completeopt=menu,preview
-
 	endf
 
 	"clojure
