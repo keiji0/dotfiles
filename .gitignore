@@ -3,4 +3,3 @@
 !share/install.sh
 /var/
 .DS_Store
-/.emacs.d/

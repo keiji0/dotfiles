@@ -11,5 +11,6 @@ lnk vimrc $HOME/.vimrc
 lnk gitconfig $HOME/.gitconfig
 lnk tmux.conf $HOME/.tmux.conf
 lnk zshrc $HOME/.zshrc
+lnk emacs.d $HOME/.emacs.d
 
 echo "eval \$(sh -c '$PWD/dotenv')" > $HOME/.zshenv
