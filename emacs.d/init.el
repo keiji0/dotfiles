@@ -71,9 +71,9 @@
   ;; 実行のyes/or入力がかったるいのでy/sに変更
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; バックスペースに変更
-  (global-set-key "\C-h" 'delete-backward-char)
+  (global-set-key (kbd "C-h") 'delete-backward-char)
   ;; ヘルプは地味に使うので割り当てる
-  (global-set-key "\M-?" 'help-for-help)
+  (global-set-key (kbd "M-?") 'help-for-help)
   )
 
 ;; エディタとしての設定
@@ -114,7 +114,8 @@
   (setq scroll-conservatively 35)
   (setq scroll-step 1)
   ;; スクロールされるまでの画面端とカーソルのマージンを指定する
-  (setq scroll-margin 3)
+  (make-variable-buffer-local 'scroll-margin)
+  (setq-default scroll-margin 3)
   ;; 行溢れした文字は折り返さずに表示する
   (setq-default truncate-lines t)
   (setq runcate-partial-width-windows t)
@@ -156,11 +157,13 @@
   (package-install 'go-autocomplete)
   (package-install 'undo-tree)
   (package-install 'tabbar)
+  (package-install 'multi-term)
   )
 
 
 ;; Themeや色に関する設定
 
+;;(load-theme 'deeper-blue t)
 (load-theme 'tomorrow-night t)
 ;;(load-theme 'tomorrow-night-eighties t)
 ;;(load-theme 'tomorrow-night-blue t)
@@ -223,6 +226,11 @@
   ;; *や#で単語単位ではなくシンボル単位で検索する
   (setq-default evil-symbol-word-search t)
 
+  ;; グローバルモード
+  (when (eq system-type 'darwin)
+	(global-set-key (kbd "M-w") 'kill-buffer)
+	)
+
   ;; ノーマルモード
   (define-key evil-motion-state-map ";" 'evil-ex) 
   (define-key evil-motion-state-map "\C-i" 'evil-jump-item)
@@ -233,7 +241,6 @@
   (evil-leader/set-key "b" 'switch-to-buffer)
   (evil-leader/set-key "v" 'magit-status)
   (evil-leader/set-key "x" 'kill-buffer)
-  (evil-leader/set-key "s" 'eshell)
 
   ;; インサートモード
   (define-key evil-insert-state-map (kbd "C-y") nil)
@@ -337,6 +344,48 @@
   )
 
 
+;; multi term
+
+(when (require 'multi-term)
+  ;; シェルパスの設定
+  (setq multi-term-program shell-file-name)
+  ;; ターミナルモードのフック
+  (add-hook 'term-mode-hook
+			'(lambda ()
+			   ;; 画面がガクガクなるのでマージンはとらない
+			   (setq scroll-margin 0)
+			   ))
+  ;; ターミナルに奪われないキーを設定
+  (setq term-unbind-key-list '("M-x" "C-x" "C-c"))
+  ;; ターミナルモードのキーバインド
+  (setq term-bind-key-alist
+		'(
+		  ("C-c C-c" . term-interrupt-subjob)
+		  ("C-c C-e" . term-send-esc)
+		  ;;("C-p" . previous-line)
+		  ;;("C-n" . next-line)
+		  ;;("C-s" . isearch-forward)
+		  ;;("C-r" . isearch-backward)
+		  ("C-m" . term-send-return)
+		  ;;("C-y" . term-paste)
+		  ("M-f" . term-send-forward-word)
+		  ("M-b" . term-send-backward-word)
+		  ("M-o" . term-send-backspace)
+		  ("M-p" . term-send-up)
+		  ("M-n" . term-send-down)
+		  ("M-M" . term-send-forward-kill-word)
+		  ("M-N" . term-send-backward-kill-word)
+		  ("<C-backspace>" . term-send-backward-kill-word)
+		  ("M-r" . term-send-reverse-search-history)
+		  ("M-d" . term-send-delete-word)
+		  ("M-," . term-send-raw)
+		  ("M-." . comint-dynamic-complete)
+		  ))
+  ;; Evilの無効化
+  (evil-set-initial-state 'term-mode 'emacs)
+  )
+
+
 ;; Dired
 
 (eval-after-load 'dired
@@ -344,8 +393,10 @@
 	 ;; diredの拡張機能を使う
 	 (require 'dired-x)
 
-	 (defvar dired-listing-switches-array ["-lHF" "-lFHa"]
-	   "ファイルリストの表示切り替えオプションの一覧")
+	 ;; ファイルリストのlsのデフォルトオプション
+	 (setq dired-listing-switches "-lHF")
+	 ;; ファイルリストの表示切り替えオプションの一覧
+	 (defvar dired-listing-switches-array ["-lHF" "-lFHa"])
 
 	 (lexical-let ((current-index 0))
 	   (defun my:dired-listing-toggle ()
@@ -358,16 +409,26 @@
 			   (setq current-index (+ index 1))
 			   (dired-sort-other dired-listing-switches))))))
 
-	 ;; スペースでマークする (FD like)
 	 (defun dired-toggle-mark (arg)
-	   "Toggle the current (or next ARG) files."
-	   ;; S.Namba Sat Aug 10 12:20:36 1996
+	   "マークをトグルする"
 	   (interactive "P")
 	   (let ((dired-marker-char
 			  (if (save-excursion (beginning-of-line)
 								  (looking-at " "))
 				  dired-marker-char ?\040)))
 		 (dired-mark arg)))
+
+	 (defun dired-open-in-accordance-with-situation ()
+	   "ファイルなら別バッファで、ディレクトリなら同じバッファで開く"
+	   (interactive)
+	   (let ((file (dired-get-filename)))
+		 (if (file-directory-p file)
+			 (dired-find-alternate-file)
+		   (dired-find-file))))
+	 (defun my-dired-up-directory ()
+	   (interactive)
+	   (find-alternate-file ".."))
+	 (put 'dired-find-alternate-file 'disabled nil)
 
      ;; Explorer のようにファイル名の 1 文字目で検索する
      (when (require 'dired-ex-isearch)
@@ -376,9 +437,14 @@
 	 ;; キーバインド
 	 (progn
        (evil-define-key 'motion dired-mode-map "/" 'dired-ex-isearch)
+
+	   ;; RET 標準の dired-find-file では dired バッファが複数作られるので
+	   ;; dired-find-alternate-file を代わりに使う
+	   (define-key dired-mode-map (kbd "<return>") 'dired-open-in-accordance-with-situation)
+	   (define-key dired-mode-map (kbd "<C-return>") 'dired-find-file)
+
 	   (define-key dired-mode-map "m" 'dired-toggle-mark) ;; これでuキーに空きができる
-	   (define-key dired-mode-map "u" 'dired-up-directory) ;; 上の階層のディレクトリへ移動
-	   (define-key dired-mode-map "u" 'dired-up-directory) ;; 上の階層のディレクトリへ移動
+	   (define-key dired-mode-map "u" 'my-dired-up-directory) ;; 上の階層のディレクトリへ移動
 	   (define-key dired-mode-map "." 'my:dired-listing-toggle) ;; 表示リストを切り替える
 	   )
      ))

@@ -77,3 +77,13 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
+# Emacsから起動した場合の設定
+if [ "$EMACS" ]; then
+	case $(uname) in
+		# MacOS固有の設定
+		Darwin)
+			# コマンドプロンプトにゴミが表示されるのを防ぐ
+			export TERM=xterm-color
+			;;
+	esac
+fi
