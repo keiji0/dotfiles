@@ -124,13 +124,13 @@
   (show-paren-mode t)
   (setq show-paren-style 'parenthesis)
   ;; 現在のカーソル行をハイライトを無効にする
-  (setq global-hl-line-mode nil)
+  (setq global-hl-line-mode t)
   ;; ファイル保存時に最終行に改行を入れる
   (setq require-final-newline t)
   ;; フォントの設定
   (when window-system
     (cond ((eq system-type 'darwin)
-	   (set-default-font "Dejavu Sans Mono 14")
+	   (set-default-font "Dejavu Sans Mono 13")
 	   (set-fontset-font nil
 			     'japanese-jisx0208
 			     ;; (font-spec :family "Hiragino Mincho Pro")) ;; font
@@ -155,6 +155,7 @@
   (package-install 'go-mode)
   (package-install 'go-autocomplete)
   (package-install 'undo-tree)
+  (package-install 'tabbar)
   )
 
 
@@ -228,6 +229,7 @@
   (define-key evil-motion-state-map "gb" 'bs-show)
 
   ;; Leader
+  (evil-leader/set-key "f" 'find-file)
   (evil-leader/set-key "b" 'switch-to-buffer)
   (evil-leader/set-key "v" 'magit-status)
   (evil-leader/set-key "x" 'kill-buffer)
@@ -268,6 +270,70 @@
   (setq ac-comphist-file (emacs-var-dir "ac-comphist.el"))
   ;; メジャーモードごとの補完辞書ファイルのディレクトリ指定
   (add-to-list 'ac-dictionary-directories (emacs-share-dir "ac-dict"))
+  )
+
+
+;; Tabbar
+
+(when (require 'tabbar)
+  (tabbar-mode)
+  ;; マウスホイール無効
+  (tabbar-mwheel-mode nil)                  
+
+  ;; 画像を表示しない
+  (setq tabbar-use-images nil)
+  (dolist (btn '(tabbar-buffer-home-button
+				 tabbar-scroll-left-button
+				 tabbar-scroll-right-button))
+	(set btn (cons (cons "" nil)
+				   (cons "" nil))))
+
+  ;; タブに表示するバッファを設定
+  (setq tabbar-buffer-list-function
+		(lambda ()
+		  ;; " *"から始まるバッファを除外
+		  (remove-if
+		   (lambda(buffer)
+			 (find (aref (buffer-name buffer) 0) " *"))
+		   (buffer-list))))
+
+  ;; キーバインドの設定
+  (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)
+  (global-set-key (kbd "<C-S-tab>") 'tabbar-backward-tab)
+
+  ;; グループ化しない
+  (setq tabbar-buffer-groups-function nil)
+
+  ;; タブバーの文字列を変更する
+  (defun my-tabbar-buffer-tab-label (tab)
+	"デフォルト関数の両端にスペースをつける"
+	(format "  %s  " (tabbar-buffer-tab-label tab)))
+  (setq tabbar-tab-label-function 'my-tabbar-buffer-tab-label)
+  (setq tabbar-separator '(0.3))
+
+  ;; 表示設定
+  (set-face-attribute
+   'tabbar-default nil
+   :background "gray20"
+   :foreground "gray20"
+   :height 1.1
+   :box nil)
+  (set-face-attribute
+   'tabbar-unselected nil
+   :background "gray30"
+   :foreground "white"
+   :box nil)
+  (set-face-attribute
+   'tabbar-selected nil
+   :background "gray75"
+   :foreground "black"
+   :box nil)
+  (set-face-attribute
+   'tabbar-highlight nil
+   :background "white"
+   :foreground "black"
+   :underline nil
+   :box nil)
   )
 
 
