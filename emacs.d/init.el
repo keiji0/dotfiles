@@ -47,7 +47,7 @@
 
 ;; エンコーディング関連
 (progn
-  (set-language-environment 'Japanese)
+  (set-language-environment 'utf-8)
   (prefer-coding-system 'utf-8)
   )
 
@@ -239,7 +239,6 @@
   ;; Leader
   (evil-leader/set-key "f" 'find-file)
   (evil-leader/set-key "b" 'switch-to-buffer)
-  (evil-leader/set-key "v" 'magit-status)
   (evil-leader/set-key "x" 'kill-buffer)
 
   ;; インサートモード
@@ -355,8 +354,9 @@
 			   ;; 画面がガクガクなるのでマージンはとらない
 			   (setq scroll-margin 0)
 			   ))
+
   ;; ターミナルに奪われないキーを設定
-  (setq term-unbind-key-list '("M-x" "C-x" "C-c"))
+  (setq term-unbind-key-list '("M-x" "C-x" "C-c" "M-:"))
   ;; ターミナルモードのキーバインド
   (setq term-bind-key-alist
 		'(

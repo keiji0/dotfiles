@@ -6,6 +6,7 @@
 [alias]
 	st = status
 	co = commit
+	tc = commit -mtmp
 	sh = show
 	df = diff
 	ad = add
@@ -13,3 +14,5 @@
 	co = checkout
 	lg = log -p
 	graph = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[core]
+	editor = $EDITOR
