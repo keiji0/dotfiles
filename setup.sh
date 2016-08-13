@@ -13,4 +13,4 @@ lnk tmux.conf $HOME/.tmux.conf
 lnk zshrc $HOME/.zshrc
 lnk emacs.d $HOME/.emacs.d
 
-echo "eval \$(sh -c '$PWD/dotenv')" > $HOME/.zshenv
+echo "eval \$(sh -c '$PWD/dotenv zshenv')" > $HOME/.zshenv
