@@ -108,8 +108,6 @@
   (setq inhibit-startup-message t)
   ;; ベルをならさない
   (setq ring-bell-function 'ignore)
-  ;; 横幅のあるディスプレイなのでスクロールバーを表示する
-  (toggle-scroll-bar nil)
   ;; 画面へのスクロールが一気に移動しないようにする
   (setq scroll-conservatively 35)
   (setq scroll-step 1)
@@ -120,14 +118,23 @@
   (setq-default truncate-lines t)
   (setq runcate-partial-width-windows t)
   ;; 現在行をハイライト
-  (global-hl-line-mode t) 
+  (make-variable-buffer-local 'global-hl-line-mode)
+  (global-hl-line-mode)
+  (setq-default global-hl-line-mode t) 
   ;; 対応するカッコをハイライトする
   (show-paren-mode t)
   (setq show-paren-style 'parenthesis)
-  ;; 現在のカーソル行をハイライトを無効にする
-  (setq global-hl-line-mode t)
   ;; ファイル保存時に最終行に改行を入れる
   (setq require-final-newline t)
+
+  ;; GUI時の設定
+  (when window-system
+	;; 横幅のあるディスプレイなのでスクロールバーを表示する
+	(toggle-scroll-bar nil)
+	;; フリンジ(ウィンドウの縦ライン)の幅を調整する
+	(fringe-mode (cons 1 1))
+	)
+
   ;; フォントの設定
   (when window-system
     (cond ((eq system-type 'darwin)
@@ -158,17 +165,24 @@
   (package-install 'undo-tree)
   (package-install 'tabbar)
   (package-install 'multi-term)
+  (package-install 'neotree)
   )
 
 
 ;; Themeや色に関する設定
 
+;; 主要テーマを設定
 ;;(load-theme 'deeper-blue t)
 (load-theme 'tomorrow-night t)
 ;;(load-theme 'tomorrow-night-eighties t)
 ;;(load-theme 'tomorrow-night-blue t)
 ;;(load-theme 'tomorrow-night-bright t)
 ;;(load-theme 'tomorrow-day t)
+;; 追加で気に食わない箇所を修正
+(let ((theme (car custom-enabled-themes)))
+  (cond ((eq theme 'tomorrow-night)
+		 (set-face-background 'fringe "#252525")
+		 (set-face-foreground 'vertical-border "#373b41"))))
 
 ;; Powerline
 (when (require 'powerline)
@@ -240,6 +254,7 @@
   (evil-leader/set-key "f" 'find-file)
   (evil-leader/set-key "b" 'switch-to-buffer)
   (evil-leader/set-key "x" 'kill-buffer)
+  (evil-leader/set-key "s" 'multi-term)
 
   ;; インサートモード
   (define-key evil-insert-state-map (kbd "C-y") nil)
@@ -353,6 +368,8 @@
 			'(lambda ()
 			   ;; 画面がガクガクなるのでマージンはとらない
 			   (setq scroll-margin 0)
+			   ;; カーソル行のハイライトをしない
+			   (setq global-hl-line-mode nil)
 			   ))
 
   ;; ターミナルに奪われないキーを設定
@@ -450,6 +467,28 @@
      ))
 
 
+;; neotree
+
+(when (require 'neotree)
+  (setq neo-show-updir-line nil)
+  (setq neo-theme 'nerd)
+  ;; Evilの無効化
+  ;;(evil-set-initial-state 'neotree-mode 'emacs)
+
+  (evil-make-overriding-map neotree-mode-map 'normal)
+  (evil-define-key 'normal neotree-mode
+	"g" 'neotree-refresh
+	;;"u" '
+    "." 'neotree-hidden-file-toggle
+	(kbd "TAB") 'neotree-change-root
+	)
+
+  (neotree-toggle)
+
+
+  )
+
+
 ;; Elisp
 
 (progn
@@ -494,4 +533,4 @@
 
 
 ;; 起動画面
-(cd (emacs-home))
+(cd (expand-file-name "~"))
