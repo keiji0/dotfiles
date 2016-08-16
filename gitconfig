@@ -1,12 +1,12 @@
 [user]
-	name = Keiji Ohara
+	name = keiji0
 	email = keiji0@gmail.com
 [color]
 	ui = auto
 [alias]
 	st = status
 	co = commit
-	tc = commit -mtmp
+	ct = commit -mtmp
 	sh = show
 	df = diff
 	ad = add
