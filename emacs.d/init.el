@@ -8,8 +8,8 @@
   (if (not elms)
       (expand-file-name elm)
     (apply 'concat-path
-	   (expand-file-name (car elms) elm)
-	   (cdr elms))))
+           (expand-file-name (car elms) elm)
+           (cdr elms))))
 
 (defun emacs-home (&rest elms)
   ".emacs.dが設定されているパスを生成する"
@@ -30,7 +30,7 @@
 ;; elisp配下
 (loop for f in (directory-files (emacs-libs-dir) t)
       when (and (file-directory-p f)
-		(not (member (file-name-nondirectory f) '("." ".."))))
+                (not (member (file-name-nondirectory f) '("." ".."))))
       do (add-to-list 'load-path f))
 (add-to-list 'load-path (emacs-libs-dir))
 (add-to-list 'load-path (emacs-home "themes"))
@@ -80,6 +80,8 @@
 (progn
   ;; タブ幅の設定
   (setq default-tab-width 4)
+  ;; タブをスペースで扱う
+  (setq-default indent-tabs-mode nil)
   ;; 自動インデント
   (electric-indent-mode)
   ;; カーソル付近のファイルパスを開く
@@ -98,7 +100,7 @@
 ;; サーバーの起動
 (when (require 'server)
   (unless (server-running-p)
-	(server-start)))
+    (server-start)))
 
 ;; 見かけの設定
 (progn
@@ -129,22 +131,22 @@
 
   ;; GUI時の設定
   (when window-system
-	;; 横幅のあるディスプレイなのでスクロールバーを表示する
-	(toggle-scroll-bar nil)
-	;; フリンジ(ウィンドウの縦ライン)の幅を調整する
-	(fringe-mode (cons 1 1))
-	)
+    ;; 横幅のあるディスプレイなのでスクロールバーを表示する
+    (toggle-scroll-bar nil)
+    ;; フリンジ(ウィンドウの縦ライン)の幅を調整する
+    (fringe-mode (cons 1 1))
+    )
 
   ;; フォントの設定
   (when window-system
     (cond ((eq system-type 'darwin)
-	   (set-default-font "Dejavu Sans Mono 13")
-	   (set-fontset-font nil
-			     'japanese-jisx0208
-			     ;; (font-spec :family "Hiragino Mincho Pro")) ;; font
-			     (font-spec :family "Hiragino Kaku Gothic ProN"))
-	   (setq-default line-spacing 1)
-	   ))
+           (set-default-font "Dejavu Sans Mono 13")
+           (set-fontset-font nil
+                             'japanese-jisx0208
+                             ;; (font-spec :family "Hiragino Mincho Pro")) ;; font
+                             (font-spec :family "Hiragino Kaku Gothic ProN"))
+           (setq-default line-spacing 1)
+           ))
     )
   )
 
@@ -166,6 +168,7 @@
   (package-install 'tabbar)
   (package-install 'multi-term)
   (package-install 'neotree)
+  ;;(package-install 'elscreen)
   )
 
 
@@ -181,8 +184,8 @@
 ;; 追加で気に食わない箇所を修正
 (let ((theme (car custom-enabled-themes)))
   (cond ((eq theme 'tomorrow-night)
-		 (set-face-background 'fringe "#252525")
-		 (set-face-foreground 'vertical-border "#373b41"))))
+         (set-face-background 'fringe "#252525")
+         (set-face-foreground 'vertical-border "#373b41"))))
 
 ;; Powerline
 (when (require 'powerline)
@@ -213,15 +216,15 @@
 
   ;; セッション管理する情報
   (setq session-globals-include
-	'(
-	  ;; キルリング
-	  (kill-ring 100)            
-	  ;; カーソル位置
-	  (session-file-alist 100 t) 
-	  (session-globals-max-size 100000)
-	  ;; 開いたファイルのパス
-	  (file-name-history 300))
-	)
+        '(
+          ;; キルリング
+          (kill-ring 100)            
+          ;; カーソル位置
+          (session-file-alist 100 t) 
+          (session-globals-max-size 100000)
+          ;; 開いたファイルのパス
+          (file-name-history 300))
+        )
   )
 
 
@@ -242,8 +245,8 @@
 
   ;; グローバルモード
   (when (eq system-type 'darwin)
-	(global-set-key (kbd "M-w") 'kill-buffer)
-	)
+    (global-set-key (kbd "M-w") 'kill-buffer)
+    )
 
   ;; ノーマルモード
   (define-key evil-motion-state-map ";" 'evil-ex) 
@@ -296,66 +299,66 @@
 
 ;; Tabbar
 
-(when (require 'tabbar)
-  (tabbar-mode)
-  ;; マウスホイール無効
-  (tabbar-mwheel-mode nil)                  
+;; (when (require 'tabbar)
+;;   (tabbar-mode)
+;;   ;; マウスホイール無効
+;;   (tabbar-mwheel-mode nil)                  
 
-  ;; 画像を表示しない
-  (setq tabbar-use-images nil)
-  (dolist (btn '(tabbar-buffer-home-button
-				 tabbar-scroll-left-button
-				 tabbar-scroll-right-button))
-	(set btn (cons (cons "" nil)
-				   (cons "" nil))))
+;;   ;; 画像を表示しない
+;;   (setq tabbar-use-images nil)
+;;   (dolist (btn '(tabbar-buffer-home-button
+;;               tabbar-scroll-left-button
+;;               tabbar-scroll-right-button))
+;;  (set btn (cons (cons "" nil)
+;;                 (cons "" nil))))
 
-  ;; タブに表示するバッファを設定
-  (setq tabbar-buffer-list-function
-		(lambda ()
-		  ;; " *"から始まるバッファを除外
-		  (remove-if
-		   (lambda(buffer)
-			 (find (aref (buffer-name buffer) 0) " *"))
-		   (buffer-list))))
+;;   ;; タブに表示するバッファを設定
+;;   (setq tabbar-buffer-list-function
+;;      (lambda ()
+;;        ;; " *"から始まるバッファを除外
+;;        (remove-if
+;;         (lambda(buffer)
+;;           (find (aref (buffer-name buffer) 0) " *"))
+;;         (buffer-list))))
 
-  ;; キーバインドの設定
-  (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)
-  (global-set-key (kbd "<C-S-tab>") 'tabbar-backward-tab)
+;;   ;; キーバインドの設定
+;;   (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)
+;;   (global-set-key (kbd "<C-S-tab>") 'tabbar-backward-tab)
 
-  ;; グループ化しない
-  (setq tabbar-buffer-groups-function nil)
+;;   ;; グループ化しない
+;;   (setq tabbar-buffer-groups-function nil)
 
-  ;; タブバーの文字列を変更する
-  (defun my-tabbar-buffer-tab-label (tab)
-	"デフォルト関数の両端にスペースをつける"
-	(format "  %s  " (tabbar-buffer-tab-label tab)))
-  (setq tabbar-tab-label-function 'my-tabbar-buffer-tab-label)
-  (setq tabbar-separator '(0.3))
+;;   ;; タブバーの文字列を変更する
+;;   (defun my-tabbar-buffer-tab-label (tab)
+;;  "デフォルト関数の両端にスペースをつける"
+;;  (format "  %s  " (tabbar-buffer-tab-label tab)))
+;;   (setq tabbar-tab-label-function 'my-tabbar-buffer-tab-label)
+;;   (setq tabbar-separator '(0.3))
 
-  ;; 表示設定
-  (set-face-attribute
-   'tabbar-default nil
-   :background "gray20"
-   :foreground "gray20"
-   :height 1.1
-   :box nil)
-  (set-face-attribute
-   'tabbar-unselected nil
-   :background "gray30"
-   :foreground "white"
-   :box nil)
-  (set-face-attribute
-   'tabbar-selected nil
-   :background "gray75"
-   :foreground "black"
-   :box nil)
-  (set-face-attribute
-   'tabbar-highlight nil
-   :background "white"
-   :foreground "black"
-   :underline nil
-   :box nil)
-  )
+;;   ;; 表示設定
+;;   (set-face-attribute
+;;    'tabbar-default nil
+;;    :background "gray20"
+;;    :foreground "gray20"
+;;    :height 1.1
+;;    :box nil)
+;;   (set-face-attribute
+;;    'tabbar-unselected nil
+;;    :background "gray30"
+;;    :foreground "white"
+;;    :box nil)
+;;   (set-face-attribute
+;;    'tabbar-selected nil
+;;    :background "gray75"
+;;    :foreground "black"
+;;    :box nil)
+;;   (set-face-attribute
+;;    'tabbar-highlight nil
+;;    :background "white"
+;;    :foreground "black"
+;;    :underline nil
+;;    :box nil)
+;;   )
 
 
 ;; multi term
@@ -365,39 +368,39 @@
   (setq multi-term-program shell-file-name)
   ;; ターミナルモードのフック
   (add-hook 'term-mode-hook
-			'(lambda ()
-			   ;; 画面がガクガクなるのでマージンはとらない
-			   (setq scroll-margin 0)
-			   ;; カーソル行のハイライトをしない
-			   (setq global-hl-line-mode nil)
-			   ))
+            '(lambda ()
+               ;; 画面がガクガクなるのでマージンはとらない
+               (setq scroll-margin 0)
+               ;; カーソル行のハイライトをしない
+               (setq global-hl-line-mode nil)
+               ))
 
   ;; ターミナルに奪われないキーを設定
   (setq term-unbind-key-list '("M-x" "C-x" "C-c" "M-:"))
   ;; ターミナルモードのキーバインド
   (setq term-bind-key-alist
-		'(
-		  ("C-c C-c" . term-interrupt-subjob)
-		  ("C-c C-e" . term-send-esc)
-		  ;;("C-p" . previous-line)
-		  ;;("C-n" . next-line)
-		  ;;("C-s" . isearch-forward)
-		  ;;("C-r" . isearch-backward)
-		  ("C-m" . term-send-return)
-		  ;;("C-y" . term-paste)
-		  ("M-f" . term-send-forward-word)
-		  ("M-b" . term-send-backward-word)
-		  ("M-o" . term-send-backspace)
-		  ("M-p" . term-send-up)
-		  ("M-n" . term-send-down)
-		  ("M-M" . term-send-forward-kill-word)
-		  ("M-N" . term-send-backward-kill-word)
-		  ("<C-backspace>" . term-send-backward-kill-word)
-		  ("M-r" . term-send-reverse-search-history)
-		  ("M-d" . term-send-delete-word)
-		  ("M-," . term-send-raw)
-		  ("M-." . comint-dynamic-complete)
-		  ))
+        '(
+          ("C-c C-c" . term-interrupt-subjob)
+          ("C-c C-e" . term-send-esc)
+          ;;("C-p" . previous-line)
+          ;;("C-n" . next-line)
+          ;;("C-s" . isearch-forward)
+          ;;("C-r" . isearch-backward)
+          ("C-m" . term-send-return)
+          ;;("C-y" . term-paste)
+          ("M-f" . term-send-forward-word)
+          ("M-b" . term-send-backward-word)
+          ("M-o" . term-send-backspace)
+          ("M-p" . term-send-up)
+          ("M-n" . term-send-down)
+          ("M-M" . term-send-forward-kill-word)
+          ("M-N" . term-send-backward-kill-word)
+          ("<C-backspace>" . term-send-backward-kill-word)
+          ("M-r" . term-send-reverse-search-history)
+          ("M-d" . term-send-delete-word)
+          ("M-," . term-send-raw)
+          ("M-." . comint-dynamic-complete)
+          ))
   ;; Evilの無効化
   (evil-set-initial-state 'term-mode 'emacs)
   )
@@ -407,63 +410,63 @@
 
 (eval-after-load 'dired
   '(progn
-	 ;; diredの拡張機能を使う
-	 (require 'dired-x)
+     ;; diredの拡張機能を使う
+     (require 'dired-x)
 
-	 ;; ファイルリストのlsのデフォルトオプション
-	 (setq dired-listing-switches "-lHF")
-	 ;; ファイルリストの表示切り替えオプションの一覧
-	 (defvar dired-listing-switches-array ["-lHF" "-lFHa"])
+     ;; ファイルリストのlsのデフォルトオプション
+     (setq dired-listing-switches "-lHF")
+     ;; ファイルリストの表示切り替えオプションの一覧
+     (defvar dired-listing-switches-array ["-lHF" "-lFHa"])
 
-	 (lexical-let ((current-index 0))
-	   (defun my:dired-listing-toggle ()
-		 "実行ごとにdired表示切り替えを行う関数"
-		 (interactive)
-		 (let ((len (length dired-listing-switches-array) ))
-		   (when (< 0 len)
-			 (let ((index (% current-index len)))
-			   (setq dired-listing-switches (aref dired-listing-switches-array index))
-			   (setq current-index (+ index 1))
-			   (dired-sort-other dired-listing-switches))))))
+     (lexical-let ((current-index 0))
+       (defun my:dired-listing-toggle ()
+         "実行ごとにdired表示切り替えを行う関数"
+         (interactive)
+         (let ((len (length dired-listing-switches-array) ))
+           (when (< 0 len)
+             (let ((index (% current-index len)))
+               (setq dired-listing-switches (aref dired-listing-switches-array index))
+               (setq current-index (+ index 1))
+               (dired-sort-other dired-listing-switches))))))
 
-	 (defun dired-toggle-mark (arg)
-	   "マークをトグルする"
-	   (interactive "P")
-	   (let ((dired-marker-char
-			  (if (save-excursion (beginning-of-line)
-								  (looking-at " "))
-				  dired-marker-char ?\040)))
-		 (dired-mark arg)))
+     (defun dired-toggle-mark (arg)
+       "マークをトグルする"
+       (interactive "P")
+       (let ((dired-marker-char
+              (if (save-excursion (beginning-of-line)
+                                  (looking-at " "))
+                  dired-marker-char ?\040)))
+         (dired-mark arg)))
 
-	 (defun dired-open-in-accordance-with-situation ()
-	   "ファイルなら別バッファで、ディレクトリなら同じバッファで開く"
-	   (interactive)
-	   (let ((file (dired-get-filename)))
-		 (if (file-directory-p file)
-			 (dired-find-alternate-file)
-		   (dired-find-file))))
-	 (defun my-dired-up-directory ()
-	   (interactive)
-	   (find-alternate-file ".."))
-	 (put 'dired-find-alternate-file 'disabled nil)
+     (defun dired-open-in-accordance-with-situation ()
+       "ファイルなら別バッファで、ディレクトリなら同じバッファで開く"
+       (interactive)
+       (let ((file (dired-get-filename)))
+         (if (file-directory-p file)
+             (dired-find-alternate-file)
+           (dired-find-file))))
+     (defun my-dired-up-directory ()
+       (interactive)
+       (find-alternate-file ".."))
+     (put 'dired-find-alternate-file 'disabled nil)
 
      ;; Explorer のようにファイル名の 1 文字目で検索する
      (when (require 'dired-ex-isearch)
        (require 'highline))
 
-	 ;; キーバインド
-	 (progn
+     ;; キーバインド
+     (progn
        (evil-define-key 'motion dired-mode-map "/" 'dired-ex-isearch)
 
-	   ;; RET 標準の dired-find-file では dired バッファが複数作られるので
-	   ;; dired-find-alternate-file を代わりに使う
-	   (define-key dired-mode-map (kbd "<return>") 'dired-open-in-accordance-with-situation)
-	   (define-key dired-mode-map (kbd "<C-return>") 'dired-find-file)
+       ;; RET 標準の dired-find-file では dired バッファが複数作られるので
+       ;; dired-find-alternate-file を代わりに使う
+       (define-key dired-mode-map (kbd "<return>") 'dired-open-in-accordance-with-situation)
+       (define-key dired-mode-map (kbd "<C-return>") 'dired-find-file)
 
-	   (define-key dired-mode-map "m" 'dired-toggle-mark) ;; これでuキーに空きができる
-	   (define-key dired-mode-map "u" 'my-dired-up-directory) ;; 上の階層のディレクトリへ移動
-	   (define-key dired-mode-map "." 'my:dired-listing-toggle) ;; 表示リストを切り替える
-	   )
+       (define-key dired-mode-map "m" 'dired-toggle-mark) ;; これでuキーに空きができる
+       (define-key dired-mode-map "u" 'my-dired-up-directory) ;; 上の階層のディレクトリへ移動
+       (define-key dired-mode-map "." 'my:dired-listing-toggle) ;; 表示リストを切り替える
+       )
      ))
 
 
@@ -472,20 +475,20 @@
 (when (require 'neotree)
   (setq neo-show-updir-line nil)
   (setq neo-theme 'nerd)
-  ;; Evilの無効化
-  ;;(evil-set-initial-state 'neotree-mode 'emacs)
 
+  ;; キーバインドの設定
   (evil-make-overriding-map neotree-mode-map 'normal)
-  (evil-define-key 'normal neotree-mode
-	"g" 'neotree-refresh
-	;;"u" '
+  ;; evil-add-hjkl-bindings
+  (evil-define-key 'normal neotree-mode-map
+    "g" 'neotree-refresh
     "." 'neotree-hidden-file-toggle
-	(kbd "TAB") 'neotree-change-root
-	)
+    "u" 'neotree-select-up-node
+    "j" 'neotree-next-line
+    "k" 'neotree-previous-line
+    (kbd "TAB") 'neotree-change-root
+    )
 
   (neotree-toggle)
-
-
   )
 
 
@@ -493,8 +496,8 @@
 
 (progn
   (when evil-mode
-	(evil-leader/set-key-for-mode 'emacs-lisp-mode "e" 'eval-last-sexp)
-	))
+    (evil-leader/set-key-for-mode 'emacs-lisp-mode "e" 'eval-last-sexp)
+    ))
 
 
 ;; Golang
@@ -527,9 +530,9 @@
 
 (setq scheme-program-name "/usr/local/bin/gosh -i")
 (add-hook 'scheme-mode-hook
-		  (lambda ()
-			(evil-leader/set-key-for-mode 'scheme-mode "e" 'scheme-send-definition)
-			))
+          (lambda ()
+            (evil-leader/set-key-for-mode 'scheme-mode "e" 'scheme-send-definition)
+            ))
 
 
 ;; 起動画面
