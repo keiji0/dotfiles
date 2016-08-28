@@ -30,6 +30,13 @@ case $(uname) in
 		if [ -d "$HOMEBREW_DIR" ]; then
 			export HOMEBREW_DIR
 			export PATH="$HOMEBREW_DIR/bin:$PATH"
+			export LD_LIBRARY_PATH="$HOMEBREW_DIR/lib:$LD_LIBRARY_PATH"
+			export C_INCLUDE_PATH="$HOMEBREW_DIR/include:$C_INCLUDE_PATH"
+
+			# LLVM関連のパスを通す
+			export PATH="$HOMEBREW_DIR/opt/llvm/bin:$PATH"
+			export LD_LIBRARY_PATH="$HOMEBREW_DIR/opt/llvm/lib:$LD_LIBRARY_PATH"
+			export CPLUS_INCLUDE_PATH="$HOMEBREW_DIR/opt/llvm/include:$C_INCLUDE_PATH"
 		fi
 		# vmwareの設定
 		VMWARE_APP_DIR=/Applications/VMware\ Fusion.app
