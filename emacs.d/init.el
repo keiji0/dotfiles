@@ -178,6 +178,7 @@
   (package-install 'projectile)
   (package-install 'helm-projectile)
   (package-install 'magit)
+  (package-install 'evil-magit)
   (package-install 'yasnippet)
   (package-install 'ido-vertical-mode)
   (package-install 'comment-dwim-2)
@@ -676,20 +677,21 @@
 
 ;; * magit
 ;; https://github.com/magit/magit
-;; (with-eval-after-load 'magit
-;;   ;; 初期ステートがemacsなので解除する
-;;   (setq evil-emacs-state-modes (delq 'magit-status-mode evil-emacs-state-modes))
-;;
-;;   (evil-make-overriding-map magit-mode-map 'normal)
-;;   (evil-define-key 'normal magit-mode-map
-;;     "j" 'magit-section-forward
-;;     "k" 'magit-section-backward
-;;     )
-;;   ;; status-mode
-;;   (evil-make-overriding-map magit-status-mode-map 'normal)
-;;   (evil-define-key 'normal magit-status-mode-map
-;;     "j" )
-;;   )
+(with-eval-after-load 'magit
+  ;; ;; 初期ステートがemacsなので解除する
+  ;; (setq evil-emacs-state-modes (delq 'magit-status-mode evil-emacs-state-modes))
+  ;; (evil-make-overriding-map magit-mode-map 'normal)
+  ;; (evil-define-key 'normal magit-mode-map
+  ;;   "j" 'magit-section-forward
+  ;;   "k" 'magit-section-backward
+  ;;   )
+  ;; ;; status-mode
+  ;; (evil-make-overriding-map magit-status-mode-map 'normal)
+  ;; (evil-define-key 'normal magit-status-mode-map
+  ;;   "j" )
+
+  (require 'evil-magit)
+  )
 
 
 ;; * neotree
