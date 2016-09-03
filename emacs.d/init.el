@@ -38,8 +38,6 @@
                 (not (member (file-name-nondirectory f) '("." ".."))))
       do (add-to-list 'load-path f))
 (add-to-list 'load-path (emacs-libs-dir))
-(add-to-list 'load-path (emacs-home "themes"))
-(add-to-list 'custom-theme-load-path (emacs-home "themes"))
 
 ;; 環境変数のロード
 (when (require 'exec-path-from-shell)
