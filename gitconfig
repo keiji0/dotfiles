@@ -1,14 +1,14 @@
 [user]
-	name = keiji0
-	email = keiji0@gmail.com
+    name = keiji0
+    email = keiji0@gmail.com
 [color]
-	ui = auto
+    ui = auto
 [alias]
-	st = status
-	co = commit
-	ct = commit -mtmp
-	sh = show
-	df = diff
+    st = status
+    co = commit
+    ct = commit -mtmp
+    sh = show
+    df = diff
 	ad = add
 	br = branch
 	co = checkout

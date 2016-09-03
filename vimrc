@@ -4,11 +4,6 @@ filetype off
 syntax on
 filetype plugin indent on
 
-call plug#begin('~/.vim/plugged')
-Plug 'google/vim-ft-go'
-Plug 'vim-jp/vim-go-extra'
-call plug#end()
-
 set nocompatible
 set laststatus=2
 set encoding=utf-8
@@ -36,7 +31,7 @@ set helplang=ja,en
 set visualbell
 set vb t_vb=
 set t_Co=256
-set ts=4 sts=4 sw=4 tw=0 noet
+set ts=4 sts=4 sw=4 tw=0 et
 set modeline
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l/%L,%c%V
 set runtimepath+=$DOTDIR/vim
@@ -71,89 +66,52 @@ hi Folded gui=bold term=standout ctermbg=NONE ctermfg=2 guifg=Grey80
 hi FoldColumn gui=bold term=standout ctermbg=NONE ctermfg=2 guifg=DarkBlue
 
 if has("wildmenu")
-	set wildmenu
-	set wildmode=list:longest
-	set wildignore+=*.a,*.o
-	set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-	set wildignore+=*~,*.swp,*.tmp
-	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+    set wildmenu
+    set wildmode=list:longest
+    set wildignore+=*.a,*.o
+    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+    set wildignore+=*~,*.swp,*.tmp
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 endif
 
 if has('gui_running')
-	set guioptions-=T
-	set guioptions+=a
-	set guifont=Ricty\ 12
-	set clipboard=unnamed,autoselect
-	set background=dark
+    set guioptions-=T
+    set guioptions+=a
+    set guifont=Ricty\ 12
+    set clipboard=unnamed,autoselect
+    set background=dark
 endif
 
 if has("autocmd")
-	au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
-	"au BufEnter * execute ":lcd " . expand("%:p:h")
-	au BufNewFile * silent! 0r $HOME/.vim/template/%:e
-	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-	
-	"perl
-	au BufNewFile,BufRead *.pl,*.cgi,*.pm,*.psgi call _perl()
-	fu _perl()
-		set filetype=perl
-		nn <buffer> <leader>c :!perl -c %<cr>
-		nn <buffer> <leader>r :!perl -MData::Dumper %<cr>
-		au filetype perl compiler perl
-		setl ts=4 sts=4 sw=4 tw=0 noet
-	endf
+    au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
+    "au BufEnter * execute ":lcd " . expand("%:p:h")
+    au BufNewFile * silent! 0r $HOME/.vim/template/%:e
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+    
+    "perl
+    au BufNewFile,BufRead *.pl,*.cgi,*.pm,*.psgi call _perl()
+    fu _perl()
+        set filetype=perl
+        nn <buffer> <leader>c :!perl -c %<cr>
+        nn <buffer> <leader>r :!perl -MData::Dumper %<cr>
+        au filetype perl compiler perl
+        setl ts=4 sts=4 sw=4 tw=0 noet
+    endf
 
-	"shell
-	au BufNewFile,BufRead *.sh call _sh()
-	fu _sh()
-		set filetype=sh
-		nn <buffer> <leader>c :!sh -n %<cr>
-		nn <buffer> <leader>r :!sh %<cr>
-		setl ts=4 sts=4 sw=4 tw=0 noet
-	endf
-	
-	"markdown
-	au BufNewFile,BufRead *.md call _markdown()
-	fu _markdown()
-		setl filetype=markdown
-		setl ts=4 sts=4 sw=4 tw=0 noet
-		setl fileencoding=utf-8
-	endf
-
-	"forth
-	au BufNewFile,BufRead *.fh call _forth()
-	fu _forth()
-		setl filetype=forth
-		nn <buffer> <leader>r :!gforth %<cr>
-		setl ts=2 sts=2 sw=2 tw=0 noet
-	endf
-	
-	"ocaml
-	au BufNewFile,BufRead *.ml,*.mli call _ocaml()
-	fu _ocaml()
-		nn <buffer> <leader>r :!ocaml %<cr>
-		setl ts=2 sts=2 sw=2 tw=0 noet
-	endf
-
-	"go
-	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-	au FileType go nmap <leader>r <Plug>(go-run)
-	au BufNewFile,BufRead *.go call _go()
-	fu _go()
-		set completeopt=menu,preview
-	endf
-
-	"clojure
-	au BufNewFile,BufRead *.clj, call _clojure()
-	fu _clojure()
-		nn <buffer> <leader>r :!clojure %<cr>
-		setl ts=2 sts=2 sw=2 tw=0 noet
-	endf
-
-	"scheme
-	au BufNewFile,BufRead *.scm, call _scheme()
-	fu _scheme()
-		nn <buffer> <leader>r :!gosh %<cr>
-		setl ts=2 sts=2 sw=2 tw=0 et
-	endf
+    "shell
+    au BufNewFile,BufRead *.sh call _sh()
+    fu _sh()
+        set filetype=sh
+        nn <buffer> <leader>c :!sh -n %<cr>
+        nn <buffer> <leader>r :!sh %<cr>
+        setl ts=4 sts=4 sw=4 tw=0 noet
+    endf
+    
+    "markdown
+    au BufNewFile,BufRead *.md call _markdown()
+    fu _markdown()
+        setl filetype=markdown
+        setl ts=4 sts=4 sw=4 tw=0 noet
+        setl fileencoding=utf-8
+    endf
 endif

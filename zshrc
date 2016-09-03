@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if [ -d "$DOTDIR" ]; then
-	fpath=($DOTDIR/zsh/comp ${fpath})
+    fpath=($DOTDIR/zsh/comp ${fpath})
 fi
 
 HISTFILE=$MY_VAR/zsh/history && mkdir -p $MY_VAR/zsh
@@ -79,24 +79,24 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 # ディレクトリ変更時のフック関数
 chpwd(){
-	_platform_chpwd
+    _platform_chpwd
 }
 _platform_chpwd(){}
 
 # Emacsから起動した場合の設定
 if [ -n "$EMACS" ]; then
-	# エディタはemacsを使う
-	export EDITOR="emacsclient"
-	# プラットフォーム固有の設定
-	case $(uname) in
-		Darwin)
-			# コマンドプロンプトにゴミが表示されるのを防ぐ
-			export TERM=xterm-color
-			_platform_chpwd(){
-				echo -e "\033AnSiTu" $(whoami)
-				echo -e "\033AnSiTc" $(pwd)
-				echo -e "\033AnSiTh" $(hostname)
-			}
-			;;
-	esac
+    # エディタはemacsを使う
+    export EDITOR="emacsclient"
+    # プラットフォーム固有の設定
+    case $(uname) in
+        Darwin)
+            # コマンドプロンプトにゴミが表示されるのを防ぐ
+            export TERM=xterm-color
+            _platform_chpwd(){
+                echo -e "\033AnSiTu" $(whoami)
+                echo -e "\033AnSiTc" $(pwd)
+                echo -e "\033AnSiTh" $(hostname)
+            }
+            ;;
+    esac
 fi

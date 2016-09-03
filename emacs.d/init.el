@@ -154,8 +154,10 @@
 (when (require 'package)
   ;; パッケージアーカイブを追加する
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
   (package-initialize)
   ;;(package-refresh-contents)
+  (package-install 'use-package)
   (package-install 'evil)
   (package-install 'evil-leader)
   (package-install 'powerline)
@@ -182,6 +184,7 @@
   (package-install 'yasnippet)
   (package-install 'ido-vertical-mode)
   (package-install 'comment-dwim-2)
+  (package-install 'markdown-mode)
   )
 
 ;; 必須ライブラリ
@@ -307,6 +310,8 @@
 
   ;; *や#で単語単位ではなくシンボル単位で検索する
   (setq-default evil-symbol-word-search t)
+  ;; 単語境界をVim互換にする
+  (modify-syntax-entry ?_ "w" (standard-syntax-table))
 
   ;; グローバルモード
   (when (eq system-type 'darwin)
@@ -502,9 +507,9 @@
 ;; https://github.com/Fuco1/smartparens
 ;; カッコの自動挿入
 
-(when (require 'smartparens-config)
-  (smartparens-global-mode t)
-  )
+;; (when (require 'smartparens-config)
+;;   (smartparens-global-mode nil)
+;;   )
 
 
 ;; * Compilation mode
@@ -650,9 +655,14 @@
                dired-marker-char ?\040)))
       (dired-mark arg)))
 
+  ;; Explorer のようにファイル名の 1 文字目で検索する
+  (require 'dired-ex-isearch)
+  (require 'highline)
+
   ;; キーバインド
   (evil-make-overriding-map dired-mode-map 'normal)
   (evil-define-key 'normal dired-mode-map
+    "/" 'dired-ex-isearch
     "j" 'dired-next-line
     "k" 'dired-previous-line
     "m" 'dired-toggle-mark ; これでuキーに空きができる
@@ -715,7 +725,7 @@
   )
 
 
-;; * Elisp
+;; * Elisp mode
 
 (with-eval-after-load 'lisp-mode
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
@@ -735,6 +745,7 @@
                (c-toggle-auto-hungry-state 1)
 
             ))
+
 ;; c++固有の設定
 (add-hook 'c++-mode-hook
           (lambda ()
@@ -745,8 +756,8 @@
 ;;
 ;; インストールするにはllvmと位置を指定する必要がある
 ;; M-x irony-install-server
-;; $ cmake -DLIBCLANG_LIBRARY\=$HOMEBREW_DIR/opt/llvm/lib/libclang.dylib \
-;;         -DLIBCLANG_INCLUDE_DIR\=HOMEBREW_DIR/opt/llvm/include \
+;; $ cmake -DLIBCLANG_LIBRARY\=$HOMEBREW_DIR/local/llvm/lib/libclang.dylib \
+;;         -DLIBCLANG_INCLUDE_DIR\=HOMEBREW_DIR/local/llvm/include \
 ;;         -DCMAKE_INSTALL_PREFIX\=$HOME/.emacs.d/opt/irony \
 ;;         $HOME/.emacs.d/elpa/irony-20160825.1209/server \
 ;;      && cmake --build . --use-stderr --config Release --target install
@@ -771,6 +782,7 @@
 
 
 ;; * Golang
+;; https://github.com/dominikh/go-mode.el
 
 (require 'go-mode-autoloads)
 (with-eval-after-load 'go-mode
@@ -796,6 +808,17 @@
   )
 
 
+;; * Markdown
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
+
 ;; * Scheme
 
 (setq scheme-program-name "/usr/local/bin/gosh -i")
@@ -807,16 +830,3 @@
 
 ;; * 起動画面
 (cd (expand-file-name "~"))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/gdrive/Archive/org/org.org")))
- '(session-use-package t nil (session)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

@@ -1,0 +1,17 @@
+#!/bin/sh
+# emacsをインストールするコマンド
+
+set -e
+cd $(dirname $0)
+. ./util.sh
+
+# プラットフォームごとの設定
+case $(uname) in
+	Darwin)
+        brew install --with-cocoa --srgb emacs
+        brew linkapps emacs
+        ;;
+    *)
+        error 'サポートしていないプラットフォームです'
+        ;;
+esac

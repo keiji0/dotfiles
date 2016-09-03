@@ -1,0 +1,30 @@
+#!/bin/sh
+# rubyをインストールするコマンド
+
+RBENV_VERSION=2.3.1
+
+set -e
+cd $(dirname $0)
+. ./util.sh
+
+# 環境チェック
+[ -z "$RBENV_ROOT" ] && abort '$RBENV_ROOTが定義されていません'
+
+# プラットフォームごとのrbenvのインストール
+case $(uname) in
+	Darwin)
+        brew install rbenv
+        ;;
+    *)
+        abort 'サポートしていないプラットフォームです'
+        ;;
+esac
+
+# 環境のリロードしてインストール
+. $HOME/.profile
+rbenv install -s $RBENV_VERSION
+rbenv global $RBENV_VERSION
+
+# バンドルのインストール
+rbenv exec gem install bundler
+rbenv rehash

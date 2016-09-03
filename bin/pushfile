@@ -1,4 +1,0 @@
-#!/bin/sh
-set -e -u
-val=$1; file=$2; tmp=$(mktemp)
-{ echo "$val" && cat $file; } > $tmp && mv $tmp $file
