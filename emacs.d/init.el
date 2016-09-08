@@ -686,18 +686,9 @@
 ;; * magit
 ;; https://github.com/magit/magit
 (with-eval-after-load 'magit
-  ;; ;; 初期ステートがemacsなので解除する
-  ;; (setq evil-emacs-state-modes (delq 'magit-status-mode evil-emacs-state-modes))
-  ;; (evil-make-overriding-map magit-mode-map 'normal)
-  ;; (evil-define-key 'normal magit-mode-map
-  ;;   "j" 'magit-section-forward
-  ;;   "k" 'magit-section-backward
-  ;;   )
-  ;; ;; status-mode
-  ;; (evil-make-overriding-map magit-status-mode-map 'normal)
-  ;; (evil-define-key 'normal magit-status-mode-map
-  ;;   "j" )
-
+  ;; フルウィンドウでmagit-statusを表示する
+  (add-to-list 'same-window-regexps "\*magit: .*\*")
+  ;; キーバインドをevilに変える
   (require 'evil-magit)
   )
 
