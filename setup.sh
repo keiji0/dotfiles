@@ -11,7 +11,7 @@ lnk() {
         lnk_o $@
     fi
 }
-lnk_f(){
+lnk_f() {
     ln -fns "$PWD/$1" "$2" && echo "install $1 -> $2";
 }
 

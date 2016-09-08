@@ -65,9 +65,9 @@ case $(uname) in
             _add_to_path $HOMEBREW_ROOT/opt/llvm/bin
         fi
         # vmwareの設定
-        export VMWARE_APP_DIR=/Applications/VMware\ Fusion.app
-        if [ -d "$VMWARE_APP_DIR" ]; then
-            _add_to_path "$VMWARE_APP_DIR/Contents/Library"
+        export VMWARE_ROOT=/Applications/VMware\ Fusion.app
+        if [ -d "$VMWARE_ROOT" ]; then
+            _add_to_path "$VMWARE_ROOT/Contents/Library"
         fi
         ;;
 esac
