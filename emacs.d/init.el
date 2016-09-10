@@ -186,6 +186,8 @@
   (package-install 'markdown-mode)
   (package-install 'avy)
   (package-install 'google-translate)
+  (package-install 'multiple-cursors)
+  (package-install 'migemo)
   )
 
 ;; 必須ライブラリ
@@ -593,6 +595,22 @@
 
 
 ;; * Search
+
+(use-package migemo
+  ;; ローマ字のまま日本語を検索する
+  ;; エンジンは外部コマンドのため事前にcmigemoをインストールしておく必要がある
+  ;; macの場合`brew install cmigemo`
+  ;; https://github.com/emacs-jp/migemo
+  :if (executable-find "cmigemo")
+  :config
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (setq migemo-command (executable-find "cmigemo"))
+  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict") ;; 環境にやさしい指定方法を考える
+  (migemo-init)
+  )
 
 (use-package avy
   ;; ウィンドウの表示領域にジャンプする
