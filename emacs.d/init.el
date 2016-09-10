@@ -186,8 +186,10 @@
   )
 
 ;; 必須ライブラリ
-(defvar sdb-directory (emacs-var-dir "sdb"))
-(require 'sdb)
+(use-package sdb
+  :init
+  (defvar sdb-directory (emacs-var-dir "sdb"))
+  )
 
 
 ;; * Themeや色に関する設定
@@ -209,9 +211,9 @@
 (setq spacemacs-theme-comment-bg nil) ; コメントの背景カラーを無効にする
 (load-theme 'spacemacs-dark t)
 
-;; * Powerline
-;; https://github.com/milkypostman/powerline
 (use-package powerline
+  ;; モードラインをリッチにする
+  ;; https://github.com/milkypostman/powerline
   :config
   ;; モードラインが若干乱れて表示されるのを直す
   ;; https://github.com/milkypostman/powerline/issues/54
@@ -237,10 +239,12 @@
                     )))
   )
 
-;; 改ページ(^L)をわかりやすく表示
-;; https://github.com/purcell/page-break-lines
 (use-package page-break-lines
-  :config (global-page-break-lines-mode))
+  ;; 改ページ(^L)をわかりやすく表示
+  ;; https://github.com/purcell/page-break-lines
+  :config
+  (global-page-break-lines-mode)
+  )
 
 ;; フレーム状態の復帰
 (progn
@@ -256,20 +260,21 @@
 
 
 ;; * Evil
-;; https://bitbucket.org/lyro/evil/wiki/Home
 
-;; evilでLeaderキーを使用するためのライブラリを読み込む
-(use-package evil-leader
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  )
-
-;; Evil用のキーマップを定義
 (use-package evil
+  ;; vimエミュレートするパッケージ
+  ;; https://bitbucket.org/lyro/evil/wiki/Home
+  :init
+  ;; evilでLeaderキーを使用するためのライブラリを読み込む
+  ;; evilのロードの事前に読み込まれている必要がある
+  (use-package evil-leader
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "<SPC>")
+    )
   :config
+  ;; 常にevilモードを有効
   (evil-mode 1)
-
   ;; *や#で単語単位ではなくシンボル単位で検索する
   (setq-default evil-symbol-word-search t)
   ;; 単語境界をVim互換にする
@@ -278,6 +283,7 @@
   ;; グローバルモード
   (when (eq system-type 'darwin)
     (global-set-key (kbd "M-w") 'kill-buffer)
+    (global-set-key (kbd "M-v") 'yank)
     )
 
   ;; モーションモード
@@ -330,11 +336,14 @@
     )
   )
 
+
+
 
-;; * Session - セッション保存の設定
-;; http://www.emacswiki.org/emacs/session.el
+;; * Workspace manager
 
 (use-package session
+  ;; セッション保存
+  ;; http://www.emacswiki.org/emacs/session.el
   :config
   (add-hook 'after-init-hook 'session-initialize)
 
@@ -361,43 +370,39 @@
         )
   )
 
-
-;; * Recent - 開いたファイル一覧を保存
-;; https://www.emacswiki.org/emacs/RecentFiles
-
 (use-package recentf
+  ;; 開いたファイル一覧を保存
+  ;; https://www.emacswiki.org/emacs/RecentFiles
   :config
   (setq recentf-save-file (emacs-var-dir "recentf.el"))
   (recentf-mode 1)
   )
 
-
-;; * perspective
-;; https://github.com/nex3/perspective-el
-;; ワークスペースの管理ができるパッケージ
-;; persp-mode.elだとバッファの状態を保存してくれるが特に必要性を感じなかったためこちらにした
-
 (use-package perspective
-  :commands (persp-next persp-prev persp-switch persp-rename persp-kill)
-  :config (persp-mode 1)
+  ;; ワークスペースの管理ができるパッケージ
+  ;; persp-mode.elだとバッファの状態を保存してくれるが特に必要性を感じなかったためこちらにした
+  ;; https://github.com/nex3/perspective-el
+  :defer t
+  :config
+  (persp-mode 1)
   )
 
-
-;; * Project manager
-
-;; * projectile
-;; https://github.com/bbatsov/projectile
-;; カレントディレクトリからプロジェクト情報を自動で探しだしファイル情報を検索出来る
 (use-package projectile
+  ;; カレントディレクトリからプロジェクト情報を自動で探しだしファイル情報を検索出来る
+  ;; https://github.com/bbatsov/projectile
+  :defer t
   :config
   (projectile-global-mode)
   (setq projectile-known-projects-file (emacs-var-dir "projectile" "projectile-bookmarks.eld"))
   )
 
 
-;; * ido
+;; * インターフェース
 
 (use-package ido
+  ;; ミニバッファを活用した選択パッケージ
+  ;; helmと比べて単一候補を選択するのに向いている
+  :defer t
   :config
   (ido-mode t)
   (ido-vertical-mode 1)
@@ -406,15 +411,15 @@
   ;;(define-key ido-common-completion-map (kbd "C-w") 'ido-delete-backward-updir)
   )
 
-
-;; * Helm
-;; https://github.com/emacs-helm/helm
-
 (use-package helm
+  ;; https://github.com/emacs-helm/helm
+  :defer t
   :init
-  (progn
-    (define-key helm-map (kbd "C-h") 'delete-backward-char)
-    (define-key helm-map (kbd "C-w") 'evil-delete-backward-word))
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+  :config
+  (define-key helm-map (kbd "C-h") 'delete-backward-char)
+  (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   )
 
 (use-package helm-buffers
@@ -433,13 +438,16 @@
   )
 
 
-;; * Company mode
-;; http://company-mode.github.io/
-;; 補完機能支援パッケージ、auto-completeと同等の機能を持つが
-;; 言語支援系の補完パッケージが多いためこちらを利用することにする。
+;; * エディタ支援
 
 (use-package company
+  ;; 補完機能支援パッケージ、auto-completeと同等の機能を持つが
+  ;; 言語支援系の補完パッケージが多いためこちらを利用することにする。
+  ;; http://company-mode.github.io/
+  :init
+  (global-set-key (kbd "TAB") 'tab-indent-or-complete)
   :config
+  ;; companyモードは常に有効
   (global-company-mode 1)
   ;; 自動補完をしない
   (setq company-idle-delay nil)
@@ -471,18 +479,16 @@
           (minibuffer-complete)
         (if (check-expansion)
             (company-complete-common)
-          (indent-for-tab-command))))
-
-    (global-set-key (kbd "TAB") 'tab-indent-or-complete))
+          (indent-for-tab-command)))))
   )
 
-
-;; * エディタ支援
-
-;; * yasnippet
-;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
+  ;; テンプレート入力
+  ;; https://github.com/joaotavora/yasnippet
+  :commands
+  (yas-insert-snippet)
   :config
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
   ;; 常に有効にする
   (yas-global-mode 1)
   ;; ユーザ定義のスニペットの置き場所の追加
@@ -490,19 +496,18 @@
   (setq yas-prompt-functions '(yas-ido-prompt))
   )
 
-;; * comment-dwim-2
-;; https://github.com/remyferre/comment-dwim-2
-;; デフォルトのcomment-dwimの非リージョン選択時に行末にコメントをする仕様を回避するパッケージ
-;; これを導入するとリージョン選択していなくても選択時と同様のコメントアウトがされるようになる
 (use-package comment-dwim-2
-  :commands (comment-dwim-2)
-  :config (global-set-key (kbd "M-;") 'comment-dwim-2)
+  ;; デフォルトのcomment-dwimの非リージョン選択時に行末にコメントをする仕様を回避するパッケージ
+  ;; これを導入するとリージョン選択していなくても選択時と同様のコメントアウトがされるようになる
+  ;; https://github.com/remyferre/comment-dwim-2
+  :commands
+  (comment-dwim-2)
+  :init
+  (global-set-key (kbd "M-;") 'comment-dwim-2)
   )
 
-;; * flycheck
 (use-package flycheck
-  :config
-  (global-flycheck-mode)
+  :init (global-flycheck-mode)
   )
 
 ;; * Smartparens
@@ -516,18 +521,9 @@
 
 ;; * Compilation mode
 
-;; (use-package compile
-;;   :defer t
-;;   :config
-;;   (evil-make-overriding-map compilation-mode-map 'normal)
-;;   (evil-define-key 'normal compilation-mode-map
-;;     "j" 'compilation-next-error
-;;     "k" 'compilation-previous-error
-;;     "v" 'compilation-display-error
-;;     )
-;;   )
-
-(with-eval-after-load 'compile
+(use-package compile
+  :defer t
+  :config
   (evil-make-overriding-map compilation-mode-map 'normal)
   (evil-define-key 'normal compilation-mode-map
     "j" 'compilation-next-error
@@ -540,7 +536,8 @@
 ;; * Search
 
 ;; * grep mode
- (with-eval-after-load 'grep
+(use-package grep
+  :defer t
   ;; キーバインドの設定
   ;; grep-modeのキーバインドはcompilation-mode-mapを元にしているので共通のキーバインドはそちらで定義
   ;; (evil-make-overriding-map grep-mode-map 'normal)
@@ -554,8 +551,9 @@
 
 ;; * 文書作成
 
-;; * org-mode
-(with-eval-after-load 'org
+(use-package org
+  :defer t
+  :config
   (setq org-directory (concat-path "~" "gdrive" "Archive" "org"))
   (setq org-default-notes-file (concat-path org-directory "notes.org"))
   ;; 見出しの余分な*を消す
@@ -567,16 +565,17 @@
 
 ;; * Shell
 
-;; * Multi Term
-;; https://www.emacswiki.org/emacs/MultiTerm
-;; ansi-termの拡張、複数端末を起動できる
-(with-eval-after-load 'multi-term
+(use-package multi-term
+  ;; ansi-termの拡張、複数端末を起動できる
+  ;; https://www.emacswiki.org/emacs/MultiTerm
+  ;;
   ;; シェルのカレントディレクトリを追随する設定
   ;; .zshrcのchpwdに以下を出力する
   ;; echo -e "\033AnSiTu" $(whoami)
   ;; echo -e "\033AnSiTc" $(pwd)
   ;; echo -e "\033AnSiTh" $(hostname)
-
+  :defer t
+  :config
   ;; シェルパスの設定
   (setq multi-term-program shell-file-name)
   ;; ターミナルモードのフック
@@ -621,11 +620,12 @@
 
 ;; * Buffer manager
 
-;; * bs-mode
-;; https://www.emacswiki.org/emacs/BufferSelection
-;; バッファ選択機能としてではなくバッファの整理するのに利用する。
-;; 選択UIとしてはhelm-buffers-listからアクセスする。
-(with-eval-after-load 'bs
+(use-package bs
+  ;; バッファ選択機能としてではなくバッファの整理するのに利用する。
+  ;; 選択UIとしてはhelm-buffers-listからアクセスする。
+  ;; https://www.emacswiki.org/emacs/BufferSelection
+  :defer t
+  :config
   ;; キーバインドの設定
   (evil-make-overriding-map bs-mode-map 'normal)
   (evil-define-key 'normal bs-mode-map
@@ -637,9 +637,11 @@
 
 ;; * File manager
 
-;; * Dired
-;; https://www.emacswiki.org/emacs/DiredMode
-(with-eval-after-load 'dired
+(use-package dired
+  ;; emacs標準のファイルマネージャ
+  ;; https://www.emacswiki.org/emacs/DiredMode
+  :defer t
+  :config
   ;; diredの拡張機能を使う
   (require 'dired-x)
 
@@ -687,7 +689,9 @@
 
 ;; * Help mode
 
-(with-eval-after-load 'help-mode
+(use-package help-mode
+  :defer t
+  :config
   (evil-make-overriding-map help-mode-map 'motion)
   (evil-add-hjkl-bindings help-mode-map 'motion
     (kbd "TAB") 'forward-button
@@ -698,23 +702,27 @@
 
 ;; * Version control
 
-;; * magit
-;; https://github.com/magit/magit
-(with-eval-after-load 'magit
+(use-package magit
+  ;; gitインターフェース
+  ;; https://github.com/magit/magit
+  :defer t
+  :config
   ;; フルウィンドウでmagit-statusを表示する
   (add-to-list 'same-window-regexps "\*magit: .*\*")
   ;; キーバインドをevilに変える
-  (require 'evil-magit)
+  (use-package evil-magit)
   )
 
 
 ;; * neotree
-;; https://github.com/jaypei/emacs-neotree
 
-(with-eval-after-load 'neotree
+(use-package neotree
+  ;; サイドバーに簡易ファイルリストを表示
+  ;; https://github.com/jaypei/emacs-neotree
+  :defer t
+  :config
   (setq neo-show-updir-line nil)
   (setq neo-theme 'nerd)
-
   ;; キーバインドの設定
   (evil-make-overriding-map neotree-mode-map 'normal)
   (evil-define-key 'normal neotree-mode-map
@@ -731,7 +739,9 @@
 
 ;; * Elisp mode
 
-(with-eval-after-load 'lisp-mode
+(use-package lisp-mode
+  :defer t
+  :config
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "e" 'eval-last-sexp)
   )
@@ -755,51 +765,59 @@
           (lambda ()
             ))
 
-;; * irony-mode
-;; コード補完支援ツール、elispとclangライブラリを使ったサーバーで構成されている。
-;;
-;; インストールするにはllvmと位置を指定する必要がある
-;; M-x irony-install-server
-;; $ cmake -DLIBCLANG_LIBRARY\=$HOMEBREW_DIR/local/llvm/lib/libclang.dylib \
-;;         -DLIBCLANG_INCLUDE_DIR\=HOMEBREW_DIR/local/llvm/include \
-;;         -DCMAKE_INSTALL_PREFIX\=$HOME/.emacs.d/opt/irony \
-;;         $HOME/.emacs.d/elpa/irony-20160825.1209/server \
-;;      && cmake --build . --use-stderr --config Release --target install
-(progn
+(use-package irony
+  ;; コード補完支援ツール、elispとclangライブラリを使ったサーバーで構成されている。
+  ;;
+  ;; インストールするにはllvmと位置を指定する必要がある
+  ;; M-x irony-install-server
+  ;; $ cmake -DLIBCLANG_LIBRARY\=$HOMEBREW_DIR/local/llvm/lib/libclang.dylib \
+  ;;         -DLIBCLANG_INCLUDE_DIR\=HOMEBREW_DIR/local/llvm/include \
+  ;;         -DCMAKE_INSTALL_PREFIX\=$HOME/.emacs.d/opt/irony \
+  ;;         $HOME/.emacs.d/elpa/irony-20160825.1209/server \
+  ;;      && cmake --build . --use-stderr --config Release --target install
+
+  :init
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
-  ;; 先にirony関連のディレクトリを決定する
   (setq irony-user-dir (emacs-local-dir "irony"))
-  (with-eval-after-load 'irony
-    ;; 各モードフックを設定
-    (add-to-list 'company-backends 'company-irony)
-    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
 
-    (defun my-irony-mode-hook ()
-      (define-key irony-mode-map [remap completion-at-point]
-        'irony-completion-at-point-async)
-      (define-key irony-mode-map [remap complete-symbol]
-        'irony-completion-at-point-async))
-    (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-    ))
+  :commands
+  (irony-mode)
+
+  :config
+  ;; 各モードフックを設定
+  (add-to-list 'company-backends 'company-irony)
+  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+
+  (defun my-irony-mode-hook ()
+    (define-key irony-mode-map [remap completion-at-point]
+      'irony-completion-at-point-async)
+    (define-key irony-mode-map [remap complete-symbol]
+      'irony-completion-at-point-async))
+  (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  )
 
 
 ;; * Golang
-;; https://github.com/dominikh/go-mode.el
 
-(require 'go-mode-autoloads)
-(with-eval-after-load 'go-mode
-  ;; 保存時にgofmtを実行
+(use-package go-mode
+  ;; https://github.com/dominikh/go-mode.el
+  :defer t
+  :config
   (add-hook 'before-save-hook 'gofmt-before-save)
   ;; goの補完処理を読み込む
-  (require 'go-autocomplete)
+  (use-package go-autocomplete)
   )
 
 
 ;; * Perl
 
-(with-eval-after-load 'cperl-mode
+(use-package cperl-mode
+  :mode
+  (("\\.pl\\'" . cperl-mode)
+   ("\\.pm\\'" . cperl-mode))
+  :config
   (setq cperl-indent-level 4)
   (setq cperl-continued-statement-offset 4)
   (setq cperl-close-paren-offset -4)
@@ -815,21 +833,28 @@
 ;; * Markdown
 
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :mode
+  (("README\\.md\\'" . gfm-mode)
+   ("\\.md\\'" . markdown-mode)
+   ("\\.markdown\\'" . markdown-mode))
+  :init
+  (setq markdown-command "multimarkdown")
+  )
 
 
 ;; * Scheme
 
-(setq scheme-program-name "/usr/local/bin/gosh -i")
-(add-hook 'scheme-mode-hook
-          (lambda ()
-            (evil-leader/set-key-for-mode 'scheme-mode "e" 'scheme-send-definition)
-            ))
+(use-package scheme-mode
+  :mode
+  (("\\.scm\\'" . scheme-mode))
+  :config
+  (setq scheme-program-name "/usr/local/bin/gosh -i")
+  (add-hook 'scheme-mode-hook
+            (lambda ()
+              (evil-leader/set-key-for-mode 'scheme-mode "e" 'scheme-send-definition)
+              ))
+  )
 
 
 ;; * 起動画面
