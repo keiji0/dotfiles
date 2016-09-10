@@ -170,6 +170,7 @@
   (package-install 'page-break-lines)
   (package-install 'smartparens)
   (package-install 'company)
+  (package-install 'auto-complete)
   (package-install 'irony)
   (package-install 'irony-eldoc)
   (package-install 'flycheck-irony)
@@ -183,6 +184,8 @@
   (package-install 'ido-vertical-mode)
   (package-install 'comment-dwim-2)
   (package-install 'markdown-mode)
+  (package-install 'avy)
+  (package-install 'google-translate)
   )
 
 ;; 必須ライブラリ
@@ -291,6 +294,9 @@
     (define-key evil-motion-state-map (kbd ";") 'evil-ex)
     (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
     (define-key evil-motion-state-map (kbd "RET") nil)
+    (define-key evil-motion-state-map (kbd "g/") 'avy-goto-char)
+    (define-key evil-motion-state-map (kbd "go") 'helm-occur)
+    (define-key evil-motion-state-map (kbd "C-c t") 'google-translate-enja-or-jaen)
     )
 
   ;; ノーマルモード
@@ -328,15 +334,12 @@
     ;; ファイル移動に利用する、すでに開いているファイルをバッファとしてアクセスできるのでminiを使う
     (evil-leader/set-key "f" 'helm-mini)
     (evil-leader/set-key "g" 'helm-projectile)
-    ;; 普段はhelm-miniで事足りるが、まとまってバッファを整理したりする
-    (evil-leader/set-key "b" 'bs-show)
+    (evil-leader/set-key "b" 'bs-show) ; 普段はhelm-miniで事足りるが、まとまってバッファを整理したりする
     (evil-leader/set-key "x" 'kill-buffer)
     (evil-leader/set-key "t" 'multi-term)
     (evil-leader/set-key "v" 'magit-status)
     )
   )
-
-
 
 
 ;; * Workspace manager
@@ -422,7 +425,14 @@
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   )
 
+(use-package helm-regexp
+  :defer t
+  :config
+  (define-key helm-moccur-map (kbd "C-w") 'evil-delete-backward-word)
+  )
+
 (use-package helm-buffers
+  :defer t
   :config
   ;; helm-buffers-listから除外したいバッファをフィルタリングする
   ;; https://github.com/emacs-helm/helm/issues/975#issuecomment-93302364
@@ -440,17 +450,66 @@
 
 ;; * エディタ支援
 
+(use-package google-translate
+  ;; Google翻訳
+  ;; https://github.com/atykhonov/google-translate
+  :defer t
+  :commands
+  (google-translate-enja-or-jaen)
+
+  :config
+  (defvar google-translate-english-chars "[:ascii:]")
+  (defun google-translate-enja-or-jaen (&optional string)
+    ;; http://blog.shibayu36.org/entry/2016/05/29/123342
+    "regionか現在位置の単語を翻訳する。C-u付きでquery指定も可能"
+    (interactive)
+    (setq string
+          (cond ((stringp string) string)
+                (current-prefix-arg
+                 (read-string "Google Translate: "))
+                ((use-region-p)
+                 (buffer-substring (region-beginning) (region-end)))
+                (t
+                 (thing-at-point 'word))))
+    (let* ((asciip (string-match
+                    (format "\\`[%s]+\\'" google-translate-english-chars)
+                    string)))
+      (run-at-time 0.1 nil 'deactivate-mark)
+      (google-translate-translate
+       (if asciip "en" "ja")
+       (if asciip "ja" "en")
+       string)))
+  )
+
+(use-package auto-complete-config
+  ;; コード補完支援
+  ;; https://github.com/auto-complete/auto-complete
+  :disabled t
+  :config
+  (ac-config-default)
+  ;; 補完開始キーの設定
+  (ac-set-trigger-key "TAB")
+  ;; 自動補完を無効にする
+  (setq ac-auto-start nil)
+  ;; 補完推測のキャッシュファイルの指定
+  (setq ac-comphist-file (emacs-var-dir "ac-comphist.el"))
+  ;; メジャーモードごとの補完辞書ファイルのディレクトリ指定
+  (add-to-list 'ac-dictionary-directories (emacs-share-dir "ac-dict"))
+  )
+
 (use-package company
   ;; 補完機能支援パッケージ、auto-completeと同等の機能を持つが
   ;; 言語支援系の補完パッケージが多いためこちらを利用することにする。
   ;; http://company-mode.github.io/
   :init
   (global-set-key (kbd "TAB") 'tab-indent-or-complete)
+
   :config
   ;; companyモードは常に有効
   (global-company-mode 1)
   ;; 自動補完をしない
   (setq company-idle-delay nil)
+  (setq company-auto-complete t)
 
   ;; キーバインドの設定
   (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
@@ -487,6 +546,7 @@
   ;; https://github.com/joaotavora/yasnippet
   :commands
   (yas-insert-snippet)
+
   :config
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   ;; 常に有効にする
@@ -510,11 +570,10 @@
   :init (global-flycheck-mode)
   )
 
-;; * Smartparens
-;; https://github.com/Fuco1/smartparens
-;; カッコの自動挿入
-
-;; (when (require 'smartparens-config)
+;; (use-package smartparens
+;;   ;; カッコの自動挿入
+;;   ;; https://github.com/Fuco1/smartparens
+;;   :config
 ;;   (smartparens-global-mode nil)
 ;;   )
 
@@ -535,7 +594,13 @@
 
 ;; * Search
 
-;; * grep mode
+(use-package avy
+  ;; ウィンドウの表示領域にジャンプする
+  ;; https://github.com/abo-abo/avy
+  :commands
+  (avy-goto-char avy-goto-char-1 avy-goto-char-2)
+  )
+
 (use-package grep
   :defer t
   ;; キーバインドの設定
