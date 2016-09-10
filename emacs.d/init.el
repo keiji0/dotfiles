@@ -174,7 +174,7 @@
   (package-install 'irony-eldoc)
   (package-install 'flycheck-irony)
   (package-install 'company-irony)
-  (package-install 'persp-mode)
+  (package-install 'perspective)
   (package-install 'projectile)
   (package-install 'helm-projectile)
   (package-install 'magit)
@@ -211,7 +211,8 @@
 
 ;; * Powerline
 ;; https://github.com/milkypostman/powerline
-(when (require 'powerline)
+(use-package powerline
+  :config
   ;; モードラインが若干乱れて表示されるのを直す
   ;; https://github.com/milkypostman/powerline/issues/54
   (setq ns-use-srgb-colorspace nil)
@@ -238,8 +239,8 @@
 
 ;; 改ページ(^L)をわかりやすく表示
 ;; https://github.com/purcell/page-break-lines
-(when (require 'page-break-lines)
-  (global-page-break-lines-mode))
+(use-package page-break-lines
+  :config (global-page-break-lines-mode))
 
 ;; フレーム状態の復帰
 (progn
@@ -254,10 +255,87 @@
                 (add-to-list 'initial-frame-alist kv)))))
 
 
+;; * Evil
+;; https://bitbucket.org/lyro/evil/wiki/Home
+
+;; evilでLeaderキーを使用するためのライブラリを読み込む
+(use-package evil-leader
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  )
+
+;; Evil用のキーマップを定義
+(use-package evil
+  :config
+  (evil-mode 1)
+
+  ;; *や#で単語単位ではなくシンボル単位で検索する
+  (setq-default evil-symbol-word-search t)
+  ;; 単語境界をVim互換にする
+  (modify-syntax-entry ?_ "w" (standard-syntax-table))
+
+  ;; グローバルモード
+  (when (eq system-type 'darwin)
+    (global-set-key (kbd "M-w") 'kill-buffer)
+    )
+
+  ;; モーションモード
+  (progn
+    (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+    (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
+    (define-key evil-motion-state-map (kbd "RET") nil)
+    )
+
+  ;; ノーマルモード
+  (progn
+    ;; perspective
+    (define-key evil-normal-state-map (kbd "C-t") nil)
+    (define-key evil-normal-state-map (kbd "C-t n") 'persp-next)
+    (define-key evil-normal-state-map (kbd "C-t p") 'persp-prev)
+    (define-key evil-normal-state-map (kbd "C-t s") 'persp-switch)
+    (define-key evil-normal-state-map (kbd "C-t c") 'persp-switch)
+    (define-key evil-normal-state-map (kbd "C-t r") 'persp-rename)
+    (define-key evil-normal-state-map (kbd "C-t k") 'persp-kill)
+    )
+
+  ;; インサートモード
+  (progn
+    (define-key evil-insert-state-map (kbd "C-y") nil)
+    (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
+    (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
+    (define-key evil-insert-state-map (kbd "C-u") 'yas-insert-snippet)
+    )
+
+  ;; ミニバッファモード
+  (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
+
+  ;; ウィンドウ関連
+  (define-key evil-window-map "-" 'evil-window-split)
+  (define-key evil-window-map "|" 'evil-window-vsplit)
+  (define-key evil-window-map "0" 'delete-window)
+  (define-key evil-window-map "1" 'delete-other-windows)
+
+  ;; Leader
+  ;; ノーマルモード時にもっともよく利用するキーを設定
+  (progn
+    ;; ファイル移動に利用する、すでに開いているファイルをバッファとしてアクセスできるのでminiを使う
+    (evil-leader/set-key "f" 'helm-mini)
+    (evil-leader/set-key "g" 'helm-projectile)
+    ;; 普段はhelm-miniで事足りるが、まとまってバッファを整理したりする
+    (evil-leader/set-key "b" 'bs-show)
+    (evil-leader/set-key "x" 'kill-buffer)
+    (evil-leader/set-key "t" 'multi-term)
+    (evil-leader/set-key "v" 'magit-status)
+    )
+  )
+
+
 ;; * Session - セッション保存の設定
 ;; http://www.emacswiki.org/emacs/session.el
 
-(when (require 'session)
+(use-package session
+  :config
   (add-hook 'after-init-hook 'session-initialize)
 
   ;; セッション情報を保存するディレクトリ
@@ -287,105 +365,31 @@
 ;; * Recent - 開いたファイル一覧を保存
 ;; https://www.emacswiki.org/emacs/RecentFiles
 
-(when (require 'recentf)
+(use-package recentf
+  :config
   (setq recentf-save-file (emacs-var-dir "recentf.el"))
   (recentf-mode 1)
   )
 
 
-;; * Evil
-;; https://bitbucket.org/lyro/evil/wiki/Home
+;; * perspective
+;; https://github.com/nex3/perspective-el
+;; ワークスペースの管理ができるパッケージ
+;; persp-mode.elだとバッファの状態を保存してくれるが特に必要性を感じなかったためこちらにした
 
-;; evilでLeaderキーを使用するためのライブラリを読み込む
-(when (require 'evil-leader)
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  )
-
-;; Evil用のキーマップを定義
-(when (require 'evil)
-  (evil-mode 1)
-
-  ;; *や#で単語単位ではなくシンボル単位で検索する
-  (setq-default evil-symbol-word-search t)
-  ;; 単語境界をVim互換にする
-  (modify-syntax-entry ?_ "w" (standard-syntax-table))
-
-  ;; グローバルモード
-  (when (eq system-type 'darwin)
-    (global-set-key (kbd "M-w") 'kill-buffer)
-    )
-
-  ;; モーションモード
-  (progn
-    (define-key evil-motion-state-map (kbd ";") 'evil-ex)
-    (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
-    (define-key evil-motion-state-map (kbd "RET") nil)
-    )
-
-  ;; ノーマルモード
-  (progn
-    ;; persp
-    (define-key evil-normal-state-map (kbd "C-t") nil)
-    (define-key evil-normal-state-map (kbd "C-t n") 'persp-next)
-    (define-key evil-normal-state-map (kbd "C-t p") 'persp-prev)
-    (define-key evil-normal-state-map (kbd "C-t s") 'persp-frame-switch)
-    (define-key evil-normal-state-map (kbd "C-t c") 'persp-frame-switch)
-    (define-key evil-normal-state-map (kbd "C-t r") 'persp-rename)
-    (define-key evil-normal-state-map (kbd "C-t k") 'persp-kill)
-    )
-
-  ;; インサートモード
-  (progn
-    (define-key evil-insert-state-map (kbd "C-y") nil)
-    (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
-    (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
-    )
-
-  ;; ミニバッファモード
-  (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
-
-  ;; ウィンドウ関連
-  (define-key evil-window-map "-" 'evil-window-split)
-  (define-key evil-window-map "|" 'evil-window-vsplit)
-  (define-key evil-window-map "0" 'delete-window)
-  (define-key evil-window-map "1" 'delete-other-windows)
-
-  ;; Leader
-  ;; ノーマルモード時にもっともよく利用するキーを設定
-  (progn
-    ;; ファイル移動に利用する、すでに開いているファイルをバッファとしてアクセスできるのでminiを使う
-    (evil-leader/set-key "f" 'helm-mini)
-    (evil-leader/set-key "g" 'helm-projectile)
-    ;; 普段はhelm-miniで事足りるが、まとまってバッファを整理したりする
-    (evil-leader/set-key "b" 'bs-show)
-    (evil-leader/set-key "x" 'kill-buffer)
-    (evil-leader/set-key "t" 'multi-term)
-    (evil-leader/set-key "v" 'magit-status)
-    )
+(use-package perspective
+  :commands (persp-next persp-prev persp-switch persp-rename persp-kill)
+  :config (persp-mode 1)
   )
 
 
-;; * persp-mode
-;; https://github.com/Bad-ptr/persp-mode.el
-;; ワークスペースの管理ができるパッケージ。
-;; さらにEmacs内の様々な状態を保存することができる。
-
-(with-eval-after-load "persp-mode-autoloads"
-  ;; switch off the animation of restoring window configuration
-  (add-hook 'after-init-hook #'(lambda () (persp-mode 1)))
-  (setq wg-morph-on nil)
-
-  ;; 保存するディレクトリを変更
-  (setq persp-save-dir (emacs-var-dir "persp/"))
-  )
-
-
-;; * Project mager
+;; * Project manager
 
 ;; * projectile
 ;; https://github.com/bbatsov/projectile
-(when (require 'projectile)
+;; カレントディレクトリからプロジェクト情報を自動で探しだしファイル情報を検索出来る
+(use-package projectile
+  :config
   (projectile-global-mode)
   (setq projectile-known-projects-file (emacs-var-dir "projectile" "projectile-bookmarks.eld"))
   )
@@ -393,7 +397,8 @@
 
 ;; * ido
 
-(with-eval-after-load 'ido
+(use-package ido
+  :config
   (ido-mode t)
   (ido-vertical-mode 1)
   (setq ido-max-window-height 0.75)
@@ -405,21 +410,20 @@
 ;; * Helm
 ;; https://github.com/emacs-helm/helm
 
-(progn
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(use-package helm
+  :init
+  (progn
+    (define-key helm-map (kbd "C-h") 'delete-backward-char)
+    (define-key helm-map (kbd "C-w") 'evil-delete-backward-word))
   )
 
-(with-eval-after-load 'helm
-  (define-key helm-map (kbd "C-h") 'delete-backward-char)
-  (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
-  )
-
-(with-eval-after-load 'helm-buffers
+(use-package helm-buffers
+  :config
+  ;; helm-buffers-listから除外したいバッファをフィルタリングする
+  ;; https://github.com/emacs-helm/helm/issues/975#issuecomment-93302364
   (advice-add 'helm-skip-boring-buffers :filter-return 'my-helm-buffers-filter)
   (defun my-helm-buffers-filter (buffer-list)
-    "helm-buffers-listから除外したいバッファをフィルタリングする"
-    ;; https://github.com/emacs-helm/helm/issues/975#issuecomment-93302364
+    "diredのバッファが補完候補に上がるのがうざいので除外する"
     (delq nil (mapcar
                (lambda (buffer)
                  (if (eq (with-current-buffer buffer major-mode) 'dired-mode)
@@ -434,7 +438,8 @@
 ;; 補完機能支援パッケージ、auto-completeと同等の機能を持つが
 ;; 言語支援系の補完パッケージが多いためこちらを利用することにする。
 
-(when (require 'company)
+(use-package company
+  :config
   (global-company-mode 1)
   ;; 自動補完をしない
   (setq company-idle-delay nil)
@@ -460,19 +465,13 @@
             (backward-char 1)
             (if (looking-at "->") t nil)))))
 
-    (defun do-yas-expand ()
-      (let ((yas/fallback-behavior 'return-nil))
-        (yas/expand)))
-
     (defun tab-indent-or-complete ()
       (interactive)
       (if (minibufferp)
           (minibuffer-complete)
-        (if (or (and (boundp yas/minor-mode) (not yas/minor-mode))
-                (null (do-yas-expand)))
-            (if (check-expansion)
-                (company-complete-common)
-              (indent-for-tab-command)))))
+        (if (check-expansion)
+            (company-complete-common)
+          (indent-for-tab-command))))
 
     (global-set-key (kbd "TAB") 'tab-indent-or-complete))
   )
@@ -482,7 +481,8 @@
 
 ;; * yasnippet
 ;; https://github.com/joaotavora/yasnippet
-(when (require 'yasnippet)
+(use-package yasnippet
+  :config
   ;; 常に有効にする
   (yas-global-mode 1)
   ;; ユーザ定義のスニペットの置き場所の追加
@@ -494,10 +494,14 @@
 ;; https://github.com/remyferre/comment-dwim-2
 ;; デフォルトのcomment-dwimの非リージョン選択時に行末にコメントをする仕様を回避するパッケージ
 ;; これを導入するとリージョン選択していなくても選択時と同様のコメントアウトがされるようになる
-(global-set-key (kbd "M-;") 'comment-dwim-2)
+(use-package comment-dwim-2
+  :commands (comment-dwim-2)
+  :config (global-set-key (kbd "M-;") 'comment-dwim-2)
+  )
 
 ;; * flycheck
-(when (require 'flycheck)
+(use-package flycheck
+  :config
   (global-flycheck-mode)
   )
 
@@ -511,6 +515,17 @@
 
 
 ;; * Compilation mode
+
+;; (use-package compile
+;;   :defer t
+;;   :config
+;;   (evil-make-overriding-map compilation-mode-map 'normal)
+;;   (evil-define-key 'normal compilation-mode-map
+;;     "j" 'compilation-next-error
+;;     "k" 'compilation-previous-error
+;;     "v" 'compilation-display-error
+;;     )
+;;   )
 
 (with-eval-after-load 'compile
   (evil-make-overriding-map compilation-mode-map 'normal)
