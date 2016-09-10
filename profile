@@ -52,26 +52,6 @@ if [ -d "$DOTDIR" ]; then
     _add_to_path "$DOTDIR/bin"
 fi
 
-# プラットフォームごとの設定
-case $(uname) in
-	# MacOS固有の設定
-	Darwin)
-        # local/binにパスを通す
-        _add_to_path "/usr/local/bin"
-        # homebrewの設定
-        if _exits_command brew; then
-            export HOMEBREW_ROOT="$(brew --repo)"
-            # LLVM関連のパスを通す
-            _add_to_path $HOMEBREW_ROOT/opt/llvm/bin
-        fi
-        # vmwareの設定
-        export VMWARE_ROOT=/Applications/VMware\ Fusion.app
-        if [ -d "$VMWARE_ROOT" ]; then
-            _add_to_path "$VMWARE_ROOT/Contents/Library"
-        fi
-        ;;
-esac
-
 # goの設定
 export GOPATH="$HOME/go"
 export GOROOT="$MY_LOCAL/go"
@@ -101,3 +81,23 @@ fi
 if [ -d "$ANDROID_HOME/android-ndk" ]; then
     _add_to_path "$ANDROID_HOME/android-ndk"
 fi
+
+# プラットフォームごとの設定
+case $(uname) in
+	# MacOS固有の設定
+	Darwin)
+        # local/binにパスを通す
+        _add_to_path "/usr/local/bin"
+        # homebrewの設定
+        if _exits_command brew; then
+            export HOMEBREW_ROOT="$(brew --repo)"
+            # LLVM関連のパスを通す
+            _add_to_path $HOMEBREW_ROOT/opt/llvm/bin
+        fi
+        # vmwareの設定
+        export VMWARE_ROOT=/Applications/VMware\ Fusion.app
+        if [ -d "$VMWARE_ROOT" ]; then
+            _add_to_path "$VMWARE_ROOT/Contents/Library"
+        fi
+        ;;
+esac
