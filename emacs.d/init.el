@@ -425,6 +425,9 @@
   :config
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
+  ;; migemoがインストールされていればmigemoを有効にする
+  (when (package-installed-p 'migemo)
+    (helm-migemo-mode +1))
   )
 
 (use-package helm-regexp
@@ -519,6 +522,7 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
   (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+
   (define-key company-active-map (kbd "C-h") nil)
   (define-key company-active-map (kbd "M-n") nil)
   (define-key company-active-map (kbd "M-p") nil)
@@ -589,8 +593,7 @@
   (evil-define-key 'normal compilation-mode-map
     "j" 'compilation-next-error
     "k" 'compilation-previous-error
-    "v" 'compilation-display-error
-    )
+    "v" 'compilation-display-error)
   )
 
 
