@@ -1,3 +1,7 @@
+;;; init.el --- Emacsの初期化設定
+;;; Commentary:
+;;; Code:
+
 
 ;; * 基本的な設定
 ;; ディレクトリの位置や設定や環境変数の設定を行う
@@ -44,16 +48,6 @@
   (setq exec-path-from-shell-variables '("PATH" "MANPATH"));
   (exec-path-from-shell-initialize)
   )
-
-
-;; * 必須関数や互換性を維持するための関数定義
-
-;; Emacs 24.4以前は存在しないため自力で定義する
-(unless (fboundp 'with-eval-after-load)
-  (defmacro with-eval-after-load (file &rest body)
-    "eval-after-loadのprogn不要な便利マクロ"
-    `(eval-after-load ,file
-       `(funcall (function ,(lambda () ,@body))))))
 
 
 ;; * デフォルトEmacsの設定
@@ -131,8 +125,9 @@
   (global-hl-line-mode)
   (setq-default global-hl-line-mode t)
   ;; 対応するカッコをハイライトする
-  (show-paren-mode t)
-  (setq show-paren-style 'parenthesis)
+  ;; smartparensにまかせる
+  ;; (show-paren-mode t)
+  ;; (setq show-paren-style 'parenthesis)
   ;; ファイル保存時に最終行に改行を入れる
   (setq require-final-newline t)
 
@@ -270,13 +265,14 @@
   ;; vimエミュレートするパッケージ
   ;; https://bitbucket.org/lyro/evil/wiki/Home
   :init
-  ;; evilでLeaderキーを使用するためのライブラリを読み込む
-  ;; evilのロードの事前に読み込まれている必要がある
   (use-package evil-leader
+    ;; evilでLeaderキーを使用するためのライブラリを読み込む
+    ;; evilのロードの事前に読み込まれている必要がある
     :config
     (global-evil-leader-mode)
     (evil-leader/set-leader "<SPC>")
     )
+
   :config
   ;; 常にevilモードを有効
   (evil-mode 1)
@@ -573,15 +569,21 @@
   )
 
 (use-package flycheck
-  :init (global-flycheck-mode)
+  ;; シンタックスチェック
+  ;; http://www.flycheck.org/en/latest/
+  :config
+  (global-flycheck-mode)
   )
 
-;; (use-package smartparens
-;;   ;; カッコの自動挿入
-;;   ;; https://github.com/Fuco1/smartparens
-;;   :config
-;;   (smartparens-global-mode nil)
-;;   )
+(use-package smartparens
+  ;; 様々な括弧を移動したり自動入力機能を提供
+  ;; https://github.com/Fuco1/smartparens
+  :config
+  (smartparens-global-mode t)
+  (show-smartparens-global-mode t) ;; 括弧を強調する
+  (sp-use-smartparens-bindings) ;; smartparensのキーバインドを使う
+  (smartparens-strict-mode t) ;; 括弧のバランスが崩れないようにする
+  )
 
 
 ;; * Compilation mode
