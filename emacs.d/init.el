@@ -418,18 +418,18 @@
   :init
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
   :config
+  ;; キーバインド設定
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
-  (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
+
   ;; migemoがインストールされていればmigemoを有効にする
   (when (package-installed-p 'migemo)
     (helm-migemo-mode +1))
-  )
 
-(use-package helm-regexp
-  :defer t
-  :config
-  (define-key helm-moccur-map (kbd "C-w") 'evil-delete-backward-word)
+  ;; ほとんどのhelmのに見バッファでC-wキーに`helm-yank-text-at-point`が設定されており
+  ;; なれた挙動と異なるため`evil-delete-backward-word`で上書きしておく
+  (defalias 'helm-yank-text-at-point 'evil-delete-backward-word)
   )
 
 (use-package helm-buffers
@@ -580,9 +580,13 @@
   ;; https://github.com/Fuco1/smartparens
   :config
   (smartparens-global-mode t)
-  (show-smartparens-global-mode t) ;; 括弧を強調する
-  (sp-use-smartparens-bindings) ;; smartparensのキーバインドを使う
-  (smartparens-strict-mode t) ;; 括弧のバランスが崩れないようにする
+  ;; 括弧を強調する
+  (show-smartparens-global-mode t)
+  ;; smartparensのキーバインドを使う
+  (sp-use-smartparens-bindings)
+  ;; 括弧のバランスが崩れないようにする
+  ;; 習得には時間がかかりそうなのでやめておく
+  ;; (smartparens-strict-mode)
   )
 
 
@@ -831,7 +835,11 @@
   :defer t
   :config
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  ;; キーバインドの設定
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "e" 'eval-last-sexp)
+  ;; 不要な括弧の自動補完を無効にする
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
   )
 
 
