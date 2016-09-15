@@ -66,8 +66,17 @@ zstyle ':completion:*:default' list-colors ""
 zstyle ':completion:*' use-cache yes
 
 # プロンプト設定
-PROMPT="%B%F{yellow}%m%F{black}:%F{blue}%~%F{red}%#%f "
-#PROMPT=$GREEN'%m'$YELLOW':%~'$RED'%# '$DEFAULT
+{
+    autoload -Uz vcs_info
+    zstyle ':vcs_info:*' formats '[%b]'
+    zstyle ':vcs_info:*' actionformats '[%b|%a]'
+    precmd () {
+        psvar=()
+        LANG=en_US.UTF-8 vcs_info
+        [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    }
+    PROMPT="%B%F{yellow}%m%F{black}:%F{blue}%~%F{green}\$vcs_info_msg_0_%F{red}%#%f "
+}
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
