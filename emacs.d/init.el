@@ -149,7 +149,7 @@
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
   (package-initialize)
-  ;;(package-refresh-contents)
+  ;; (package-refresh-contents)
   (package-install 'use-package)
   (package-install 'evil)
   (package-install 'evil-leader)
@@ -179,9 +179,7 @@
   (package-install 'ido-vertical-mode)
   (package-install 'comment-dwim-2)
   (package-install 'markdown-mode)
-  (package-install 'avy)
   (package-install 'google-translate)
-  (package-install 'multiple-cursors)
   (package-install 'migemo)
   )
 
@@ -222,21 +220,49 @@
   (setq powerline-default-separator 'bar)
   ;; モードラインの設定
   (when (require 'spaceline-config)
-    (spaceline-spacemacs-theme))
-  ;; モードラインに表示したいくないマイナーモードを指定
-  (add-hook 'after-init-hook
-            (lambda ()
-              (mapc (lambda (mode)
-                      (setq minor-mode-alist
-                            (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
-                    '(undo-tree-mode
-                      helm-mode
-                      highlight-symbol-mode
-                      smartparens-mode
-                      eldoc-mode
-                      company-mode
-                      projectile-mode)
-                    )))
+    (spaceline-define-segment version-control
+      "Version control information."
+      (when vc-mode
+        (powerline-raw
+         (s-trim (concat vc-mode
+                         (when (buffer-file-name)
+                           (pcase (vc-state (buffer-file-name))
+                             (`up-to-date " ")
+                             (`edited "[m]")
+                             (`added "[a]")
+                             (`unregistered "[??]")
+                             (`removed "[d]")
+                             (`needs-merge "[c]")
+                             (`needs-update "[u]")
+                             (`ignored "[i]")
+                             (_ "[]"))))))))
+    (spaceline-install `(((workspace-number
+                           window-number)
+                          :fallback evil-state
+                          :separator "|"
+                          :face highlight-face)
+                         ;; ファイル名、バッファ名、サイズなど
+                         (buffer-modified buffer-size buffer-id remote-host)
+                         ;; エンコーディング情報
+                         (buffer-encoding-abbrev)
+                         ;; バージョン管理情報
+                         (version-control :when active)
+                         ;; 現在のメジャーモード
+                         (major-mode)
+                         ;; エラーチェック情報
+                         ((flycheck-error flycheck-warning flycheck-info) :when active)
+                         )
+                       ;; 右側
+                       '(which-function
+                         ;; perspの情報
+                         (global :when active)
+                         ;; バッファ内の位置情報
+                         ((point-position
+                           line-column)
+                          :separator " | ")
+                         buffer-position " ")
+                       )
+    (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
   )
 
 (use-package page-break-lines
@@ -298,7 +324,6 @@
     (define-key evil-motion-state-map (kbd ";") 'evil-ex)
     (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
     (define-key evil-motion-state-map (kbd "RET") nil)
-    (define-key evil-motion-state-map (kbd "g/") 'avy-goto-char)
     (define-key evil-motion-state-map (kbd "go") 'helm-occur)
     (define-key evil-motion-state-map (kbd "C-c t") 'google-translate-enja-or-jaen)
     )
@@ -626,13 +651,6 @@
   (setq migemo-command (executable-find "cmigemo"))
   (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict") ;; 環境にやさしい指定方法を考える
   (migemo-init)
-  )
-
-(use-package avy
-  ;; ウィンドウの表示領域にジャンプする
-  ;; https://github.com/abo-abo/avy
-  :commands
-  (avy-goto-char avy-goto-char-1 avy-goto-char-2)
   )
 
 (use-package grep
