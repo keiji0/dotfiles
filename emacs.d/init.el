@@ -285,6 +285,12 @@
   (when (eq system-type 'darwin)
     (global-set-key (kbd "M-w") 'kill-buffer)
     (global-set-key (kbd "M-v") 'yank)
+
+    ;; リスト移動
+    (global-set-key (kbd "M-C-j") 'sp-down-sexp)
+    (global-set-key (kbd "M-C-k") 'sp-backward-up-sexp)
+    (global-set-key (kbd "M-C-h") 'sp-backward-sexp)
+    (global-set-key (kbd "M-C-l") 'sp-forward-sexp)
     )
 
   ;; モーションモード
@@ -383,7 +389,8 @@
   ;; ワークスペースの管理ができるパッケージ
   ;; persp-mode.elだとバッファの状態を保存してくれるが特に必要性を感じなかったためこちらにした
   ;; https://github.com/nex3/perspective-el
-  :defer t
+  :commands
+  (persp-next persp-prev persp-switch persp-rename persp-kill)
   :config
   (persp-mode 1)
   )
@@ -583,7 +590,7 @@
   ;; 括弧を強調する
   (show-smartparens-global-mode t)
   ;; smartparensのキーバインドを使う
-  (sp-use-smartparens-bindings)
+  ;; (sp-use-smartparens-bindings)
   ;; 括弧のバランスが崩れないようにする
   ;; 習得には時間がかかりそうなのでやめておく
   ;; (smartparens-strict-mode)
