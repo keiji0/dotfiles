@@ -1,4 +1,4 @@
-;; dired-ex-isearch.el v0.1
+;; sdb.el v0.1
 
 (defvar sdb-directory "~/.emacs.d/sdb" "sdbが値を保存するディレクトリ")
 (defvar sdb-before-commit-hook '() "sdbがファイルにコミットするまでに実行されるフック")

@@ -46,8 +46,7 @@
 ;; 環境変数のロード
 (when (require 'exec-path-from-shell)
   (setq exec-path-from-shell-variables '("PATH" "MANPATH"));
-  (exec-path-from-shell-initialize)
-  )
+  (exec-path-from-shell-initialize))
 
 
 ;; * デフォルトEmacsの設定
@@ -151,6 +150,7 @@
   (package-initialize)
   ;; (package-refresh-contents)
   (package-install 'use-package)
+  (package-install 'dash)
   (package-install 'evil)
   (package-install 'evil-leader)
   (package-install 'powerline)
@@ -177,6 +177,7 @@
   (package-install 'evil-magit)
   (package-install 'yasnippet)
   (package-install 'ido-vertical-mode)
+  (package-install 'smex)
   (package-install 'comment-dwim-2)
   (package-install 'markdown-mode)
   (package-install 'google-translate)
@@ -306,25 +307,42 @@
   (setq-default evil-symbol-word-search t)
   ;; 単語境界をVim互換にする
   (modify-syntax-entry ?_ "w" (standard-syntax-table))
+  ;; evil-delete-backward-wordはよく使うのであまりevilを外で意識させないためにエイリアスを作る
+  (defalias 'delete-backward-word 'evil-delete-backward-word)
 
   ;; グローバルモード
-  (when (eq system-type 'darwin)
-    (global-set-key (kbd "M-w") 'kill-buffer)
-    (global-set-key (kbd "M-v") 'yank)
-
+  (progn
+    (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "C-x C-f") 'ido-find-file)
+    ;; Leader
+    (progn
+      ;; ファイル移動に利用する、すでに開いているファイルをバッファとしてアクセスできるのでminiを使う
+      (evil-leader/set-key "f" 'ido-find-file)
+      (evil-leader/set-key "g" 'ido-mini)
+      (evil-leader/set-key "b" 'bs-show)
+      (evil-leader/set-key "p" 'projectile-find-file)
+      (evil-leader/set-key "x" 'kill-buffer)
+      (evil-leader/set-key "t" 'multi-term)
+      (evil-leader/set-key "v" 'magit-status)
+      (evil-leader/set-key "m" 'bookmark-set)
+      )
     ;; リスト移動
     (global-set-key (kbd "M-C-j") 'sp-down-sexp)
     (global-set-key (kbd "M-C-k") 'sp-backward-up-sexp)
     (global-set-key (kbd "M-C-h") 'sp-backward-sexp)
     (global-set-key (kbd "M-C-l") 'sp-forward-sexp)
+    ;; macOS
+    (when (eq system-type 'darwin)
+      (global-set-key (kbd "M-w") 'kill-buffer)
+      (global-set-key (kbd "M-v") 'yank))
     )
 
   ;; モーションモード
   (progn
     (define-key evil-motion-state-map (kbd ";") 'evil-ex)
-    (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
     (define-key evil-motion-state-map (kbd "RET") nil)
     (define-key evil-motion-state-map (kbd "go") 'helm-occur)
+    (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
     (define-key evil-motion-state-map (kbd "C-c t") 'google-translate-enja-or-jaen)
     )
 
@@ -349,24 +367,16 @@
     )
 
   ;; ミニバッファモード
-  (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
+  (define-key minibuffer-local-map (kbd "C-w") 'delete-backward-word)
 
   ;; ウィンドウ関連
-  (define-key evil-window-map "-" 'evil-window-split)
-  (define-key evil-window-map "|" 'evil-window-vsplit)
-  (define-key evil-window-map "0" 'delete-window)
-  (define-key evil-window-map "1" 'delete-other-windows)
-
-  ;; Leader
-  ;; ノーマルモード時にもっともよく利用するキーを設定
   (progn
-    ;; ファイル移動に利用する、すでに開いているファイルをバッファとしてアクセスできるのでminiを使う
-    (evil-leader/set-key "f" 'helm-mini)
-    (evil-leader/set-key "g" 'helm-projectile)
-    (evil-leader/set-key "b" 'bs-show) ; 普段はhelm-miniで事足りるが、まとまってバッファを整理したりする
-    (evil-leader/set-key "x" 'kill-buffer)
-    (evil-leader/set-key "t" 'multi-term)
-    (evil-leader/set-key "v" 'magit-status)
+    (define-key evil-window-map "-" 'evil-window-split)
+    (define-key evil-window-map "|" 'evil-window-vsplit)
+    (define-key evil-window-map "0" 'delete-window)
+    (define-key evil-window-map "1" 'delete-other-windows)
+    (define-key evil-window-map "2" 'split-window-below)
+    (define-key evil-window-map "3" 'split-window-right)
     )
   )
 
@@ -429,6 +439,22 @@
   (setq projectile-known-projects-file (emacs-var-dir "projectile" "projectile-bookmarks.eld"))
   )
 
+(use-package bookmark
+  ;; ファイルブックマーク
+  ;; https://www.emacswiki.org/emacs/BookMarks
+  :commands
+  (bookmark-all-names)
+  :config
+  ;; ブックマークの保存場所
+  (setq bookmark-default-file (emacs-var-dir "bookmark.el"))
+  ;; キーバインド
+  ;; (evil-make-overriding-map help-mode-map 'motion)
+  ;; (evil-add-hjkl-bindings help-mode-map 'motion
+  ;;   (kbd "TAB") 'forward-button
+  ;;   (kbd "C-o") 'help-go-back
+  ;;   (kbd "0") (lookup-key evil-motion-state-map "0"))
+  )
+
 
 ;; * インターフェース
 
@@ -436,19 +462,71 @@
   ;; ミニバッファを活用した選択パッケージ
   ;; helmと比べて単一候補を選択するのに向いている
   :defer t
+  :init
+  (defun ido-mini ()
+    "helm-miniのようなidoの便利コマンド"
+    (interactive)
+    (let* ((lst `(;; バッファ一覧
+                 ,@(mapcar (lambda (x)
+                             (propertize (format "buffer: %s" (buffer-name x))
+                                         :value x :type 'buffer))
+                           (-filter (lambda (x)
+                                      (not (string-match "^ " (buffer-name x))))
+                                    (buffer-list)))
+                 ;; ブックマーク一覧
+                 ,@(mapcar (lambda (x)
+                             (propertize (format "bookmark: %s" x)
+                                         :value x :type 'bookmark))
+                           (bookmark-all-names))
+                 ,(propertize "bookmark: setting" :type 'bookmark-command)
+                 ;; 最近開いたファイル
+                 ,@(mapcar (lambda (x)
+                             (propertize (format "recent: %s" x)
+                                         :value x :type 'recentf))
+                           recentf-list)))
+           (res (ido-completing-read "ido-mini: " lst)))
+      (when res
+        (let ((type (get-text-property 0 :type res))
+              (value (get-text-property 0 :value res)))
+          (case type
+            ((buffer)
+             (set-window-buffer (selected-window) value))
+            ((bookmark)
+             (bookmark-jump
+              (bookmark-get-bookmark value)))
+            ((bookmark-command)
+             (call-interactively 'bookmark-bmenu-list))
+            ((recentf)
+             (find-file value))
+            )))))
+
   :config
   (ido-mode t)
+  ;; idoを縦表示にする
   (ido-vertical-mode 1)
-  (setq ido-max-window-height 0.75)
+  ;; C-n,C-pで次へ補完候補の切り替えを行えるようにする
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  ;; find-file-at-pointを効くようにする
+  (setq ido-use-filename-at-point 'guess)
+  ;; ido候補ウィンドウの最大ウィンドウサイズ
+  (setq ido-max-window-height 0.5)
   (setq ido-save-directory-list-file (emacs-var-dir "ido.last"))
-  ;;(define-key ido-common-completion-map (kbd "C-w") 'ido-delete-backward-updir)
+  ;; キーバインドの設定
+  (define-key ido-common-completion-map (kbd "C-w") 'ido-delete-backward-updir)
+  (define-key ido-file-completion-map (kbd "C-w") 'delete-backward-word)
+
+  (use-package smex
+    ;; M-xをidoで補完するパッケージ
+    :commands
+    (smex)
+    :config
+    (setq smex-save-file (emacs-var-dir "smex-items.el")))
   )
 
 (use-package helm
   ;; https://github.com/emacs-helm/helm
   :defer t
   :init
-  (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
   :config
@@ -460,24 +538,8 @@
     (helm-migemo-mode +1))
 
   ;; ほとんどのhelmのに見バッファでC-wキーに`helm-yank-text-at-point`が設定されており
-  ;; なれた挙動と異なるため`evil-delete-backward-word`で上書きしておく
-  (defalias 'helm-yank-text-at-point 'evil-delete-backward-word)
-  )
-
-(use-package helm-buffers
-  :defer t
-  :config
-  ;; helm-buffers-listから除外したいバッファをフィルタリングする
-  ;; https://github.com/emacs-helm/helm/issues/975#issuecomment-93302364
-  (advice-add 'helm-skip-boring-buffers :filter-return 'my-helm-buffers-filter)
-  (defun my-helm-buffers-filter (buffer-list)
-    "diredのバッファが補完候補に上がるのがうざいので除外する"
-    (delq nil (mapcar
-               (lambda (buffer)
-                 (if (eq (with-current-buffer buffer major-mode) 'dired-mode)
-                     nil
-                   buffer))
-               buffer-list)))
+  ;; なれた挙動と異なるため`delete-backward-word`で上書きしておく
+  (defalias 'helm-yank-text-at-point 'delete-backward-word)
   )
 
 
@@ -548,7 +610,7 @@
   (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
+  (define-key company-active-map (kbd "C-w") 'delete-backward-word)
   (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 
   (define-key company-active-map (kbd "C-h") nil)
@@ -679,6 +741,13 @@
   (define-key global-map "\C-ca" 'org-agenda)
   )
 
+(use-package info
+  :defer t
+  :config
+  ;; infoディレクトリの追加
+  (add-to-list 'Info-directory-list (emacs-share-dir "info"))
+  )
+
 
 ;; * Shell
 
@@ -734,7 +803,7 @@
   (evil-set-initial-state 'term-mode 'emacs)
   )
 
-
+ 
 ;; * Buffer manager
 
 (use-package bs
@@ -809,6 +878,9 @@
 (use-package help-mode
   :defer t
   :config
+  ;; ヘルプ呼び出し時にウィンドウへ移動する
+  (setq help-window-select t)
+  ;; キーバインド
   (evil-make-overriding-map help-mode-map 'motion)
   (evil-add-hjkl-bindings help-mode-map 'motion
     (kbd "TAB") 'forward-button
