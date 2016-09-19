@@ -153,6 +153,7 @@
   (package-install 'dash)
   (package-install 'evil)
   (package-install 'evil-leader)
+  (package-install 'evil-magit)
   (package-install 'powerline)
   (package-install 'session)
   (package-install 'go-mode)
@@ -174,7 +175,6 @@
   (package-install 'projectile)
   (package-install 'helm-projectile)
   (package-install 'magit)
-  (package-install 'evil-magit)
   (package-install 'yasnippet)
   (package-install 'ido-vertical-mode)
   (package-install 'smex)
@@ -360,10 +360,14 @@
 
   ;; インサートモード
   (progn
-    (define-key evil-insert-state-map (kbd "C-y") nil)
+    ;; インサートモードはemacs互換
+    (setq evil-insert-state-map (make-sparse-keymap))
+    (define-key evil-insert-state-map (kbd "<escape>") 'evil-normal-state)
+    ;; (define-key evil-insert-state-map (kbd "C-y") nil)
+    ;; (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
     (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
-    (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
     (define-key evil-insert-state-map (kbd "C-u") 'yas-insert-snippet)
+    (define-key evil-insert-state-map (kbd "C-w") 'delete-backward-word)
     )
 
   ;; ミニバッファモード
@@ -448,11 +452,11 @@
   ;; ブックマークの保存場所
   (setq bookmark-default-file (emacs-var-dir "bookmark.el"))
   ;; キーバインド
-  ;; (evil-make-overriding-map help-mode-map 'motion)
-  ;; (evil-add-hjkl-bindings help-mode-map 'motion
-  ;;   (kbd "TAB") 'forward-button
-  ;;   (kbd "C-o") 'help-go-back
-  ;;   (kbd "0") (lookup-key evil-motion-state-map "0"))
+  (evil-make-overriding-map bookmark-bmenu-mode-map 'motion)
+  (evil-add-hjkl-bindings bookmark-bmenu-mode-map 'motion
+    (kbd "j") 'next-line
+    (kbd "k") 'previous-line
+    )
   )
 
 
@@ -463,42 +467,15 @@
   ;; helmと比べて単一候補を選択するのに向いている
   :defer t
   :init
-  (defun ido-mini ()
-    "helm-miniのようなidoの便利コマンド"
-    (interactive)
-    (let* ((lst `(;; バッファ一覧
-                 ,@(mapcar (lambda (x)
-                             (propertize (format "buffer: %s" (buffer-name x))
-                                         :value x :type 'buffer))
-                           (-filter (lambda (x)
-                                      (not (string-match "^ " (buffer-name x))))
-                                    (buffer-list)))
-                 ;; ブックマーク一覧
-                 ,@(mapcar (lambda (x)
-                             (propertize (format "bookmark: %s" x)
-                                         :value x :type 'bookmark))
-                           (bookmark-all-names))
-                 ,(propertize "bookmark: setting" :type 'bookmark-command)
-                 ;; 最近開いたファイル
-                 ,@(mapcar (lambda (x)
-                             (propertize (format "recent: %s" x)
-                                         :value x :type 'recentf))
-                           recentf-list)))
-           (res (ido-completing-read "ido-mini: " lst)))
-      (when res
-        (let ((type (get-text-property 0 :type res))
-              (value (get-text-property 0 :value res)))
-          (case type
-            ((buffer)
-             (set-window-buffer (selected-window) value))
-            ((bookmark)
-             (bookmark-jump
-              (bookmark-get-bookmark value)))
-            ((bookmark-command)
-             (call-interactively 'bookmark-bmenu-list))
-            ((recentf)
-             (find-file value))
-            )))))
+  (use-package smex
+    ;; M-xをidoで補完するパッケージ
+    :commands
+    (smex)
+    :config
+    (setq smex-save-file (emacs-var-dir "smex-items.el")))
+  (use-package ido-mini
+    :commands
+    (ido-mini))
 
   :config
   (ido-mode t)
@@ -514,13 +491,6 @@
   ;; キーバインドの設定
   (define-key ido-common-completion-map (kbd "C-w") 'ido-delete-backward-updir)
   (define-key ido-file-completion-map (kbd "C-w") 'delete-backward-word)
-
-  (use-package smex
-    ;; M-xをidoで補完するパッケージ
-    :commands
-    (smex)
-    :config
-    (setq smex-save-file (emacs-var-dir "smex-items.el")))
   )
 
 (use-package helm
@@ -532,11 +502,9 @@
   :config
   ;; キーバインド設定
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
-
   ;; migemoがインストールされていればmigemoを有効にする
   (when (package-installed-p 'migemo)
     (helm-migemo-mode +1))
-
   ;; ほとんどのhelmのに見バッファでC-wキーに`helm-yank-text-at-point`が設定されており
   ;; なれた挙動と異なるため`delete-backward-word`で上書きしておく
   (defalias 'helm-yank-text-at-point 'delete-backward-word)
