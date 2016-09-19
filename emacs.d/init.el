@@ -1,12 +1,13 @@
 ;;; init.el --- Emacsの初期化設定
 ;;; Commentary:
-;;; Code:
 
+;;; Code:
 
 ;; * 基本的な設定
 ;; ディレクトリの位置や設定や環境変数の設定を行う
 
-(require 'cl)
+(eval-when-compile (require 'cl))
+(cd "~/")
 
 (defun concat-path (elm &rest elms)
   "OS非依存なパスを構築する"
@@ -45,7 +46,7 @@
 
 ;; 環境変数のロード
 (when (require 'exec-path-from-shell)
-  (setq exec-path-from-shell-variables '("PATH" "MANPATH"));
+  (set-variable 'exec-path-from-shell-variables '("PATH" "MANPATH"))
   (exec-path-from-shell-initialize))
 
 
@@ -86,7 +87,7 @@
 ;; エディタとしての設定
 (progn
   ;; タブ幅の設定
-  (setq default-tab-width 4)
+  (set-variable 'default-tab-width 4)
   ;; タブをスペースで扱う
   (setq-default indent-tabs-mode nil)
   ;; 自動インデント
@@ -118,7 +119,7 @@
   (setq-default scroll-margin 3)
   ;; 行溢れした文字は折り返さずに表示する
   (setq-default truncate-lines t)
-  (setq runcate-partial-width-windows t)
+  (set-variable 'runcate-partial-width-windows t)
   ;; 現在行をハイライト
   (make-variable-buffer-local 'global-hl-line-mode)
   (global-hl-line-mode)
@@ -207,7 +208,7 @@
 
 ;; 主要テーマを設定
 ;; https://github.com/nashamri/spacemacs-theme
-(setq spacemacs-theme-comment-bg nil) ; コメントの背景カラーを無効にする
+(set-variable 'spacemacs-theme-comment-bg nil) ; コメントの背景カラーを無効にする
 (load-theme 'spacemacs-dark t)
 
 (use-package powerline
@@ -313,18 +314,21 @@
   ;; グローバルモード
   (progn
     (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "M-n") 'evil-complete-next)
+    (global-set-key (kbd "M-p") 'evil-complete-previous)
     (global-set-key (kbd "C-x C-f") 'ido-find-file)
     ;; Leader
     (progn
-      ;; ファイル移動に利用する、すでに開いているファイルをバッファとしてアクセスできるのでminiを使う
       (evil-leader/set-key "f" 'ido-find-file)
       (evil-leader/set-key "g" 'ido-mini)
       (evil-leader/set-key "b" 'bs-show)
       (evil-leader/set-key "p" 'projectile-find-file)
       (evil-leader/set-key "x" 'kill-buffer)
-      (evil-leader/set-key "t" 'multi-term)
+      (evil-leader/set-key "s" 'multi-term)
       (evil-leader/set-key "v" 'magit-status)
       (evil-leader/set-key "m" 'bookmark-set)
+      (evil-leader/set-key "t" 'org-capture)
+      (evil-leader/set-key "a" 'org-agenda)
       )
     ;; リスト移動
     (global-set-key (kbd "M-C-j") 'sp-down-sexp)
@@ -363,10 +367,10 @@
     ;; インサートモードはemacs互換
     (setq evil-insert-state-map (make-sparse-keymap))
     (define-key evil-insert-state-map (kbd "<escape>") 'evil-normal-state)
-    ;; (define-key evil-insert-state-map (kbd "C-y") nil)
-    ;; (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
+    (define-key evil-insert-state-map (kbd "C-d") 'evil-shift-left-line)
+    (define-key evil-insert-state-map (kbd "C-t") 'evil-shift-right-line)
     (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
-    (define-key evil-insert-state-map (kbd "C-u") 'yas-insert-snippet)
+    (define-key evil-insert-state-map (kbd "C-'") 'yas-insert-snippet)
     (define-key evil-insert-state-map (kbd "C-w") 'delete-backward-word)
     )
 
@@ -452,11 +456,7 @@
   ;; ブックマークの保存場所
   (setq bookmark-default-file (emacs-var-dir "bookmark.el"))
   ;; キーバインド
-  (evil-make-overriding-map bookmark-bmenu-mode-map 'motion)
-  (evil-add-hjkl-bindings bookmark-bmenu-mode-map 'motion
-    (kbd "j") 'next-line
-    (kbd "k") 'previous-line
-    )
+  (evil-add-hjkl-bindings bookmark-bmenu-mode-map 'emacs)
   )
 
 
@@ -482,7 +482,7 @@
   ;; idoを縦表示にする
   (ido-vertical-mode 1)
   ;; C-n,C-pで次へ補完候補の切り替えを行えるようにする
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  (set-variable 'ido-vertical-define-keys 'C-n-and-C-p-only)
   ;; find-file-at-pointを効くようにする
   (setq ido-use-filename-at-point 'guess)
   ;; ido候補ウィンドウの最大ウィンドウサイズ
@@ -705,8 +705,30 @@
   (setq org-default-notes-file (concat-path org-directory "notes.org"))
   ;; 見出しの余分な*を消す
   (setq org-hide-leading-stars t)
-  (define-key global-map "\C-cc" 'org-capture)
-  (define-key global-map "\C-ca" 'org-agenda)
+  (setq org-cycle-separator-lines 0)
+  ;; アジェンダとなるディレクトリを指定
+  (setq org-agenda-files (list org-directory))
+
+  ;; キャプチャの設定
+  (set-variable 'org-capture-templates
+        `(("t" "Todo" entry (file+headline ,(concat-path org-directory "todo.org") "Tasks")
+           "* TODO %?\n  %i\n  %a")
+          ("n" "作業ノート" entry (file+headline ,(concat-path org-directory "note.org"), "Note")
+           "* %? %T\n"
+           :unnarrowed t
+           )))
+
+  ;; org-mode時のキーバインド設定
+  (evil-make-overriding-map org-mode-map 'motion)
+  (evil-define-key 'motion org-mode-map
+    (kbd "C-i") 'org-cycle
+    )
+  (evil-make-overriding-map org-mode-map 'insert)
+  (evil-define-key 'insert org-mode-map
+    (kbd "C-c .") nil
+    (kbd "C-t") 'org-metaright
+    (kbd "C-d") 'org-metaleft
+    )
   )
 
 (use-package info
@@ -914,7 +936,7 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
             ;; インデント幅
-            (setq c-basic-offset 4)
+            (set-variable 'c-basic-offset 4)
             ;; スペースでインデントする
             (setq indent-tabs-mode nil)
                (c-toggle-auto-hungry-state 1)
@@ -1010,7 +1032,7 @@
   :mode
   (("\\.scm\\'" . scheme-mode))
   :config
-  (setq scheme-program-name "/usr/local/bin/gosh -i")
+  (set-variable 'scheme-program-name "/usr/local/bin/gosh -i")
   (add-hook 'scheme-mode-hook
             (lambda ()
               (evil-leader/set-key-for-mode 'scheme-mode "e" 'scheme-send-definition)
@@ -1018,5 +1040,6 @@
   )
 
 
-;; * 起動画面
-(cd (expand-file-name "~"))
+
+(provide 'init)
+;;; init.el ends here
