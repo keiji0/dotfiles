@@ -314,11 +314,10 @@
   ;; グローバルモード
   (progn
     (global-set-key (kbd "M-x") 'smex)
-    (global-set-key (kbd "M-n") 'evil-complete-next)
-    (global-set-key (kbd "M-p") 'evil-complete-previous)
     (global-set-key (kbd "C-x C-f") 'ido-find-file)
     ;; Leader
     (progn
+      (evil-leader/set-key "d" (lambda () (interactive) (find-file "."))))
       (evil-leader/set-key "f" 'ido-find-file)
       (evil-leader/set-key "g" 'ido-mini)
       (evil-leader/set-key "b" 'bs-show)
@@ -372,6 +371,8 @@
     (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
     (define-key evil-insert-state-map (kbd "C-'") 'yas-insert-snippet)
     (define-key evil-insert-state-map (kbd "C-w") 'delete-backward-word)
+    (define-key evil-insert-state-map (kbd "M-n") 'evil-complete-next)
+    (define-key evil-insert-state-map (kbd "M-p") 'evil-complete-previous)
     )
 
   ;; ミニバッファモード
@@ -488,9 +489,25 @@
   ;; ido候補ウィンドウの最大ウィンドウサイズ
   (setq ido-max-window-height 0.5)
   (setq ido-save-directory-list-file (emacs-var-dir "ido.last"))
+
+  (defun my-ido-delete-backward-updir (count)
+    "プロンプト先頭での単語削除の場合、上位ディレクトリへ移動するコマンド"
+    (interactive "P")
+    (cond
+     ((= (minibuffer-prompt-end) (point))
+      (if (not count)
+          (ido-up-directory t)))
+     (t
+      (call-interactively 'ido-delete-backward-word-updir))))
+
   ;; キーバインドの設定
-  (define-key ido-common-completion-map (kbd "C-w") 'ido-delete-backward-updir)
-  (define-key ido-file-completion-map (kbd "C-w") 'delete-backward-word)
+  (add-hook 'ido-setup-hook
+            (lambda ()
+              ;; smexとかで上書きされるため明示的に指定しておく
+              (define-key ido-completion-map (kbd "C-h") 'delete-backward-char)
+              (define-key ido-common-completion-map (kbd "C-w") 'delete-backward-updir)
+              (define-key ido-file-completion-map (kbd "C-w") 'my-ido-delete-backward-updir)
+              ))
   )
 
 (use-package helm
@@ -580,7 +597,6 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "C-w") 'delete-backward-word)
   (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-
   (define-key company-active-map (kbd "C-h") nil)
   (define-key company-active-map (kbd "M-n") nil)
   (define-key company-active-map (kbd "M-p") nil)
