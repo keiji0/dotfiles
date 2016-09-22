@@ -8,8 +8,7 @@ cd $(dirname $0)
 # プラットフォームごとの設定
 case $(uname) in
 	Darwin)
-        brew install --with-cocoa --srgb emacs
-        brew linkapps emacs
+        sudo port install emacs-app
         ;;
     *)
         error 'サポートしていないプラットフォームです'

@@ -52,21 +52,32 @@ if [ -d "$DOTDIR" ]; then
     _add_to_path "$DOTDIR/bin"
 fi
 
+# プラットフォームごとの設定
+case $(uname) in
+	# MacOS固有の設定
+	Darwin)
+        # local/binにパスを通す
+        _add_to_path "/usr/local/bin"
+        # macportsの設定
+        if [ -d "/opt/local/bin" ]; then
+            export MACPORTS_ROOT="/opt/local"
+            _add_to_path "$MACPORTS_ROOT/bin"
+            export MANPATH=$(_add_to_list "$MACPORTS_ROOT/share/man" "$MANPATH" :)
+        fi
+        # vmwareの設定
+        export VMWARE_ROOT=/Applications/VMware\ Fusion.app
+        if [ -d "$VMWARE_ROOT" ]; then
+            _add_to_path "$VMWARE_ROOT/Contents/Library"
+        fi
+        ;;
+esac
+
 # goの設定
 export GOPATH="$HOME/go"
 export GOROOT="$MY_LOCAL/go"
 if [ -d "$GOPATH" ]; then
     _add_to_path "$GOROOT/bin"
     _add_to_path "$GOPATH/bin"
-fi
-
-# rubyの設定
-export RBENV_ROOT=$HOME/local/rbenv
-if [ -d "$RBENV_ROOT" ]; then
-    _add_to_path "$RBENV_ROOT/bin"
-    if _exits_command rbenv; then
-        eval "$(rbenv init -)"
-    fi
 fi
 
 # Android SDKの設定
@@ -82,22 +93,11 @@ if [ -d "$ANDROID_HOME/android-ndk" ]; then
     _add_to_path "$ANDROID_HOME/android-ndk"
 fi
 
-# プラットフォームごとの設定
-case $(uname) in
-	# MacOS固有の設定
-	Darwin)
-        # local/binにパスを通す
-        _add_to_path "/usr/local/bin"
-        # homebrewの設定
-        if _exits_command brew; then
-            export HOMEBREW_ROOT="$(brew --repo)"
-            # LLVM関連のパスを通す
-            _add_to_path $HOMEBREW_ROOT/opt/llvm/bin
-        fi
-        # vmwareの設定
-        export VMWARE_ROOT=/Applications/VMware\ Fusion.app
-        if [ -d "$VMWARE_ROOT" ]; then
-            _add_to_path "$VMWARE_ROOT/Contents/Library"
-        fi
-        ;;
-esac
+# rubyの設定
+export RBENV_ROOT=$HOME/local/rbenv
+if [ -d "$RBENV_ROOT" ]; then
+    _add_to_path "$RBENV_ROOT/bin"
+    if _exits_command rbenv; then
+        eval "$(rbenv init -)"
+    fi
+fi

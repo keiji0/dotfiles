@@ -13,7 +13,7 @@ cd $(dirname $0)
 # プラットフォームごとのrbenvのインストール
 case $(uname) in
 	Darwin)
-        brew install rbenv
+        sudo port install rbenv
         ;;
     *)
         abort 'サポートしていないプラットフォームです'
