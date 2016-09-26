@@ -72,7 +72,7 @@ case $(uname) in
         ;;
 esac
 
-# goの設定
+# golangの設定
 export GOPATH="$HOME/go"
 export GOROOT="$MY_LOCAL/go"
 if [ -d "$GOPATH" ]; then

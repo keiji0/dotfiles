@@ -46,8 +46,8 @@
 
 ;; 環境変数のロード
 (when (require 'exec-path-from-shell)
-  (set-variable 'exec-path-from-shell-variables '("PATH" "MANPATH"))
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-copy-env "PATH")
+  (exec-path-from-shell-copy-env "MANPATH"))
 
 
 ;; * デフォルトEmacsの設定
@@ -158,7 +158,8 @@
   (package-install 'powerline)
   (package-install 'session)
   (package-install 'go-mode)
-  (package-install 'go-autocomplete)
+  (package-install 'company-go)
+  (package-install 'go-eldoc)
   (package-install 'undo-tree)
   (package-install 'multi-term)
   (package-install 'neotree)
@@ -315,9 +316,11 @@
   (progn
     (global-set-key (kbd "M-x") 'smex)
     (global-set-key (kbd "C-x C-f") 'ido-find-file)
+    (global-set-key [C-tab] 'persp-next)
+    (global-set-key [C-S-tab] 'persp-prev)
     ;; Leader
     (progn
-      (evil-leader/set-key "d" (lambda () (interactive) (find-file "."))))
+      (evil-leader/set-key "d" (lambda () (interactive) (find-file ".")))
       (evil-leader/set-key "f" 'ido-find-file)
       (evil-leader/set-key "g" 'ido-mini)
       (evil-leader/set-key "b" 'bs-show)
@@ -1001,12 +1004,44 @@
 ;; * Golang
 
 (use-package go-mode
+  ;; Golangのメジャーモード
   ;; https://github.com/dominikh/go-mode.el
+  ;; タグジャンプするには以下のコマンドをインストールしておく
+  ;; $ go get code.google.com/p/rog-go/exp/cmd/godef
   :defer t
+  :init
+  ;; 環境変数を読み込んでおく
+  (exec-path-from-shell-copy-env "GOPATH")
   :config
+  ;; 保存時にコード整形
   (add-hook 'before-save-hook 'gofmt-before-save)
-  ;; goの補完処理を読み込む
-  (use-package go-autocomplete)
+  ;; goのeldoc
+  (use-package go-eldoc
+    :config
+    (add-hook 'go-mode-hook 'go-eldoc-setup))
+  ;; 補完処理
+  (use-package company-go
+    ;; gocodeをインストールしておく
+    ;; $ go get -u github.com/nsf/gocode
+    :config
+    (add-hook 'go-mode-hook (lambda ()
+                              (set (make-local-variable 'company-backends) '(company-go))
+                              (company-mode))))
+  (defun my-go-import-add (arg import)
+    "idoで補完するgo-import-add"
+    (interactive
+     (list
+      current-prefix-arg
+      (replace-regexp-in-string "^[\"']\\|[\"']$" ""
+                                (ido-completing-read "Package: "
+                                                     (go--old-completion-list-style (go-packages))))))
+    (go-import-add arg import))
+
+  ;; キーバインドの設定
+  (evil-make-overriding-map go-mode-map 'motion)
+  (evil-define-key 'motion go-mode-map
+    (kbd "C-]") 'godef-jump
+    )
   )
 
 
