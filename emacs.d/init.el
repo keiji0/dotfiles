@@ -315,13 +315,12 @@
   ;; グローバルモード
   (progn
     (global-set-key (kbd "M-x") 'smex)
-    (global-set-key (kbd "C-x C-f") 'ido-find-file)
     (global-set-key [C-tab] 'persp-next)
     (global-set-key [C-S-tab] 'persp-prev)
     ;; Leader
     (progn
       (evil-leader/set-key "d" (lambda () (interactive) (find-file ".")))
-      (evil-leader/set-key "f" 'ido-find-file)
+      (evil-leader/set-key "f" 'find-file)
       (evil-leader/set-key "g" 'ido-mini)
       (evil-leader/set-key "b" 'bs-show)
       (evil-leader/set-key "p" 'projectile-find-file)
@@ -482,7 +481,6 @@
     (ido-mini))
 
   :config
-  (ido-mode t)
   ;; idoを縦表示にする
   (ido-vertical-mode 1)
   ;; C-n,C-pで次へ補完候補の切り替えを行えるようにする
