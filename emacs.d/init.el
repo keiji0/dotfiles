@@ -186,10 +186,15 @@
   (package-install 'migemo)
   )
 
-;; 必須ライブラリ
-(use-package sdb
-  :init
-  (defvar sdb-directory (emacs-var-dir "sdb"))
+;; 独自ライブラリ
+(progn
+  ;; S式を永続保存するパッケージ
+  (use-package sdb
+    :init
+    (defvar sdb-directory (emacs-var-dir "sdb")))
+
+  ;; エディタ用のコマンド集
+  (use-package edit-command)
   )
 
 
@@ -304,6 +309,7 @@
 
   :config
   ;; 常にevilモードを有効
+
   (evil-mode 1)
   ;; *や#で単語単位ではなくシンボル単位で検索する
   (setq-default evil-symbol-word-search t)
@@ -315,12 +321,14 @@
   ;; グローバルモード
   (progn
     (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "M-u") 'upcase-sexp)
+    (global-set-key (kbd "M-l") 'downcase-sexp)
     (global-set-key [C-tab] 'persp-next)
     (global-set-key [C-S-tab] 'persp-prev)
     ;; Leader
     (progn
       (evil-leader/set-key "d" (lambda () (interactive) (find-file ".")))
-      (evil-leader/set-key "f" 'find-file)
+      (evil-leader/set-key "f" 'find-file-at-point)
       (evil-leader/set-key "g" 'ido-mini)
       (evil-leader/set-key "b" 'bs-show)
       (evil-leader/set-key "p" 'projectile-find-file)
