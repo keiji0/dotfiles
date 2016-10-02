@@ -1013,11 +1013,13 @@
   ;; Golangのメジャーモード
   ;; https://github.com/dominikh/go-mode.el
   ;; タグジャンプするには以下のコマンドをインストールしておく
-  ;; $ go get code.google.com/p/rog-go/exp/cmd/godef
+  ;; $ go get -u github.com/rogpeppe/godef
+  ;; $ go get -u github.com/nsf/gocode
   :defer t
   :init
   ;; 環境変数を読み込んでおく
   (exec-path-from-shell-copy-env "GOPATH")
+  (exec-path-from-shell-copy-env "GOROOT")
   :config
   ;; 保存時にコード整形
   (add-hook 'before-save-hook 'gofmt-before-save)

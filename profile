@@ -74,10 +74,10 @@ esac
 
 # golangの設定
 export GOPATH="$HOME/go"
-export GOROOT="$MY_LOCAL/go"
+export GOROOT="$GOPATH/core/go"
 if [ -d "$GOPATH" ]; then
-    _add_to_path "$GOROOT/bin"
     _add_to_path "$GOPATH/bin"
+    _add_to_path "$GOROOT/bin"
 fi
 
 # Android SDKの設定
