@@ -157,7 +157,7 @@
   (package-install 'powerline)
   (package-install 'session)
   (package-install 'go-mode)
-  (package-install 'company-go)
+  (package-install 'go-autocomplete)
   (package-install 'go-eldoc)
   (package-install 'undo-tree)
   (package-install 'multi-term)
@@ -571,7 +571,6 @@
 (use-package auto-complete-config
   ;; コード補完支援
   ;; https://github.com/auto-complete/auto-complete
-  :disabled t
   :config
   (ac-config-default)
   ;; 補完開始キーの設定
@@ -588,6 +587,7 @@
   ;; 補完機能支援パッケージ、auto-completeと同等の機能を持つが
   ;; 言語支援系の補完パッケージが多いためこちらを利用することにする。
   ;; http://company-mode.github.io/
+  :disabled t
   :init
   (global-set-key (kbd "TAB") 'tab-indent-or-complete)
 
@@ -725,6 +725,8 @@
           ("n" "作業ノート" entry (file+headline ,(concat-path org-directory "note.org"), "Note")
            "* %? %T\n"
            :unnarrowed t
+           :empty-lines 1 ; 1行空ける
+           :prepend t     ; 先頭に追加する
            )))
 
   ;; org-mode時のキーバインド設定
@@ -1009,13 +1011,8 @@
     :config
     (add-hook 'go-mode-hook 'go-eldoc-setup))
   ;; 補完処理
-  (use-package company-go
-    ;; gocodeをインストールしておく
-    ;; $ go get -u github.com/nsf/gocode
-    :config
-    (add-hook 'go-mode-hook (lambda ()
-                              (set (make-local-variable 'company-backends) '(company-go))
-                              (company-mode))))
+  (use-package go-autocomplete)
+
   (defun my-go-import-add (arg import)
     "idoで補完するgo-import-add"
     (interactive
