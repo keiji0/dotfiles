@@ -125,9 +125,8 @@
   (global-hl-line-mode)
   (setq-default global-hl-line-mode t)
   ;; 対応するカッコをハイライトする
-  ;; smartparensにまかせる
-  ;; (show-paren-mode t)
-  ;; (setq show-paren-style 'parenthesis)
+  (show-paren-mode t)
+  (setq show-paren-style 'parenthesis)
   ;; ファイル保存時に最終行に改行を入れる
   (setq require-final-newline t)
 
@@ -166,7 +165,6 @@
   (package-install 'spacemacs-theme)
   (package-install 'spaceline)
   (package-install 'page-break-lines)
-  (package-install 'smartparens)
   (package-install 'company)
   (package-install 'auto-complete)
   (package-install 'irony)
@@ -662,20 +660,6 @@
   (global-flycheck-mode)
   )
 
-(use-package smartparens
-  ;; 様々な括弧を移動したり自動入力機能を提供
-  ;; https://github.com/Fuco1/smartparens
-  :config
-  (smartparens-global-mode t)
-  ;; 括弧を強調する
-  (show-smartparens-global-mode t)
-  ;; smartparensのキーバインドを使う
-  ;; (sp-use-smartparens-bindings)
-  ;; 括弧のバランスが崩れないようにする
-  ;; 習得には時間がかかりそうなのでやめておく
-  ;; (smartparens-strict-mode)
-  )
-
 
 ;; * Compilation mode
 
@@ -949,9 +933,6 @@
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   ;; キーバインドの設定
   (evil-leader/set-key-for-mode 'emacs-lisp-mode "e" 'eval-last-sexp)
-  ;; 不要な括弧の自動補完を無効にする
-  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-  (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
   )
 
 
