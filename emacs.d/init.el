@@ -1023,11 +1023,17 @@
                                                      (go--old-completion-list-style (go-packages))))))
     (go-import-add arg import))
 
+  (defun my-go-run ()
+    (interactive)
+    (let ((cmd (format "go run %S" (buffer-file-name))))
+      (message (shell-command-to-string cmd))))
+
   ;; キーバインドの設定
   (evil-make-overriding-map go-mode-map 'motion)
   (evil-define-key 'motion go-mode-map
     (kbd "C-]") 'godef-jump
     )
+  (evil-leader/set-key-for-mode 'go-mode "r" 'my-go-run)
   )
 
 
