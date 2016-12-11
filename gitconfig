@@ -16,3 +16,5 @@
 	graph = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [core]
 	editor = $EDITOR
+[log]
+    date = iso
