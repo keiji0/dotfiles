@@ -512,7 +512,7 @@
             (lambda ()
               ;; smexとかで上書きされるため明示的に指定しておく
               (define-key ido-completion-map (kbd "C-h") 'delete-backward-char)
-              (define-key ido-common-completion-map (kbd "C-w") 'delete-backward-updir)
+              (define-key ido-common-completion-map (kbd "C-w") 'my-ido-delete-backward-updir)
               (define-key ido-file-completion-map (kbd "C-w") 'my-ido-delete-backward-updir)
               ))
   )
@@ -571,6 +571,7 @@
 (use-package auto-complete-config
   ;; コード補完支援
   ;; https://github.com/auto-complete/auto-complete
+  :disabled t
   :config
   (ac-config-default)
   ;; 補完開始キーの設定
@@ -587,7 +588,7 @@
   ;; 補完機能支援パッケージ、auto-completeと同等の機能を持つが
   ;; 言語支援系の補完パッケージが多いためこちらを利用することにする。
   ;; http://company-mode.github.io/
-  :disabled t
+  ;; :disabled nil
   :init
   (global-set-key (kbd "TAB") 'tab-indent-or-complete)
 
@@ -945,10 +946,13 @@
           (lambda ()
             ;; インデント幅
             (set-variable 'c-basic-offset 4)
+            ;; インデントスタイル
+            (c-set-style "stroustrup")
+            ;; ;や{で自動インデント
+            (set-variable 'c-auto-newline t)
+            (c-toggle-auto-hungry-state 1)
             ;; スペースでインデントする
             (setq indent-tabs-mode nil)
-               (c-toggle-auto-hungry-state 1)
-
             ))
 
 ;; c++固有の設定
