@@ -30,7 +30,7 @@
                                     (let ((bk (bookmark-get-bookmark x)))
                                       (cons (expand-file-name (bookmark-get-filename bk))
                                             (propertize (format "%s [bookmark]" x)
-                                                        :value x
+                                                        :value (expand-file-name (bookmark-get-filename bk))
                                                         :type 'bookmark))))
                                   (bookmark-all-names))
                         ;; 最近開いたファイル
@@ -54,8 +54,7 @@
           ((buffer)
            (set-window-buffer (selected-window) value))
           ((bookmark)
-           (bookmark-jump
-            (bookmark-get-bookmark value)))
+           (find-file value))
           ((bookmark-command)
            (call-interactively 'bookmark-bmenu-list))
           ((recentf)
