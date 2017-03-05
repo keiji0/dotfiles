@@ -39,7 +39,12 @@
                                           (propertize x
                                                       :value x
                                                       :type 'recentf)))
-                                  recentf-list))
+                                  recentf-list)
+                        ;; 終了
+                        (propertize "---------------------[END]---------------------"
+                                    :value nil
+                                    :type terminate)
+                        )
                       :test (lambda (b a) (string-equal (car a) (car b)))
                       :from-end t)))))
 
