@@ -367,7 +367,7 @@
   (progn
     (define-key evil-motion-state-map (kbd ";") 'evil-ex)
     (define-key evil-motion-state-map (kbd "RET") nil)
-    (define-key evil-motion-state-map (kbd "go") 'helm-occur)
+    (define-key evil-motion-state-map (kbd "go") 'ido-occur)
     (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
     (define-key evil-motion-state-map (kbd "C-c t") 'google-translate-enja-or-jaen)
     )
