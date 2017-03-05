@@ -434,6 +434,7 @@
   ;; https://www.emacswiki.org/emacs/RecentFiles
   :config
   (setq recentf-save-file (emacs-var-dir "recentf.el"))
+  (setq recentf-max-saved-items 100)
   (recentf-mode 1)
   )
 
