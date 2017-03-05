@@ -716,6 +716,7 @@
   (setq org-default-notes-file (concat-path org-directory "notes.org"))
   ;; 見出しの余分な*を消す
   (setq org-hide-leading-stars t)
+  ;; サブツリーを折りたたんだあと空白が表示されないようにする
   (setq org-cycle-separator-lines 0)
   ;; アジェンダとなるディレクトリを指定
   (setq org-agenda-files (list org-directory))
@@ -724,7 +725,7 @@
   (set-variable 'org-capture-templates
         `(("t" "Todo" entry (file+headline ,(concat-path org-directory "todo.org") "Tasks")
            "* TODO %?\n  %i\n  %a")
-          ("n" "作業ノート" entry (file+headline ,(concat-path org-directory "note.org"), "Note")
+          ("n" "ノート" entry (file+headline ,(concat-path org-directory "note.org") "テンポラリ")
            "* %? %T\n"
            :unnarrowed t
            :empty-lines 1 ; 1行空ける
