@@ -330,86 +330,6 @@
   (modify-syntax-entry ?_ "w" (standard-syntax-table))
   ;; evil-delete-backward-wordはよく使うのであまりevilを外で意識させないためにエイリアスを作る
   (defalias 'delete-backward-word 'evil-delete-backward-word)
-
-  ;; グローバルモード
-  (progn
-    (global-set-key (kbd "M-x") 'smex)
-    (global-set-key (kbd "M-u") 'upcase-sexp)
-    (global-set-key (kbd "M-l") 'downcase-sexp)
-    (global-set-key [C-tab] 'persp-next)
-    (global-set-key [C-S-tab] 'persp-prev)
-    ;; Leader
-    (progn
-      (evil-leader/set-key "d" (lambda () (interactive) (find-file ".")))
-      (evil-leader/set-key "f" 'find-file-at-point)
-      (evil-leader/set-key "g" 'ido-mini)
-      (evil-leader/set-key "b" 'bs-show)
-      (evil-leader/set-key "p" 'projectile-find-file)
-      (evil-leader/set-key "x" 'kill-buffer)
-      (evil-leader/set-key "s" 'multi-term)
-      (evil-leader/set-key "v" 'magit-status)
-      (evil-leader/set-key "m" 'bookmark-set)
-      (evil-leader/set-key "t" 'org-capture)
-      (evil-leader/set-key "a" 'org-agenda)
-      )
-    ;; リスト移動
-    (global-set-key (kbd "M-C-j") 'sp-down-sexp)
-    (global-set-key (kbd "M-C-k") 'sp-backward-up-sexp)
-    (global-set-key (kbd "M-C-h") 'sp-backward-sexp)
-    (global-set-key (kbd "M-C-l") 'sp-forward-sexp)
-    ;; macOS
-    (when (eq system-type 'darwin)
-      (global-set-key (kbd "M-w") 'kill-buffer)
-      (global-set-key (kbd "M-v") 'yank))
-    )
-
-  ;; モーションモード
-  (progn
-    (define-key evil-motion-state-map (kbd ";") 'evil-ex)
-    (define-key evil-motion-state-map (kbd "RET") nil)
-    (define-key evil-motion-state-map (kbd "go") 'ido-occur)
-    (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
-    (define-key evil-motion-state-map (kbd "C-c t") 'google-translate-enja-or-jaen)
-    )
-
-  ;; ノーマルモード
-  (progn
-    ;; perspective
-    (define-key evil-normal-state-map (kbd "C-t") nil)
-    (define-key evil-normal-state-map (kbd "C-t n") 'persp-next)
-    (define-key evil-normal-state-map (kbd "C-t p") 'persp-prev)
-    (define-key evil-normal-state-map (kbd "C-t s") 'persp-switch)
-    (define-key evil-normal-state-map (kbd "C-t c") 'persp-switch)
-    (define-key evil-normal-state-map (kbd "C-t r") 'persp-rename)
-    (define-key evil-normal-state-map (kbd "C-t k") 'persp-kill)
-    )
-
-  ;; インサートモード
-  (progn
-    ;; インサートモードはemacs互換
-    (setq evil-insert-state-map (make-sparse-keymap))
-    (define-key evil-insert-state-map (kbd "<escape>") 'evil-normal-state)
-    (define-key evil-insert-state-map (kbd "C-d") 'evil-shift-left-line)
-    (define-key evil-insert-state-map (kbd "C-t") 'evil-shift-right-line)
-    (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
-    (define-key evil-insert-state-map (kbd "C-'") 'yas-insert-snippet)
-    (define-key evil-insert-state-map (kbd "C-w") 'delete-backward-word)
-    (define-key evil-insert-state-map (kbd "M-n") 'evil-complete-next)
-    (define-key evil-insert-state-map (kbd "M-p") 'evil-complete-previous)
-    )
-
-  ;; ミニバッファモード
-  (define-key minibuffer-local-map (kbd "C-w") 'delete-backward-word)
-
-  ;; ウィンドウ関連
-  (progn
-    (define-key evil-window-map "-" 'evil-window-split)
-    (define-key evil-window-map "|" 'evil-window-vsplit)
-    (define-key evil-window-map "0" 'delete-window)
-    (define-key evil-window-map "1" 'delete-other-windows)
-    (define-key evil-window-map "2" 'split-window-below)
-    (define-key evil-window-map "3" 'split-window-right)
-    )
   )
 
 
@@ -1101,6 +1021,94 @@
             (lambda ()
               (evil-leader/set-key-for-mode 'scheme-mode "e" 'scheme-send-definition)
               ))
+  )
+
+
+;; * Keybind
+
+(progn
+  ;; グローバルモード
+  (progn
+    (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "M-u") 'upcase-sexp)
+    (global-set-key (kbd "M-l") 'downcase-sexp)
+    (global-set-key [C-tab] 'persp-next)
+    (global-set-key [C-S-tab] 'persp-prev)
+
+    ;; Leader
+    (evil-leader/set-key "d" (lambda () (interactive) (find-file ".")))
+    (evil-leader/set-key "f" 'find-file-at-point)
+    (evil-leader/set-key "g" 'ido-mini)
+    (evil-leader/set-key "b" 'bs-show)
+    (evil-leader/set-key "p" 'projectile-find-file)
+    (evil-leader/set-key "x" 'kill-buffer)
+    (evil-leader/set-key "s" 'multi-term)
+    (evil-leader/set-key "v" 'magit-status)
+    (evil-leader/set-key "m" 'bookmark-set)
+    (evil-leader/set-key "t" 'org-capture)
+    (evil-leader/set-key "a" 'org-agenda)
+
+    ;; リスト移動
+    (global-set-key (kbd "M-C-j") 'sp-down-sexp)
+    (global-set-key (kbd "M-C-k") 'sp-backward-up-sexp)
+    (global-set-key (kbd "M-C-h") 'sp-backward-sexp)
+    (global-set-key (kbd "M-C-l") 'sp-forward-sexp)
+
+    ;; macOS
+    (when (eq system-type 'darwin)
+      (global-set-key (kbd "M-w") 'kill-buffer)
+      (global-set-key (kbd "M-v") 'yank))
+    )
+
+  ;; モーションモード
+  (progn
+    (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+    (define-key evil-motion-state-map (kbd "RET") nil)
+    (define-key evil-motion-state-map (kbd "go") 'ido-occur)
+    (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-item)
+    (define-key evil-motion-state-map (kbd "C-c t") 'google-translate-enja-or-jaen)
+    )
+
+  ;; ノーマルモード
+  (progn
+    ;; perspective
+    (define-key evil-normal-state-map (kbd "C-t") nil)
+    (define-key evil-normal-state-map (kbd "C-t n") 'persp-next)
+    (define-key evil-normal-state-map (kbd "C-t p") 'persp-prev)
+    (define-key evil-normal-state-map (kbd "C-t s") 'persp-switch)
+    (define-key evil-normal-state-map (kbd "C-t c") 'persp-switch)
+    (define-key evil-normal-state-map (kbd "C-t r") 'persp-rename)
+    (define-key evil-normal-state-map (kbd "C-t k") 'persp-kill)
+    )
+
+  ;; インサートモード
+  (progn
+    ;; インサートモードはemacs互換
+    (setq evil-insert-state-map (make-sparse-keymap))
+    (define-key evil-insert-state-map (kbd "<escape>") 'evil-normal-state)
+    (define-key evil-insert-state-map (kbd "C-d") 'evil-shift-left-line)
+    (define-key evil-insert-state-map (kbd "C-t") 'evil-shift-right-line)
+    (define-key evil-insert-state-map (kbd "C-j") 'newline-and-indent)
+    (define-key evil-insert-state-map (kbd "C-'") 'yas-insert-snippet)
+    (define-key evil-insert-state-map (kbd "C-w") 'delete-backward-word)
+    (define-key evil-insert-state-map (kbd "M-n") 'evil-complete-next)
+    (define-key evil-insert-state-map (kbd "M-p") 'evil-complete-previous)
+    )
+
+  ;; ミニバッファモード
+  (progn
+    (define-key minibuffer-local-map (kbd "C-w") 'delete-backward-word)
+    )
+
+  ;; ウィンドウ関連
+  (progn
+    (define-key evil-window-map "-" 'evil-window-split)
+    (define-key evil-window-map "|" 'evil-window-vsplit)
+    (define-key evil-window-map "0" 'delete-window)
+    (define-key evil-window-map "1" 'delete-other-windows)
+    (define-key evil-window-map "2" 'split-window-below)
+    (define-key evil-window-map "3" 'split-window-right)
+    )
   )
 
 
