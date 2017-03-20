@@ -322,7 +322,6 @@
 
   :config
   ;; 常にevilモードを有効
-
   (evil-mode 1)
   ;; *や#で単語単位ではなくシンボル単位で検索する
   (setq-default evil-symbol-word-search t)
@@ -594,7 +593,10 @@
   ;; シンタックスチェック
   ;; http://www.flycheck.org/en/latest/
   :config
+  ;; 全てのモードでチェックを有効にする
   (global-flycheck-mode)
+  ;; チェックが走るタイミング、あまり細かく走ると邪魔くさいのでセーブした時のみ
+  (setq flycheck-check-syntax-automatically '(save))
   )
 
 
@@ -878,24 +880,46 @@
 
 ;; * c/c++ mode
 
-;; c/c++共通の設定
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            ;; インデント幅
-            (set-variable 'c-basic-offset 4)
-            ;; インデントスタイル
-            (c-set-style "stroustrup")
-            ;; ;や{で自動インデント
-            (set-variable 'c-auto-newline t)
-            (c-toggle-auto-hungry-state 1)
-            ;; スペースでインデントする
-            (setq indent-tabs-mode nil)
-            ))
+(use-package cc-mode
+  :defer t
+  :config
 
-;; c++固有の設定
-(add-hook 'c++-mode-hook
-          (lambda ()
-            ))
+  ;; c/c++共通の設定
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              ;; インデント幅
+              (set-variable 'c-basic-offset 4)
+              ;; インデントスタイル
+              (c-set-style "stroustrup")
+              ;; ;や{で自動インデント
+              (set-variable 'c-auto-newline nil)
+              (c-toggle-electric-state t)
+              ;; スペースでインデントする
+              (setq indent-tabs-mode nil)
+              ))
+
+  ;; c++固有の設定
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (flycheck-select-checker 'c/c++-clang)
+              (setq flycheck-gcc-language-standard "c++11")
+              (setq flycheck-clang-language-standard "c++11")
+              ))
+
+  ;; キーバインド
+  ;; (evil-make-overriding-map c-mode-base-map 'normal)
+  ;; (evil-define-key 'normal c-mode-base-map
+  ;;   "\C-]" 'rtags-find-symbol-at-point
+  ;;   )
+  )
+
+(use-package rtags
+  ;; c++専用のctags
+  :defer t
+  :config
+  ;; c/c++ファイル訪問時にrtagsのデーモンを起動させる
+  (add-hook 'c-mode-common-hook 'rtags-start-process-unless-running)
+  )
 
 (use-package irony
   ;; コード補完支援ツール、elispとclangライブラリを使ったサーバーで構成されている。
@@ -928,6 +952,12 @@
       'irony-completion-at-point-async))
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  )
+
+(use-package cmake-mode
+  :defer t
+  :mode "CMakeLists.txt|.cmake"
+  :config
   )
 
 
