@@ -90,8 +90,8 @@
   (set-variable 'default-tab-width 4)
   ;; タブをスペースで扱う
   (setq-default indent-tabs-mode nil)
-  ;; 自動インデント
-  (electric-indent-mode)
+  ;; 自動インデントをoffにする
+  (electric-indent-mode -1)
   ;; カーソル付近のファイルパスを開く
   (ffap-bindings)
   ;; 行末の無駄な空白を保存時に削除
