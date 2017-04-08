@@ -1,0 +1,11 @@
+#!/bin/sh
+# マックインストール時の設定
+
+set -e
+cd $(dirname $0)
+. ./util.sh
+
+# キーボードのリピート間隔の設定
+defaults write -g KeyRepeat -int 2
+# キーボードのリピート開始時間の設定
+defaults write -g InitialKeyRepeat -int 11
