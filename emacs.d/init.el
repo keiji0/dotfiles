@@ -896,6 +896,8 @@
               (c-toggle-electric-state t)
               ;; スペースでインデントする
               (setq indent-tabs-mode nil)
+              ;; 単語境界の設定
+              (modify-syntax-entry ?_ "w" (standard-syntax-table))
               ))
 
   ;; c++固有の設定
@@ -905,6 +907,9 @@
               (setq flycheck-gcc-language-standard "c++11")
               (setq flycheck-clang-language-standard "c++11")
               ))
+
+  ;; キーバインド
+  (define-key c-mode-base-map "\C-c\C-c" 'compile)
 
   ;; キーバインド
   ;; (evil-make-overriding-map c-mode-base-map 'normal)
