@@ -1,0 +1,17 @@
+// 既定の設定を上書きするには、このファイル内に設定を挿入します
+{
+    "workbench.iconTheme": "vs-minimal",
+    // ファイルとフォルダーを除外するための glob パターンを構成します。
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "*.o": true
+    },
+    // 行番号の表示を制御します。使用可能な値は、'on'、'off'、および 'relative' です。'relative' は現在のカーソル位置からの行数を示します。
+    "editor.lineNumbers": "off",
+    // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
+    "files.trimTrailingWhitespace": true
+}
