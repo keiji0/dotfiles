@@ -11,7 +11,39 @@
         "*.o": true
     },
     // 行番号の表示を制御します。使用可能な値は、'on'、'off'、および 'relative' です。'relative' は現在のカーソル位置からの行数を示します。
-    "editor.lineNumbers": "off",
+    "editor.lineNumbers": "on",
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+
+    // vimの設定
+    "vim.leader": "<space>",
+    // normalモードのバインディング
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": [";"],
+            "after": [":"]
+        },
+        // クイックオープン
+        {
+            "before": ["g", "o"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.quickOpen",
+                    "args": []
+                },
+            ]
+        },
+        // ターミナルを開く
+        {
+            "before": ["<leader>", "s"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.terminal.new",
+                    "args": []
+                },
+            ]
+        },
+    ],
 }
