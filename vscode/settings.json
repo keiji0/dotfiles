@@ -1,6 +1,8 @@
 // 既定の設定を上書きするには、このファイル内に設定を挿入します
 {
-    "workbench.iconTheme": "vs-minimal",
+    "workbench.iconTheme": "vs-seti",
+    // [開いているエディター] ウィンドウに表示されているエディターの数。0 に設定するとウィンドウが非表示になります。
+    "explorer.openEditors.visible": 0,
     // ファイルとフォルダーを除外するための glob パターンを構成します。
     "files.exclude": {
         "**/.git": true,
@@ -8,42 +10,71 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "*.o": true
+        "**/*.o": true,
+        "**/*.a": true
     },
     // 行番号の表示を制御します。使用可能な値は、'on'、'off'、および 'relative' です。'relative' は現在のカーソル位置からの行数を示します。
-    "editor.lineNumbers": "on",
+    "editor.lineNumbers": "off",
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
     "files.trimTrailingWhitespace": true,
 
+  // プレフィックスが一致する場合にスニペットを挿入します。'quickSuggestions' が無効な場合に最適です。
+    "editor.tabCompletion": true,
+
     // vimの設定
     "vim.leader": "<space>",
+    // insertモードのバインディング
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["ctrl+i"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "editor.action.triggerSuggest",
+                    "args": []
+                }
+            ]
+        }
+    ],
     // normalモードのバインディング
     "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": ["<tab>"],
+            "after": ["%"]
+        },
         {
             "before": [";"],
             "after": [":"]
         },
-        // クイックオープン
+        {
+            "before": ["ctrl+]"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "editor.action.goToDeclaration",
+                    "args": []
+                }
+            ]
+        },
         {
             "before": ["g", "o"],
             "after": [],
             "commands": [
                 {
-                    "command": "workbench.action.quickOpen",
+                    "command": "workbench.action.gotoSymbol",
                     "args": []
-                },
+                }
             ]
-        },
-        // ターミナルを開く
-        {
-            "before": ["<leader>", "s"],
-            "after": [],
-            "commands": [
-                {
-                    "command": "workbench.action.terminal.new",
-                    "args": []
-                },
-            ]
-        },
+        }
     ],
+    "[cpp]": {
+        "editor.quickSuggestions": false
+    },
+    "[c]": {
+        "editor.quickSuggestions": false
+    },
+    "[markdown]": {
+        // markdownだと末尾の空白は意味があるので無効にしておく
+        "files.trimTrailingWhitespace": false
+    }
 }

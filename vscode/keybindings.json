@@ -1,3 +1,53 @@
 // 既定値を上書きするには、このファイル内にキー バインドを挿入します
+// 以下参考になる解説
+// http://webdesign.vdlz.xyz/Editor/VSCode/Doc/Customization/Doc010_KeyBindingsForVisualStudioCode.html
 [
+    {
+        // コマンド入力
+        // デフォルトcmd+pがどうしてもなれないのでemacs likeなコマンド入力にしておく
+        "key": "cmd+x",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        // qucikOpenのキャンセル処理, Escapeが遠いので指定しておく
+        "key": "ctrl+g",
+        "command": "workbench.action.closeQuickOpen",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+1",
+        "command": "workbench.action.openEditorAtIndex1"
+    },
+    {
+        "key": "cmd+2",
+        "command": "workbench.action.openEditorAtIndex2"
+    },
+    {
+        "key": "cmd+3",
+        "command": "workbench.action.openEditorAtIndex3"
+    },
+    {
+        "key": "cmd+4",
+        "command": "workbench.action.openEditorAtIndex4"
+    },
+    {
+        "key": "cmd+5",
+        "command": "workbench.action.openEditorAtIndex5"
+    },
+    {
+        "key": "cmd+6",
+        "command": "workbench.action.openEditorAtIndex6"
+    },
+    {
+        "key": "cmd+7",
+        "command": "workbench.action.openEditorAtIndex7"
+    },
+    {
+        "key": "cmd+8",
+        "command": "workbench.action.openEditorAtIndex8"
+    },
+    {
+        "key": "cmd+9",
+        "command": "workbench.action.openEditorAtIndex9"
+    }
 ]

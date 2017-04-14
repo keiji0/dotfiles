@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Dotfiles",
+		"rootPath": "$home/dot",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "Note",
+		"rootPath": "$home/gdrive/Archive/memo",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "bitcoin",
+		"rootPath": "$home/git/bitcoin",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "bcwallet_my",
+		"rootPath": "$home/git/bcwallet_my",
+		"paths": [],
+		"group": ""
+	}
+]
