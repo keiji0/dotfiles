@@ -18,7 +18,7 @@
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
     "files.trimTrailingWhitespace": true,
 
-  // プレフィックスが一致する場合にスニペットを挿入します。'quickSuggestions' が無効な場合に最適です。
+    // プレフィックスが一致する場合にスニペットを挿入します。'quickSuggestions' が無効な場合に最適です。
     "editor.tabCompletion": true,
 
     // vimの設定
@@ -40,7 +40,21 @@
     "vim.otherModesKeyBindingsNonRecursive": [
         {
             "before": ["<tab>"],
-            "after": ["%"]
+            "commands": [
+                {
+                    "command": "editor.action.jumpToBracket",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": ["ctrl+i"],
+            "commands": [
+                {
+                    "command": "editor.action.jumpToBracket",
+                    "args": []
+                }
+            ]
         },
         {
             "before": [";"],
@@ -48,7 +62,6 @@
         },
         {
             "before": ["ctrl+]"],
-            "after": [],
             "commands": [
                 {
                     "command": "editor.action.goToDeclaration",
@@ -58,7 +71,6 @@
         },
         {
             "before": ["g", "o"],
-            "after": [],
             "commands": [
                 {
                     "command": "workbench.action.gotoSymbol",
