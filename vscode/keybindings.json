@@ -13,6 +13,11 @@
         "key": "ctrl+g",
         "command": "workbench.action.closeQuickOpen",
         "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+r",
+        "command": "workbench.action.debug.start",
+        "when": "!inDebugMode"
     }
     // {
     //     "key": "cmd+1",
