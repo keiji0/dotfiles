@@ -79,14 +79,17 @@
             ]
         }
     ],
-    "[cpp]": {
-        "editor.quickSuggestions": false
-    },
-    "[c]": {
-        "editor.quickSuggestions": false
-    },
     "[markdown]": {
         // markdownだと末尾の空白は意味があるので無効にしておく
         "files.trimTrailingWhitespace": false
-    }
+    },
+    "go.formatOnSave": true,
+    // フォント サイズをピクセル単位で制御します。
+    "editor.fontSize": 12,
+    // 行の高さを制御します。fontSize に基づいて lineHeight を計算する場合には、0 を使用します。
+    "editor.lineHeight": 16,
+    // ミニマップを表示するかどうかを制御します
+    "editor.minimap.enabled": false,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "workbench.colorTheme": "Solarized Dark"
 }

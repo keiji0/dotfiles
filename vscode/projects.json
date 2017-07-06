@@ -6,12 +6,6 @@
 		"group": ""
 	},
 	{
-		"name": "Note",
-		"rootPath": "$home/gdrive/Archive/memo",
-		"paths": [],
-		"group": ""
-	},
-	{
 		"name": "bitcoin",
 		"rootPath": "$home/git/bitcoin",
 		"paths": [],
@@ -20,6 +14,12 @@
 	{
 		"name": "bcwallet_my",
 		"rootPath": "$home/git/bcwallet_my",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "go sandbox",
+		"rootPath": "$home/go/src/github.com/keiji0/sandbox",
 		"paths": [],
 		"group": ""
 	}
