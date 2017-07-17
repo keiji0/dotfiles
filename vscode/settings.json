@@ -17,10 +17,8 @@
     "editor.lineNumbers": "off",
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
     "files.trimTrailingWhitespace": true,
-
     // プレフィックスが一致する場合にスニペットを挿入します。'quickSuggestions' が無効な場合に最適です。
     "editor.tabCompletion": true,
-
     // vimの設定
     "vim.leader": "<space>",
     // insertモードのバインディング
@@ -90,6 +88,9 @@
     "editor.lineHeight": 16,
     // ミニマップを表示するかどうかを制御します
     "editor.minimap.enabled": false,
+    // 行に (カラー ブロックではなく) 実際の文字を表示します
+    "editor.minimap.renderCharacters": true,
     "vim.disableAnnoyingNeovimMessage": true,
-    "workbench.colorTheme": "Solarized Dark"
+    // カラーテーマ
+    "workbench.colorTheme": "Nord"
 }
