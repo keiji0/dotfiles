@@ -14,7 +14,7 @@
         "**/*.a": true
     },
     // 行番号の表示を制御します。使用可能な値は、'on'、'off'、および 'relative' です。'relative' は現在のカーソル位置からの行数を示します。
-    "editor.lineNumbers": "off",
+    "editor.lineNumbers": "on",
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
     "files.trimTrailingWhitespace": true,
     // プレフィックスが一致する場合にスニペットを挿入します。'quickSuggestions' が無効な場合に最適です。
@@ -91,6 +91,5 @@
     // 行に (カラー ブロックではなく) 実際の文字を表示します
     "editor.minimap.renderCharacters": true,
     "vim.disableAnnoyingNeovimMessage": true,
-    // カラーテーマ
-    "workbench.colorTheme": "Nord"
+    "workbench.colorTheme": "Solarized Dark"
 }
