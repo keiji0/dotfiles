@@ -56,14 +56,14 @@ fi
 case $(uname) in
 	# MacOS固有の設定
 	Darwin)
-        # local/binにパスを通す
-        _add_to_path "/usr/local/bin"
         # macportsの設定
         if [ -d "/opt/local/bin" ]; then
             export MACPORTS_ROOT="/opt/local"
             _add_to_path "$MACPORTS_ROOT/bin"
             export MANPATH=$(_add_to_list "$MACPORTS_ROOT/share/man" "$MANPATH" :)
         fi
+        # local/binにパスを通す
+        _add_to_path "/usr/local/bin"
         # vmwareの設定
         export VMWARE_ROOT=/Applications/VMware\ Fusion.app
         if [ -d "$VMWARE_ROOT" ]; then
