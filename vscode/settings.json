@@ -1,6 +1,5 @@
 // 既定の設定を上書きするには、このファイル内に設定を挿入します
 {
-    "workbench.iconTheme": "vs-seti",
     // [開いているエディター] ウィンドウに表示されているエディターの数。0 に設定するとウィンドウが非表示になります。
     "explorer.openEditors.visible": 0,
     // ファイルとフォルダーを除外するための glob パターンを構成します。
@@ -14,7 +13,7 @@
         "**/*.a": true
     },
     // 行番号の表示を制御します。使用可能な値は、'on'、'off'、および 'relative' です。'relative' は現在のカーソル位置からの行数を示します。
-    "editor.lineNumbers": "on",
+    "editor.lineNumbers": "off",
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
     "files.trimTrailingWhitespace": true,
     // プレフィックスが一致する場合にスニペットを挿入します。'quickSuggestions' が無効な場合に最適です。
@@ -35,7 +34,7 @@
         }
     ],
     // normalモードのバインディング
-    "vim.otherModesKeyBindingsNonRecursive": [
+    "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": ["<tab>"],
             "commands": [
@@ -81,7 +80,6 @@
         // markdownだと末尾の空白は意味があるので無効にしておく
         "files.trimTrailingWhitespace": false
     },
-    "go.formatOnSave": true,
     // フォント サイズをピクセル単位で制御します。
     "editor.fontSize": 12,
     // 行の高さを制御します。fontSize に基づいて lineHeight を計算する場合には、0 を使用します。
@@ -90,6 +88,6 @@
     "editor.minimap.enabled": false,
     // 行に (カラー ブロックではなく) 実際の文字を表示します
     "editor.minimap.renderCharacters": true,
-    "vim.disableAnnoyingNeovimMessage": true,
+    "workbench.editor.enablePreview": false,
     "workbench.colorTheme": "Solarized Dark"
 }
