@@ -101,3 +101,9 @@ if [ -d "$RBENV_ROOT" ]; then
         eval "$(rbenv init -)"
     fi
 fi
+
+# bitcoin
+export BITCOIN_ROOT=$HOME/git-extern/bitcoin-abc
+if [ -d "$BITCOIN_ROOT" ]; then
+    _add_to_path "$BITCOIN_ROOT/src"
+fi
