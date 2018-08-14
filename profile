@@ -74,7 +74,7 @@ esac
 
 # golangの設定
 export GOPATH="$HOME/go"
-export GOROOT="$GOPATH/core/go"
+export GOROOT="$HOME/local/go"
 if [ -d "$GOPATH" ]; then
     _add_to_path "$GOPATH/bin"
     _add_to_path "$GOROOT/bin"
