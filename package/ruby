@@ -1,7 +1,7 @@
 #!/bin/sh
 # rubyをインストールするコマンド
 
-RBENV_VERSION=2.3.1
+RBENV_VERSION=2.5.1
 
 set -e
 cd $(dirname $0)
@@ -13,7 +13,7 @@ cd $(dirname $0)
 # プラットフォームごとのrbenvのインストール
 case $(uname) in
 	Darwin)
-        sudo port install rbenv
+        brew install rbenv
         ;;
     *)
         abort 'サポートしていないプラットフォームです'
