@@ -81,13 +81,19 @@
         "files.trimTrailingWhitespace": false
     },
     // フォント サイズをピクセル単位で制御します。
-    "editor.fontSize": 12,
+    "editor.fontSize": 13,
     // 行の高さを制御します。fontSize に基づいて lineHeight を計算する場合には、0 を使用します。
-    "editor.lineHeight": 16,
+    "editor.lineHeight": 19,
     // ミニマップを表示するかどうかを制御します
     "editor.minimap.enabled": false,
     // 行に (カラー ブロックではなく) 実際の文字を表示します
     "editor.minimap.renderCharacters": true,
-    "workbench.editor.enablePreview": false,
-    "workbench.colorTheme": "Solarized Dark"
+    // 開かれるエディターをプレビューとして表示するかどうかを制御します。プレビュー エディターは (例: ダブル クリックまたは編集などによって) 変更される時まで再利用し、斜体で表示します。
+    "workbench.editor.enablePreview": true,
+    // エディターが最後の行を越えてスクロールするかどうかを制御します。
+    "editor.scrollBeyondLastLine": true,
+    "workbench.startupEditor": "newUntitledFile",
+    "breadcrumbs.enabled": true,
+    "workbench.colorTheme": "Dracula Soft",
+    "window.zoomLevel": 0
 }
