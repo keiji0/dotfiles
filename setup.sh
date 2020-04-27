@@ -17,7 +17,7 @@ lnk_f() {
 
 lnk_f zshrc     $HOME/.zshrc
 lnk_f vimrc     $HOME/.vimrc
-lnk_f tmux.conf $HOME/.tmux.conf
+lnk_f xvimrc    $HOME/.xvimrc
 lnk_f emacs.d   $HOME/.emacs.d
 lnk   gitconfig $HOME/.gitconfig
 

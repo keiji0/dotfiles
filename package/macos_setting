@@ -6,6 +6,6 @@ cd $(dirname $0)
 . ./util.sh
 
 # キーボードのリピート間隔の設定
-defaults write -g KeyRepeat -float 1.5
+defaults write -g KeyRepeat -float 1.6
 # キーボードのリピート開始時間の設定
-defaults write -g InitialKeyRepeat -int 11
+defaults write -g InitialKeyRepeat -int 15
