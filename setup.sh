@@ -12,6 +12,7 @@ lnk() {
     fi
 }
 lnk_f() {
+	mkdir -p $(dirname $1)
     ln -fns "$PWD/$1" "$2" && echo "install $1 -> $2";
 }
 
@@ -19,7 +20,8 @@ lnk_f zshrc     $HOME/.zshrc
 lnk_f vimrc     $HOME/.vimrc
 lnk_f xvimrc    $HOME/.xvimrc
 lnk_f emacs.d   $HOME/.emacs.d
-lnk   gitconfig $HOME/.gitconfig
+cp -f DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
+lnk gitconfig $HOME/.gitconfig
 
 printf 'eval $(sh -c "%s")\n' "$PWD/dotenv" > $HOME/.profile
 printf 'eval $(sh -c "%s zshenv")\n' "$PWD/dotenv" > $HOME/.zshenv
