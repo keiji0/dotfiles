@@ -22,6 +22,7 @@ lnk_f xvimrc    $HOME/.xvimrc
 lnk_f emacs.d   $HOME/.emacs.d
 cp -f DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
 lnk gitconfig $HOME/.gitconfig
+lnk IDETemplateMacros.plist "$HOME/Library/Developer/Xcode/UserData/IDETemplateMacros.plist"
 
 printf 'eval $(sh -c "%s")\n' "$PWD/dotenv" > $HOME/.profile
 printf 'eval $(sh -c "%s zshenv")\n' "$PWD/dotenv" > $HOME/.zshenv

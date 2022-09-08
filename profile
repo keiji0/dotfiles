@@ -47,6 +47,8 @@ export MY_LOCAL=$HOME/local
 export MY_VAR=$HOME/var
 export MY_SHARE=$HOME/share
 
+_add_to_path "$HOME/bin"
+
 # DOT環境
 if [ -d "$DOTDIR" ]; then
     _add_to_path "$DOTDIR/bin"
@@ -93,6 +95,11 @@ if [ -d "$ANDROID_HOME/android-ndk" ]; then
     _add_to_path "$ANDROID_HOME/android-ndk"
 fi
 
+
+if [ -d "$HOME/local/flutter" ]; then
+    _add_to_path "$HOME/local/flutter/bin"
+fi
+
 # rubyの設定
 export RBENV_ROOT=$HOME/local/rbenv
 if [ -d "$RBENV_ROOT" ]; then
@@ -106,4 +113,8 @@ fi
 export BITCOIN_ROOT=$HOME/git-extern/bitcoin
 if [ -d "$BITCOIN_ROOT" ]; then
     _add_to_path "$BITCOIN_ROOT/src"
+fi
+
+if [ -d "$HOME/.cargo/bin" ]; then
+    _add_to_path "$HOME/.cargo/bin"
 fi

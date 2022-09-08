@@ -1150,3 +1150,18 @@
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (magit projectile irony auto-complete company undo-tree go-mode powerline evil dash yasnippet use-package swift3-mode spacemacs-theme spaceline smex session rtags perspective page-break-lines neotree multi-term migemo markdown-mode irony-eldoc ido-vertical-mode ido-occur helm-projectile google-translate go-eldoc go-autocomplete flycheck-irony evil-magit evil-leader company-irony comment-dwim-2 cmake-mode)))
+ '(session-use-package t nil (session)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
