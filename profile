@@ -48,6 +48,7 @@ export MY_VAR=$HOME/var
 export MY_SHARE=$HOME/share
 
 _add_to_path "$HOME/bin"
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # DOT環境
 if [ -d "$DOTDIR" ]; then
