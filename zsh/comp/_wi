@@ -1,2 +1,0 @@
-#compdef wi
-_files -/ -W ~/wiki
