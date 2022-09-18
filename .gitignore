@@ -1,6 +1,2 @@
-/share/*
-!share/applications/
-!share/install.sh
-/var/
 .DS_Store
-/vscode/workspaceStorage/
+/config/main

@@ -1,2 +1,0 @@
-#!/bin/sh
-netstat --all --numeric --programs --inet -t tcp

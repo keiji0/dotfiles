@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# デバッグメニューを有効にする
+defaults write com.apple.appstore ShowDebugMenu -bool true

@@ -1,8 +1,0 @@
-#!/bin/sh
-# homebrewをインストールするコマンド
-
-set -e
-cd $(dirname $0)
-. ./util.sh
-
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

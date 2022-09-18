@@ -1,0 +1,8 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+brew "git"
+brew "go"
+cask "gitup"
+cask "macvim"
+cask "visual-studio-code"

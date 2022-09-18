@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+# Dockの表示位置 左端
+defaults write com.apple.dock orientation -string "left"
+# 開いているアプリケーションのみをdockに表示
+defaults write com.apple.dock static-only -bool true
+# 最近使ったアプリをdockに表示
+defaults write com.apple.dock show-recents -bool false
