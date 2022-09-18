@@ -1,4 +1,7 @@
 #!/bin/sh -e
 
+# macの起動音をミュート
+sudo nvram SystemAudioVolume=" "
+
 # クラッシュレポートの無効化
 defaults write com.apple.CrashReporter DialogType -string "none"
