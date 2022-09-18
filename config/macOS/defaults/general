@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+# クラッシュレポートの無効化
+defaults write com.apple.CrashReporter DialogType -string "none"

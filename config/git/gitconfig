@@ -1,0 +1,19 @@
+[include]
+    path = .gitconfig.local
+[color]
+    ui = auto
+[alias]
+    st = status
+    co = commit
+    ct = commit -mtmp
+    sh = show
+    df = diff
+    ad = add
+    br = branch
+    co = checkout
+    lg = log -p
+    graph = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[core]
+    editor = $EDITOR
+[log]
+    date = iso

@@ -1,0 +1,58 @@
+#!/bin/sh
+
+set -eu
+. "$DOTDIR/lib/error.sh"
+
+readonly CONFIG_DIR="$DOTDIR/config"
+
+usage() {
+    cat <<EOF
+usage: $(basename "$0") command target
+EOF
+}
+
+main() {
+    [ -z "$DOTDIR" ] && fatal "$DOTDIR is not defined"
+
+    local command="$1" && shift
+    [ -z "$command" ] && fatal "Command is not specified"
+
+    case $command in
+    help)
+        usage && return
+        ;;
+    esac
+
+    local config_name="$1" && shift
+    [ -z "$config_name" ] && fatal "Config name is not specified"
+
+    local target="$CONFIG_DIR/$config_name"
+    [ -e "$target" ] || fatal "$target: No target config found"
+
+    case $command in
+    target)
+        echo "$target"
+        ;;
+    set-main)
+        cd "$CONFIG_DIR"
+        if ! [ -s main -o ! -e main ]; then
+            fatal "$CONFIG_DIR/main: Main file already exists"
+        fi
+        ln -sfnv "$config_name" main
+        ;;
+    profile)
+        local profile="$target/profile.sh"
+        [ -e "$profile" ] || fatal "$profile: No such profile"
+        echo "$profile"
+        ;;
+    setup)
+        local setup="$target/setup.sh"
+        [ -e "$setup" ] || fatal "$setup: No such setup"
+        cd "$target"
+        echo "setup $config_name"
+        sh -e "$setup"
+        ;;
+    esac
+}
+
+main "$@"

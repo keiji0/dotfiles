@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+set -e
+
+cd "$(dirname "$0")"
+
+# キーボードのリピート間隔の設定
+defaults write -g KeyRepeat -float 1.5
+# キーボードのリピート開始時間の設定
+defaults write -g InitialKeyRepeat -int 11
+# 自動大文字の無効化
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+# キーバインドを設定する。シンボリックリンクだとうまく動かないのでファイルをコピーする
+cp -f DefaultKeyBinding.dict "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"

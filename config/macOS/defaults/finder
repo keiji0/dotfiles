@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# アニメーションを無効化する
+defaults write com.apple.finder DisableAllAnimations -bool true
+# デフォルトで隠しファイルを表示する
+defaults write com.apple.finder AppleShowAllFiles -bool true
+# 全ての拡張子のファイルを表示
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# パスバーを表示
+defaults write com.apple.finder ShowPathbar -bool true
+# 検索時にデフォルトでカレントディレクトリを検索
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+# 拡張子変更時の警告を無効化
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# ネットワークフォルダに .DS_Storeを作らない
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+# USBメディアに .DS_Storeを作らない
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+# Show the ~/Library folder
+chflags nohidden ~/Library
+# フォルダ名を英語表記にする
+rm -f ~/Applications/.localized
+rm -f ~/Documents/.localized
+rm -f ~/Downloads/.localized
+rm -f ~/Desktop/.localized
+rm -f ~/Public/.localized
+rm -f ~/Pictures/.localized
+rm -f ~/Music/.localized
+rm -f ~/Movies/.localized
+rm -f ~/Library/.localized

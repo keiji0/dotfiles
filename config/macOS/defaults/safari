@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+# 検索クエリをAppleへ送信しない
+defaults write com.apple.Safari UniversalSearchEnabled -bool false
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+# 追跡を無効化
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+# Safariのデバッグメニューを有効化
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
