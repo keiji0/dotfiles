@@ -19,6 +19,7 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Show the ~/Library folder
 chflags nohidden ~/Library
 # フォルダ名を英語表記にする
+rm -f /Applications/.localized
 rm -f ~/Applications/.localized
 rm -f ~/Documents/.localized
 rm -f ~/Downloads/.localized
