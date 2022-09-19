@@ -3,7 +3,7 @@
 # アニメーションを無効化する
 defaults write com.apple.finder DisableAllAnimations -bool true
 # デフォルトで隠しファイルを表示する
-defaults write com.apple.finder AppleShowAllFiles -bool true
+# defaults write com.apple.finder AppleShowAllFiles -bool true
 # 全ての拡張子のファイルを表示
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # パスバーを表示
