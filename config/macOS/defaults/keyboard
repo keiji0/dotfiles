@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 set -e
 
@@ -11,4 +11,5 @@ defaults write -g InitialKeyRepeat -int 11
 # 自動大文字の無効化
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 # キーバインドを設定する。シンボリックリンクだとうまく動かないのでファイルをコピーする
+mkdir -p "$HOME/Library/KeyBindings"
 cp -f DefaultKeyBinding.dict "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"

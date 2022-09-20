@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Homebrewの環境設定
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$($HOMEBREW shellenv)"
 
 # vmwareの設定
 export VMWARE_ROOT=/Applications/VMware\ Fusion.app

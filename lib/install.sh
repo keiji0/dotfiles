@@ -9,6 +9,6 @@ lnk() {
 }
 
 lnk_f() {
-	mkdir -p "$(dirname "$1")"
+	mkdir -p "$(dirname "$2")"
     ln -fnsv "$PWD/$1" "$2"
 }

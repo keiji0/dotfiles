@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 # macの起動音をミュート
 sudo nvram SystemAudioVolume=" "

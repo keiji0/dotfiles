@@ -3,6 +3,7 @@
 set -ue
 
 dotconfig setup homebrew
+eval "$($HOMEBREW shellenv)"
 brew bundle
 
 dotconfig setup macOS
