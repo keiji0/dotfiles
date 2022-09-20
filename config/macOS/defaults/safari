@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 # 検索クエリをAppleへ送信しない
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
