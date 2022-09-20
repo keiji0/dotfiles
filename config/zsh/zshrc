@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-HISTFILE=$MY_VAR/zsh/history && mkdir -p $MY_VAR/zsh
 HISTSIZE=100000
 SAVEHIST=1000000
 WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
