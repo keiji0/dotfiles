@@ -1,0 +1,95 @@
+{
+  "BTTPresetCreatorNotes" : "",
+  "BTTPresetInfoURL" : "",
+  "BTTPresetName" : "Default",
+  "BTTPresetUUID" : "9F72CADD-60A6-40FC-9432-5E1E84B8C3C2",
+  "BTTPresetContent" : [
+    {
+      "BTTAppBundleIdentifier" : "BT.G",
+      "BTTAppName" : "Global",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+        {
+          "BTTGestureNotes" : "Windowを閉じる",
+          "BTTTriggerType" : 102,
+          "BTTTriggerTypeDescription" : "3本指で上にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "アクションなし",
+          "BTTLayoutIndependentActionChar" : "",
+          "BTTAutoAdaptActionToKeyboardLayout" : true,
+          "BTTShortcutToSend" : "55,13",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "DF9BA5D3-EF8D-4679-96E4-264945C57B33",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 0,
+          "BTTDisplayOrder" : 0
+        }
+      ]
+    },
+    {
+      "BTTActivationGroupName" : "Global",
+      "BTTAppName" : "Global",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTAppProcessMatchMode" : 3,
+      "BTTActivationGroupCondition" : "YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBgLDBMYHCAoMjM2PUFGR0pOUlZXWmBkaGpVJG51bGzTDQ4PEBESXxAXTlNDb21wb3VuZFByZWRpY2F0ZVR5cGVfEA9OU1N1YnByZWRpY2F0ZXNWJGNsYXNzEACAAoAX0hQPFRdaTlMub2JqZWN0c6EWgAOAFtMNDg8ZGhIQAoAEgBfSFA8dF6EegAWAFtQPISIjJCUmJ18QEU5TUmlnaHRFeHByZXNzaW9uXxAQTlNMZWZ0RXhwcmVzc2lvbl8QE05TUHJlZGljYXRlT3BlcmF0b3KAFYAQgAaAE9UpKissDy0uLzAxWU5TT3BlcmFuZF5OU1NlbGVjdG9yTmFtZV8QEE5TRXhwcmVzc2lvblR5cGVbTlNBcmd1bWVudHOACIAHEAOACoAPXHZhbHVlRm9yS2V5OtIrDzQ1EAGACdI3ODk6WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU1NlbGZFeHByZXNzaW9uozk7PFxOU0V4cHJlc3Npb25YTlNPYmplY3TSFA8+QKE_gAuADtMPK0JDREVZTlNLZXlQYXRogA0QCoAMV2FwcE5hbWXSNzhISV8QHE5TS2V5UGF0aFNwZWNpZmllckV4cHJlc3Npb26jSDs80jc4S0xeTlNNdXRhYmxlQXJyYXmjS008V05TQXJyYXnSNzhPUF8QE05TS2V5UGF0aEV4cHJlc3Npb26kT1E7PF8QFE5TRnVuY3Rpb25FeHByZXNzaW9u01MrD1QQVV8QD05TQ29uc3RhbnRWYWx1ZYARgBJQ0jc4WFlfEBlOU0NvbnN0YW50VmFsdWVFeHByZXNzaW9uo1g7PNQPW1xdXhAQX1pOU01vZGlmaWVyV05TRmxhZ3NeTlNPcGVyYXRvclR5cGWAFBBj0jc4YWJfEBVOU0luUHJlZGljYXRlT3BlcmF0b3KjYWM8XxATTlNQcmVkaWNhdGVPcGVyYXRvctI3OGVmXxAVTlNDb21wYXJpc29uUHJlZGljYXRlo2VnPFtOU1ByZWRpY2F0ZdI3OE1pok080jc4a2xfEBNOU0NvbXBvdW5kUHJlZGljYXRlo2tnPAAIABEAGgAkACkAMgA3AEkATABRAFMAbgB0AHsAlQCnAK4AsACyALQAuQDEAMYAyADKANEA0wDVANcA3ADeAOAA4gDrAP8BEgEoASoBLAEuATABOwFFAVQBZwFzAXUBdwF5AXsBfQGKAY8BkQGTAZgBowGsAb8BwwHQAdkB3gHgAeIB5AHrAfUB9wH5AfsCAwIIAicCKwIwAj8CQwJLAlACZgJrAoICiQKbAp0CnwKgAqUCwQLFAs4C2QLhAvAC8gL0AvkDEQMVAysDMANIA0wDWANdA2ADZQN7AAAAAAAAAgEAAAAAAAAAbQAAAAAAAAAAAAAAAAAAA38=",
+      "BTTTriggers" : [
+
+      ]
+    },
+    {
+      "BTTActivationGroupName" : "History",
+      "BTTAppName" : "History",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTAppProcessMatchMode" : 3,
+      "BTTActivationGroupCondition" : "YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGvEB4LDBMaIiwtMDc7QEFESExRUlVdYWVqbW5xdnl6fX9VJG51bGzTDQ4PEBESXxAXTlNDb21wb3VuZFByZWRpY2F0ZVR5cGVfEA9OU1N1YnByZWRpY2F0ZXNWJGNsYXNzEAKAAoAd0hQPFRlaTlMub2JqZWN0c6MWFxiAA4AUgBiAHNQPGxwdHh8gIV8QEU5TUmlnaHRFeHByZXNzaW9uXxAQTlNMZWZ0RXhwcmVzc2lvbl8QE05TUHJlZGljYXRlT3BlcmF0b3KAE4AOgASAEdUjJCUmDycoKSorWU5TT3BlcmFuZF5OU1NlbGVjdG9yTmFtZV8QEE5TRXhwcmVzc2lvblR5cGVbTlNBcmd1bWVudHOABoAFEAOACIANXHZhbHVlRm9yS2V5OtIlDy4vEAGAB9IxMjM0WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU1NlbGZFeHByZXNzaW9uozM1NlxOU0V4cHJlc3Npb25YTlNPYmplY3TSFA84OqE5gAmADNMPJTw9Pj9ZTlNLZXlQYXRogAsQCoAKV2FwcE5hbWXSMTJCQ18QHE5TS2V5UGF0aFNwZWNpZmllckV4cHJlc3Npb26jQjU20jEyRUZeTlNNdXRhYmxlQXJyYXmjRUc2V05TQXJyYXnSMTJJSl8QE05TS2V5UGF0aEV4cHJlc3Npb26kSUs1Nl8QFE5TRnVuY3Rpb25FeHByZXNzaW9u000lD05PUF8QD05TQ29uc3RhbnRWYWx1ZYAPEACAEFdUd2l0dGVy0jEyU1RfEBlOU0NvbnN0YW50VmFsdWVFeHByZXNzaW9uo1M1NtUPVldYWVpPW09cWk5TTW9kaWZpZXJYTlNOZWdhdGVZTlNPcHRpb25zXk5TT3BlcmF0b3JUeXBlgBIIEATSMTJeX18QG05TRXF1YWxpdHlQcmVkaWNhdGVPcGVyYXRvcqNeYDZfEBNOU1ByZWRpY2F0ZU9wZXJhdG9y0jEyYmNfEBVOU0NvbXBhcmlzb25QcmVkaWNhdGWjYmQ2W05TUHJlZGljYXRl1A8bHB0eZyBpgBOAFYAEgBfTTSUPa09QgBaAEFdZb3VUdWJl1Q9WV1hZWk9bT1yAEgjUDxscHR5zIHWAE4AZgASAG9NNJQ93T1CAGoAQXVlvdVR1YmUgTXVzaWPVD1ZXWFlaT1tPXIASCNIxMkd+okc20jEygIFfEBNOU0NvbXBvdW5kUHJlZGljYXRlo4BkNgAIABEAGgAkACkAMgA3AEkATABRAFMAdAB6AIEAmwCtALQAtgC4ALoAvwDKAM4A0ADSANQA1gDfAPMBBgEcAR4BIAEiASQBLwE5AUgBWwFnAWkBawFtAW8BcQF+AYMBhQGHAYwBlwGgAbMBtwHEAc0B0gHUAdYB2AHfAekB6wHtAe8B9wH8AhsCHwIkAjMCNwI_AkQCWgJfAnYCfQKPApECkwKVAp0CogK+AsICzQLYAuEC6wL6AvwC_QL_AwQDIgMmAzwDQQNZA10DaQNyA3QDdgN4A3oDgQODA4UDjQOYA5oDmwOkA6YDqAOqA6wDswO1A7cDxQPQA9ID0wPYA9sD4AP2AAAAAAAAAgEAAAAAAAAAggAAAAAAAAAAAAAAAAAAA_o=",
+      "BTTTriggers" : [
+        {
+          "BTTTriggerType" : 101,
+          "BTTTriggerTypeDescription" : "3本指で右にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "アクションなし",
+          "BTTLayoutIndependentActionChar" : "]",
+          "BTTAutoAdaptActionToKeyboardLayout" : true,
+          "BTTShortcutToSend" : "55,30",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "C96AA713-712F-426F-AB33-C4C16DAD7A36",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 1,
+          "BTTDisplayOrder" : 0
+        },
+        {
+          "BTTTriggerType" : 100,
+          "BTTTriggerTypeDescription" : "3本指で左にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "アクションなし",
+          "BTTLayoutIndependentActionChar" : "[",
+          "BTTAutoAdaptActionToKeyboardLayout" : true,
+          "BTTShortcutToSend" : "55,33",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "9DA91D2F-6918-47E1-B4D5-DDCD26D6901C",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 0,
+          "BTTDisplayOrder" : 0
+        }
+      ]
+    }
+  ],
+  "BTTPresetSnapAreas" : [
+
+  ]
+}
