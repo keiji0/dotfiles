@@ -13,3 +13,6 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 # キーバインドを設定する。シンボリックリンクだとうまく動かないのでファイルをコピーする
 mkdir -p "$HOME/Library/KeyBindings"
 cp -f DefaultKeyBinding.dict "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
+
+# VenturaからmacOS全体でアクセントメニューが表示されてキーリピートが効かないのでOffにする
+defaults write -g ApplePressAndHoldEnabled -bool false
