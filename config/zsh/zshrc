@@ -1,8 +1,9 @@
 #!/usr/bin/env zsh
 
-HISTSIZE=100000
-SAVEHIST=1000000
-WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+export HISTSIZE=100000
+export SAVEHIST=1000000
+export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+export HISTFILE=${HOME}/.zsh_history
 
 # ログインシェル環境設定
 export PAGER=less
