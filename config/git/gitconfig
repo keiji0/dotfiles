@@ -17,3 +17,5 @@
     editor = $EDITOR
 [log]
     date = iso
+[init]
+	defaultBranch = main
