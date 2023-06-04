@@ -6,3 +6,5 @@ defaults write com.apple.dock orientation -string "left"
 defaults write com.apple.dock static-only -bool true
 # 最近使ったアプリをdockに表示
 defaults write com.apple.dock show-recents -bool false
+# Dockを自動的に隠すのと、速度を少し早める
+defaults write com.apple.dock autohide-time-modifier -float 0.3
