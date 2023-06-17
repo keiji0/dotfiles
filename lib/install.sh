@@ -12,3 +12,8 @@ lnk_f() {
 	mkdir -p "$(dirname "$2")"
     ln -fnsv "$PWD/$1" "$2"
 }
+
+hard_link_f() {
+	mkdir -p "$(dirname "$2")"
+    ln -fnv "$PWD/$1" "$2"
+}

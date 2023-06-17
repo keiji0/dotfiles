@@ -11,3 +11,4 @@ dotconfig setup zsh
 dotconfig setup vim
 dotconfig setup git
 dotconfig setup xcode
+dotconfig setup safari
