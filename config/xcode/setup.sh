@@ -10,4 +10,4 @@ lnk IDETemplateMacros.plist "$HOME/Library/Developer/Xcode/UserData/IDETemplateM
 # スニペットを設定
 lnk CodeSnippets "$HOME/Library/Developer/Xcode/UserData/CodeSnippets"
 # キーバインドを設定
-lnk Personal.idekeybindings "$HOME/Library/Developer/Xcode/UserData/KeyBindings/Personal.idekeybindings"
+hard_link_f Personal.idekeybindings "$HOME/Library/Developer/Xcode/UserData/KeyBindings/Personal.idekeybindings"
