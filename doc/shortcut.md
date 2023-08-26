@@ -28,6 +28,8 @@ CommandキーとCtrl同じ役割を持つことが多いので、定義上はコ
 | Prev Tab | ^⇧+Tab |
 | Next Window | Alt+Tab | macOSだとデフォルトでは`次のウィンドウを操作対象にする`となっている
 | Close | ⌘+w | タブが開いていれば先にそっちを閉じる |
+| Go Back  | ⌘^+← | 履歴を戻る |
+| Go Forward | ⌘^+→ | 履歴を進む |
 
 ### Programming
 
@@ -38,8 +40,6 @@ CommandキーとCtrl同じ役割を持つことが多いので、定義上はコ
 | Open Quickly | ⌘⇧+o |
 | Reveal in Project Navigator | ⌘⇧+j |
 | Jump to Definition | ⌘^+j |
-| Go Forward | ⌘^+→ |
-| Go Back  | ⌘^+← |
 | Comment Line  | ⌘+/ |
 
 Rider

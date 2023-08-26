@@ -7,3 +7,9 @@ defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 # Safariのデバッグメニューを有効化
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+
+# Keyboard Shortcut
+defaults write com.apple.Safari NSUserKeyEquivalents "{\
+    '戻る' = '@^\U2190';\
+    '進む' = '@^\U2192';\
+}"
