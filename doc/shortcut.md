@@ -27,6 +27,9 @@ CommandキーとCtrl同じ役割を持つことが多いので、定義上はコ
 | Next Tab | ^+Tab |
 | Prev Tab | ^⇧+Tab |
 | Next Window | Alt+Tab | macOSだとデフォルトでは`次のウィンドウを操作対象にする`となっている
+| Prev Window | Alt⇧+Tab |
+| Next Editor | ⌘^+Tab | ウィンドウ分割などで次の分割ウィンドウへ移動
+| Prev Editor | ⌘^⇧+Tab |
 | Close | ⌘+w | タブが開いていれば先にそっちを閉じる |
 | Go Back  | ⌘^+← | 履歴を戻る |
 | Go Forward | ⌘^+→ | 履歴を進む |
