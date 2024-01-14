@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# Dockの表示位置 左端
-defaults write com.apple.dock orientation -string "left"
-# 開いているアプリケーションのみをdockに表示
-defaults write com.apple.dock static-only -bool true
-# 最近使ったアプリをdockに表示
+# Dockの表示位置は下
+defaults write com.apple.dock orientation -string "bottom"
+# 最近使ったアプリをdockに表示しない
 defaults write com.apple.dock show-recents -bool false
 # Dockを自動的に隠すのと、速度を少し早める
 defaults write com.apple.dock autohide-time-modifier -float 0.3
