@@ -1,0 +1,136 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+// 以下参考になる解説
+// http://webdesign.vdlz.xyz/Editor/VSCode/Doc/Customization/Doc010_KeyBindingsForVisualStudioCode.html
+[
+    {
+        // コマンド入力
+        // デフォルトcmd+pがどうしてもなれないのでemacs likeなコマンド入力にしておく
+        "key": "cmd+x",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        // qucikOpenのキャンセル処理, Escapeが遠いので指定しておく
+        "key": "ctrl+g",
+        "command": "workbench.action.closeQuickOpen",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+r",
+        "command": "workbench.action.debug.start",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "shift+cmd+r",
+        "command": "workbench.action.debug.restart",
+        "when": "inDebugMode"
+    },
+    {
+        "key": "shift+cmd+j",
+        "command": "-workbench.action.search.toggleQueryDetails",
+        "when": "searchViewletVisible"
+    },
+    {
+        "key": "shift+cmd+j",
+        "command": "workbench.action.terminal.focusPrevious"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "-workbench.action.openNextRecentlyUsedEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+cmd+o",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "cmd+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "cmd+2",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "shift+cmd+e",
+        "command": "-workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "cmd+3",
+        "command": "workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+    {
+        "key": "cmd+1",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "shift+cmd+\\",
+        "command": "workbench.action.splitEditor"
+    },
+    {
+        "key": "cmd+\\",
+        "command": "-workbench.action.splitEditor"
+    }
+    // {
+    //     "key": "cmd+1",
+    //     "command": "workbench.action.openEditorAtIndex1"
+    // },
+    // {
+    //     "key": "cmd+2",
+    //     "command": "workbench.action.openEditorAtIndex2"
+    // },
+    // {
+    //     "key": "cmd+3",
+    //     "command": "workbench.action.openEditorAtIndex3"
+    // },
+    // {
+    //     "key": "cmd+4",
+    //     "command": "workbench.action.openEditorAtIndex4"
+    // },
+    // {
+    //     "key": "cmd+5",
+    //     "command": "workbench.action.openEditorAtIndex5"
+    // },
+    // {
+    //     "key": "cmd+6",
+    //     "command": "workbench.action.openEditorAtIndex6"
+    // },
+    // {
+    //     "key": "cmd+7",
+    //     "command": "workbench.action.openEditorAtIndex7"
+    // },
+    // {
+    //     "key": "cmd+8",
+    //     "command": "workbench.action.openEditorAtIndex8"
+    // },
+    // {
+    //     "key": "cmd+9",
+    //     "command": "workbench.action.openEditorAtIndex9"
+    // }
+]
