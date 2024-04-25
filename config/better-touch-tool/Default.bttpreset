@@ -50,7 +50,7 @@
     "BTTSavedMousePosition" : "{760.58984375, 248.94140625}",
     "BSTDontShowSnapAreasWhileModMoving" : 0,
     "BTTDrawingAreaHeight" : 626,
-    "BTTNumberOfStarts" : 6506,
+    "BTTNumberOfStarts" : 6507,
     "BTTTouchBarHapticFeedback" : 0,
     "BTTStageManagerLeftSnappingAreaIncreasePercentage" : 0.125,
     "showKeyboardTab" : true,
@@ -166,8 +166,57 @@
     "BSTSnapAreaDefaultShowPictogram" : false,
     "BSTSnapAreaDefaultPictoDistanceFromBottom" : 0.10000000149011612
   },
-  "BTTPresetUUID" : "30F85CA3-E81F-4C06-BA7D-F13AC1989C06",
+  "BTTPresetUUID" : "3C9C566F-BB4D-4BCC-B5A7-830F35FDE024",
   "BTTPresetContent" : [
+    {
+      "BTTAppBundleIdentifier" : "BT.L",
+      "BTTAppName" : "Recently Used",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+
+      ]
+    },
+    {
+      "BTTActivationGroupName" : "History",
+      "BTTAppName" : "History",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTAppProcessMatchMode" : 3,
+      "BTTActivationGroupCondition" : "YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBoLDBMZISssLzY6P0BDR0tQUVRcYGRpbG1wclUkbnVsbNMNDg8QERJfEBdOU0NvbXBvdW5kUHJlZGljYXRlVHlwZV8QD05TU3VicHJlZGljYXRlc1YkY2xhc3MQAoACgBnSFA8VGFpOUy5vYmplY3RzohYXgAOAFIAY1A8aGxwdHh8gXxARTlNSaWdodEV4cHJlc3Npb25fEBBOU0xlZnRFeHByZXNzaW9uXxATTlNQcmVkaWNhdGVPcGVyYXRvcoATgA6ABIAR1SIjJCUPJicoKSpZTlNPcGVyYW5kXk5TU2VsZWN0b3JOYW1lXxAQTlNFeHByZXNzaW9uVHlwZVtOU0FyZ3VtZW50c4AGgAUQA4AIgA1cdmFsdWVGb3JLZXk60iQPLS4QAYAH0jAxMjNaJGNsYXNzbmFtZVgkY2xhc3Nlc18QEE5TU2VsZkV4cHJlc3Npb26jMjQ1XE5TRXhwcmVzc2lvblhOU09iamVjdNIUDzc5oTiACYAM0w8kOzw9PllOU0tleVBhdGiACxAKgApXYXBwTmFtZdIwMUFCXxAcTlNLZXlQYXRoU3BlY2lmaWVyRXhwcmVzc2lvbqNBNDXSMDFERV5OU011dGFibGVBcnJheaNERjVXTlNBcnJhedIwMUhJXxATTlNLZXlQYXRoRXhwcmVzc2lvbqRISjQ1XxAUTlNGdW5jdGlvbkV4cHJlc3Npb27TTCQPTU5PXxAPTlNDb25zdGFudFZhbHVlgA8QAIAQV1R3aXR0ZXLSMDFSU18QGU5TQ29uc3RhbnRWYWx1ZUV4cHJlc3Npb26jUjQ11Q9VVldYWU5aTltaTlNNb2RpZmllclhOU05lZ2F0ZVlOU09wdGlvbnNeTlNPcGVyYXRvclR5cGWAEggQBNIwMV1eXxAbTlNFcXVhbGl0eVByZWRpY2F0ZU9wZXJhdG9yo11fNV8QE05TUHJlZGljYXRlT3BlcmF0b3LSMDFhYl8QFU5TQ29tcGFyaXNvblByZWRpY2F0ZaNhYzVbTlNQcmVkaWNhdGXUDxobHB1mH2iAE4AVgASAF9NMJA9qTk+AFoAQXVlvdVR1YmUgTXVzaWPVD1VWV1hZTlpOW4ASCNIwMUZxokY10jAxc3RfEBNOU0NvbXBvdW5kUHJlZGljYXRlo3NjNQAIABEAGgAkACkAMgA3AEkATABRAFMAcAB2AH0AlwCpALAAsgC0ALYAuwDGAMkAywDNAM8A2ADsAP8BFQEXARkBGwEdASgBMgFBAVQBYAFiAWQBZgFoAWoBdwF8AX4BgAGFAZABmQGsAbABvQHGAcsBzQHPAdEB2AHiAeQB5gHoAfAB9QIUAhgCHQIsAjACOAI9AlMCWAJvAnYCiAKKAowCjgKWApsCtwK7AsYC0QLaAuQC8wL1AvYC+AL9AxsDHwM1AzoDUgNWA2IDawNtA28DcQNzA3oDfAN+A4wDlwOZA5oDnwOiA6cDvQAAAAAAAAIBAAAAAAAAAHUAAAAAAAAAAAAAAAAAAAPB",
+      "BTTTriggers" : [
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1691713455.182277,
+          "BTTTriggerType" : 100,
+          "BTTTriggerTypeDescription" : "3本指で左にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "9DA91D2F-6918-47E1-B4D5-DDCD26D6901C",
+          "BTTLayoutIndependentActionChar" : "[",
+          "BTTAutoAdaptActionToKeyboardLayout" : true,
+          "BTTGenericActionConfig" : "autoAdapt",
+          "BTTShortcutToSend" : "55,33",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 1,
+          "BTTOrder" : 0,
+          "BTTGestureNotes" : "3本指で左にスワイプ"
+        },
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1691713455.1825051,
+          "BTTTriggerType" : 101,
+          "BTTTriggerTypeDescription" : "3本指で右にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "C96AA713-712F-426F-AB33-C4C16DAD7A36",
+          "BTTLayoutIndependentActionChar" : "]",
+          "BTTAutoAdaptActionToKeyboardLayout" : true,
+          "BTTGenericActionConfig" : "autoAdapt",
+          "BTTShortcutToSend" : "55,30",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 1,
+          "BTTOrder" : 1,
+          "BTTGestureNotes" : "3本指で右にスワイプ"
+        }
+      ]
+    },
     {
       "BTTAppBundleIdentifier" : "com.apple.Safari",
       "BTTAppName" : "Safari",
@@ -218,55 +267,6 @@
       ]
     },
     {
-      "BTTActivationGroupName" : "History",
-      "BTTAppName" : "History",
-      "BTTAppAutoInvertIcon" : 1,
-      "BTTAppProcessMatchMode" : 3,
-      "BTTActivationGroupCondition" : "YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBoLDBMZISssLzY6P0BDR0tQUVRcYGRpbG1wclUkbnVsbNMNDg8QERJfEBdOU0NvbXBvdW5kUHJlZGljYXRlVHlwZV8QD05TU3VicHJlZGljYXRlc1YkY2xhc3MQAoACgBnSFA8VGFpOUy5vYmplY3RzohYXgAOAFIAY1A8aGxwdHh8gXxARTlNSaWdodEV4cHJlc3Npb25fEBBOU0xlZnRFeHByZXNzaW9uXxATTlNQcmVkaWNhdGVPcGVyYXRvcoATgA6ABIAR1SIjJCUPJicoKSpZTlNPcGVyYW5kXk5TU2VsZWN0b3JOYW1lXxAQTlNFeHByZXNzaW9uVHlwZVtOU0FyZ3VtZW50c4AGgAUQA4AIgA1cdmFsdWVGb3JLZXk60iQPLS4QAYAH0jAxMjNaJGNsYXNzbmFtZVgkY2xhc3Nlc18QEE5TU2VsZkV4cHJlc3Npb26jMjQ1XE5TRXhwcmVzc2lvblhOU09iamVjdNIUDzc5oTiACYAM0w8kOzw9PllOU0tleVBhdGiACxAKgApXYXBwTmFtZdIwMUFCXxAcTlNLZXlQYXRoU3BlY2lmaWVyRXhwcmVzc2lvbqNBNDXSMDFERV5OU011dGFibGVBcnJheaNERjVXTlNBcnJhedIwMUhJXxATTlNLZXlQYXRoRXhwcmVzc2lvbqRISjQ1XxAUTlNGdW5jdGlvbkV4cHJlc3Npb27TTCQPTU5PXxAPTlNDb25zdGFudFZhbHVlgA8QAIAQV1R3aXR0ZXLSMDFSU18QGU5TQ29uc3RhbnRWYWx1ZUV4cHJlc3Npb26jUjQ11Q9VVldYWU5aTltaTlNNb2RpZmllclhOU05lZ2F0ZVlOU09wdGlvbnNeTlNPcGVyYXRvclR5cGWAEggQBNIwMV1eXxAbTlNFcXVhbGl0eVByZWRpY2F0ZU9wZXJhdG9yo11fNV8QE05TUHJlZGljYXRlT3BlcmF0b3LSMDFhYl8QFU5TQ29tcGFyaXNvblByZWRpY2F0ZaNhYzVbTlNQcmVkaWNhdGXUDxobHB1mH2iAE4AVgASAF9NMJA9qTk+AFoAQXVlvdVR1YmUgTXVzaWPVD1VWV1hZTlpOW4ASCNIwMUZxokY10jAxc3RfEBNOU0NvbXBvdW5kUHJlZGljYXRlo3NjNQAIABEAGgAkACkAMgA3AEkATABRAFMAcAB2AH0AlwCpALAAsgC0ALYAuwDGAMkAywDNAM8A2ADsAP8BFQEXARkBGwEdASgBMgFBAVQBYAFiAWQBZgFoAWoBdwF8AX4BgAGFAZABmQGsAbABvQHGAcsBzQHPAdEB2AHiAeQB5gHoAfAB9QIUAhgCHQIsAjACOAI9AlMCWAJvAnYCiAKKAowCjgKWApsCtwK7AsYC0QLaAuQC8wL1AvYC+AL9AxsDHwM1AzoDUgNWA2IDawNtA28DcQNzA3oDfAN+A4wDlwOZA5oDnwOiA6cDvQAAAAAAAAIBAAAAAAAAAHUAAAAAAAAAAAAAAAAAAAPB",
-      "BTTTriggers" : [
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1691713455.182277,
-          "BTTTriggerType" : 100,
-          "BTTTriggerTypeDescription" : "3本指で左にスワイプ",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "9DA91D2F-6918-47E1-B4D5-DDCD26D6901C",
-          "BTTLayoutIndependentActionChar" : "[",
-          "BTTAutoAdaptActionToKeyboardLayout" : true,
-          "BTTGenericActionConfig" : "autoAdapt",
-          "BTTShortcutToSend" : "55,33",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTOrder" : 0,
-          "BTTGestureNotes" : "3本指で左にスワイプ"
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1691713455.1825051,
-          "BTTTriggerType" : 101,
-          "BTTTriggerTypeDescription" : "3本指で右にスワイプ",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "C96AA713-712F-426F-AB33-C4C16DAD7A36",
-          "BTTLayoutIndependentActionChar" : "]",
-          "BTTAutoAdaptActionToKeyboardLayout" : true,
-          "BTTGenericActionConfig" : "autoAdapt",
-          "BTTShortcutToSend" : "55,30",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTOrder" : 1,
-          "BTTGestureNotes" : "3本指で右にスワイプ"
-        }
-      ]
-    },
-    {
-      "BTTAppBundleIdentifier" : "com.apple.finder",
-      "BTTAppName" : "Finder",
-      "BTTAppAutoInvertIcon" : 1,
-      "BTTTriggers" : [
-
-      ]
-    },
-    {
       "BTTAppBundleIdentifier" : "BT.G",
       "BTTAppName" : "Global",
       "BTTAppAutoInvertIcon" : 1,
@@ -274,28 +274,6 @@
         "BTTDisableGlobalTriggers" : false
       },
       "BTTTriggers" : [
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1713706198.3718009,
-          "BTTTriggerType" : 102,
-          "BTTTriggerTypeDescriptionReadOnly" : "3本指で上にスワイプ",
-          "BTTTriggerTypeDescription" : "Windowを閉じる",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "DF9BA5D3-EF8D-4679-96E4-264945C57B33",
-          "BTTLayoutIndependentActionChar" : "w",
-          "BTTAutoAdaptActionToKeyboardLayout" : true,
-          "BTTGenericActionConfig" : "autoAdapt",
-          "BTTShortcutToSend" : "55,13",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTOrder" : 0,
-          "BTTGestureNotes" : "Windowを閉じる",
-          "BTTTriggerConfig" : {
-            "BTTNoTouchTimeout" : 0,
-            "BTTHUDText" : "Close",
-            "BTTShowHUD" : 1
-          }
-        },
         {
           "BTTActionCategory" : 0,
           "BTTLastUpdatedAt" : 1711889217.890372,
@@ -344,12 +322,83 @@
             "BTTTouchBarItemIconHeight" : 22,
             "BTTTouchBarButtonBaselineOffset" : 0
           }
+        },
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1713706198.3718009,
+          "BTTTriggerType" : 102,
+          "BTTTriggerTypeDescriptionReadOnly" : "3本指で上にスワイプ",
+          "BTTTriggerTypeDescription" : "Windowを閉じる",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "DF9BA5D3-EF8D-4679-96E4-264945C57B33",
+          "BTTLayoutIndependentActionChar" : "w",
+          "BTTAutoAdaptActionToKeyboardLayout" : true,
+          "BTTGenericActionConfig" : "autoAdapt",
+          "BTTShortcutToSend" : "55,13",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 1,
+          "BTTOrder" : 0,
+          "BTTGestureNotes" : "Windowを閉じる",
+          "BTTTriggerConfig" : {
+            "BTTNoTouchTimeout" : 0,
+            "BTTHUDText" : "Close",
+            "BTTShowHUD" : 1
+          }
         }
       ]
     },
     {
-      "BTTAppBundleIdentifier" : "BT.L",
-      "BTTAppName" : "Recently Used",
+      "BTTAppBundleIdentifier" : "com.apple.mail",
+      "BTTAppName" : "メール",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTAppProcessMatchMode" : 2,
+      "BTTAppProcessName" : "メール",
+      "BTTTriggers" : [
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1714045902.9041491,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "8C71E60D-4EC2-4604-9F2E-F2C949E115FC",
+          "BTTPredefinedActionType" : 366,
+          "BTTPredefinedActionName" : "空のプレースホルダ",
+          "BTTAdditionalConfiguration" : "1179658",
+          "BTTKeyboardShortcutKeyboardType" : 19027,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "f",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 1,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 1179648,
+          "BTTOrder" : 0,
+          "BTTAutoAdaptToKeyboardLayout" : 0,
+          "BTTAdditionalActions" : [
+            {
+              "BTTActionCategory" : 0,
+              "BTTLastUpdatedAt" : 1714046073.763793,
+              "BTTTriggerType" : -1,
+              "BTTTriggerParentUUID" : "8C71E60D-4EC2-4604-9F2E-F2C949E115FC",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTUUID" : "9C712109-5FE5-42E8-95D2-37F9194D908A",
+              "BTTPredefinedActionType" : 124,
+              "BTTPredefinedActionName" : "メニューバーのメニューアイテムをトリガー",
+              "BTTMenubarPath" : "編集;検索;メールボックスを検索",
+              "BTTKeyboardShortcutKeyboardType" : 0,
+              "BTTEnabled" : 1,
+              "BTTEnabled2" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 9,
+              "BTTAutoAdaptToKeyboardLayout" : 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "BTTAppBundleIdentifier" : "com.apple.finder",
+      "BTTAppName" : "Finder",
       "BTTAppAutoInvertIcon" : 1,
       "BTTTriggers" : [
 
