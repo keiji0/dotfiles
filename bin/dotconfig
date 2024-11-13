@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -eu
+DOTDIR="$(cd "$(dirname "$0")" && pwd)"/..
 . "$DOTDIR/lib/error.sh"
 
 readonly CONFIG_DIR="$DOTDIR/config"
