@@ -1,6 +1,6 @@
-dump:
-	rm -f Brewfile
-	make Brewfile
+dump: Brewfile
 
+.PHONY: Brewfile
 Brewfile:
+	rm -f Brewfile
 	brew bundle dump
