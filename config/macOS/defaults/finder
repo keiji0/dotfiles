@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# 新規ファインダーウィンドウでホームディレクトリを開く
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
 # アニメーションを無効化する
 defaults write com.apple.finder DisableAllAnimations -bool true
 # デフォルトで隠しファイルを表示する

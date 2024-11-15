@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Battery_state</key>
+	<false/>
+	<key>CPU_barChart_position</key>
+	<integer>3</integer>
+	<key>CPU_label_position</key>
+	<integer>1</integer>
+	<key>CPU_lineChart_position</key>
+	<integer>0</integer>
+	<key>CPU_line_chart_box</key>
+	<true/>
+	<key>CPU_line_chart_frame</key>
+	<false/>
+	<key>CPU_line_chart_label</key>
+	<false/>
+	<key>CPU_line_chart_value</key>
+	<true/>
+	<key>CPU_line_chart_valueColor</key>
+	<false/>
+	<key>CPU_mini_position</key>
+	<integer>2</integer>
+	<key>CPU_pieChart_position</key>
+	<integer>4</integer>
+	<key>CPU_tachometer_position</key>
+	<integer>5</integer>
+	<key>CPU_updateInterval</key>
+	<integer>3</integer>
+	<key>CPU_updateTopInterval</key>
+	<integer>3</integer>
+	<key>CPU_widget</key>
+	<string>line_chart</string>
+	<key>Disk_state</key>
+	<false/>
+	<key>GPU_state</key>
+	<false/>
+	<key>LaunchAtLoginNext</key>
+	<true/>
+	<key>NSStatusItem Preferred Position CPU_line_chart</key>
+	<real>172</real>
+	<key>NSStatusItem Preferred Position RAM_mini</key>
+	<real>220</real>
+	<key>NSStatusItem Restore Position Battery_battery</key>
+	<integer>399</integer>
+	<key>NSStatusItem Restore Position CPU_mini</key>
+	<integer>181</integer>
+	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>1</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<true/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>541 585 430 163 0 0 1512 944 </string>
+	<key>Network_state</key>
+	<false/>
+	<key>RAM_barChart_position</key>
+	<integer>3</integer>
+	<key>RAM_label_position</key>
+	<integer>4</integer>
+	<key>RAM_lineChart_position</key>
+	<integer>1</integer>
+	<key>RAM_memory_position</key>
+	<integer>5</integer>
+	<key>RAM_mini_alignment</key>
+	<string>right</string>
+	<key>RAM_mini_color</key>
+	<string>monochrome</string>
+	<key>RAM_mini_label</key>
+	<true/>
+	<key>RAM_mini_position</key>
+	<integer>0</integer>
+	<key>RAM_oneView</key>
+	<false/>
+	<key>RAM_pieChart_position</key>
+	<integer>2</integer>
+	<key>RAM_processes</key>
+	<integer>15</integer>
+	<key>RAM_state</key>
+	<true/>
+	<key>RAM_tachometer_position</key>
+	<integer>6</integer>
+	<key>RAM_updateInterval</key>
+	<integer>5</integer>
+	<key>RAM_updateTopInterval</key>
+	<integer>5</integer>
+	<key>RAM_widget</key>
+	<string>mini</string>
+	<key>Sensors_state</key>
+	<false/>
+	<key>dockIcon</key>
+	<false/>
+	<key>runAtLoginInitialized</key>
+	<true/>
+	<key>sensor_F0Ac</key>
+	<false/>
+	<key>setupProcess</key>
+	<true/>
+	<key>telemetry</key>
+	<false/>
+	<key>telemetry_id</key>
+	<string>DA7E84C4-23AA-4CFA-AF06-D8316A3DF910</string>
+	<key>update-interval</key>
+	<string>Once per week</string>
+	<key>updater_check_ts</key>
+	<integer>1730885338</integer>
+	<key>version</key>
+	<string>2.11.16</string>
+</dict>
+</plist>
