@@ -50,7 +50,7 @@
     "BTTSavedMousePosition" : "{760.58984375, 248.94140625}",
     "BSTDontShowSnapAreasWhileModMoving" : 0,
     "BTTDrawingAreaHeight" : 626,
-    "BTTNumberOfStarts" : 6524,
+    "BTTNumberOfStarts" : 6539,
     "BTTTouchBarHapticFeedback" : 0,
     "BTTStageManagerLeftSnappingAreaIncreasePercentage" : 0.125,
     "showKeyboardTab" : true,
@@ -146,7 +146,7 @@
     "BTTDrawingsRestoreMousePosition" : true,
     "singleFingerTapRight" : 0.05000000074505806,
     "singleFingerTapLeft" : 0.44999998807907104,
-    "BTTDidRegisterForUpdateStats" : "4.887",
+    "BTTDidRegisterForUpdateStats" : "4.9996",
     "BTTHandleThumbsRestingOnTopEdgeAndCorners" : true,
     "BSTBrokenAPICheckEnabled" : false,
     "BTTDrawingsHighlightStartPoint" : true,
@@ -166,8 +166,16 @@
     "BSTSnapAreaDefaultShowPictogram" : false,
     "BSTSnapAreaDefaultPictoDistanceFromBottom" : 0.10000000149011612
   },
-  "BTTPresetUUID" : "0A5FC496-C778-4E3A-80F6-A52E5875CF6A",
+  "BTTPresetUUID" : "35045D18-7597-4FE9-A0CC-D1C5C9B9B610",
   "BTTPresetContent" : [
+    {
+      "BTTAppBundleIdentifier" : "com.apple.finder",
+      "BTTAppName" : "Finder",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+
+      ]
+    },
     {
       "BTTAppBundleIdentifier" : "BT.G",
       "BTTAppName" : "Global",
@@ -178,7 +186,102 @@
       "BTTTriggers" : [
         {
           "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1733316847.1572189,
+          "BTTLastUpdatedAt" : 1738141091.156193,
+          "BTTTriggerType" : 111,
+          "BTTTriggerTypeDescriptionReadOnly" : "5本指でタップ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "CF219C46-35F3-46C0-A830-545FFDF2B674",
+          "BTTPredefinedActionType" : 366,
+          "BTTPredefinedActionName" : "空のプレースホルダ",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 0,
+          "BTTOrder" : 3,
+          "BTTAdditionalActions" : [
+            {
+              "BTTActionCategory" : 0,
+              "BTTLastUpdatedAt" : 1735015096.525445,
+              "BTTTriggerParentUUID" : "CF219C46-35F3-46C0-A830-545FFDF2B674",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+              "BTTUUID" : "2AC90952-6EDE-4A7D-B752-C6C1C3EB3203",
+              "BTTPredefinedActionType" : 169,
+              "BTTPredefinedActionName" : "スクリーンショットのキャプチャ（設定可能）",
+              "BTTScreenshotOptions" : "-i;;-t;;png;;-u;;\/Users\/keiji\/Pictures\/Screenshot_{datetime}_{random}.png;;",
+              "BTTScreenshotDateFormat" : "yyyy-MM-dd HH.mm.ss",
+              "BTTEnabled" : 1,
+              "BTTEnabled2" : 1,
+              "BTTOrder" : 1
+            }
+          ]
+        },
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1737936292.0879941,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "C710CF3E-3660-459C-8C03-6C74023829E6",
+          "BTTPredefinedActionType" : 366,
+          "BTTPredefinedActionName" : "空のプレースホルダ",
+          "BTTAdditionalConfiguration" : "8519682",
+          "BTTKeyboardShortcutKeyboardType" : 9203,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "F1",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 1,
+          "BTTShortcutKeyCode" : 122,
+          "BTTShortcutModifierKeys" : 8519680,
+          "BTTOrder" : 2,
+          "BTTAutoAdaptToKeyboardLayout" : 0,
+          "BTTAdditionalActions" : [
+            {
+              "BTTActionCategory" : 0,
+              "BTTLastUpdatedAt" : 1737174465.0727758,
+              "BTTTriggerParentUUID" : "C710CF3E-3660-459C-8C03-6C74023829E6",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTUUID" : "F140777C-5375-4FCF-8392-15938941C9AC",
+              "BTTLayoutIndependentActionChar" : "SPACE",
+              "BTTShortcutToSend" : "62,49",
+              "BTTKeyboardShortcutKeyboardType" : 0,
+              "BTTEnabled" : 1,
+              "BTTEnabled2" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTOrder" : 14,
+              "BTTAutoAdaptToKeyboardLayout" : 0
+            }
+          ]
+        },
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1738141091.1561751,
+          "BTTTriggerType" : 104,
+          "BTTTriggerTypeDescriptionReadOnly" : "3本指でタップ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "5BFE5097-A867-4BFC-BC47-187D585375A2",
+          "BTTPredefinedActionType" : 366,
+          "BTTPredefinedActionName" : "空のプレースホルダ",
+          "BTTEnabled" : 1,
+          "BTTEnabled2" : 1,
+          "BTTOrder" : 1,
+          "BTTAdditionalActions" : [
+            {
+              "BTTActionCategory" : 0,
+              "BTTLastUpdatedAt" : 1733316774.534375,
+              "BTTTriggerParentUUID" : "5BFE5097-A867-4BFC-BC47-187D585375A2",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+              "BTTUUID" : "850EFF8E-ABD9-47C8-8E49-12C5395D78A0",
+              "BTTLayoutIndependentActionChar" : "RETURN",
+              "BTTShortcutToSend" : "36",
+              "BTTEnabled" : 1,
+              "BTTEnabled2" : 1,
+              "BTTOrder" : 1
+            }
+          ]
+        },
+        {
+          "BTTActionCategory" : 0,
+          "BTTLastUpdatedAt" : 1738141091.156184,
           "BTTTriggerType" : 103,
           "BTTTriggerTypeDescriptionReadOnly" : "3本指でスワイプダウン",
           "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
@@ -206,24 +309,24 @@
         },
         {
           "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1733316807.97402,
-          "BTTTriggerType" : 104,
-          "BTTTriggerTypeDescriptionReadOnly" : "3本指でタップ",
+          "BTTLastUpdatedAt" : 1738141100.055057,
+          "BTTTriggerType" : 110,
+          "BTTTriggerTypeDescriptionReadOnly" : "4本指でタップ",
           "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "5BFE5097-A867-4BFC-BC47-187D585375A2",
+          "BTTUUID" : "7625F407-1F11-4B05-9F64-E40CA4107182",
           "BTTPredefinedActionType" : 366,
           "BTTPredefinedActionName" : "空のプレースホルダ",
           "BTTEnabled" : 1,
           "BTTEnabled2" : 1,
-          "BTTOrder" : 1,
+          "BTTOrder" : 4,
           "BTTAdditionalActions" : [
             {
               "BTTActionCategory" : 0,
-              "BTTLastUpdatedAt" : 1733316774.534375,
-              "BTTTriggerParentUUID" : "5BFE5097-A867-4BFC-BC47-187D585375A2",
+              "BTTLastUpdatedAt" : 1738141105.388617,
+              "BTTTriggerParentUUID" : "7625F407-1F11-4B05-9F64-E40CA4107182",
               "BTTIsPureAction" : true,
               "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-              "BTTUUID" : "850EFF8E-ABD9-47C8-8E49-12C5395D78A0",
+              "BTTUUID" : "4F8262B7-F86A-446C-A6F3-CBDF8C2DC95B",
               "BTTLayoutIndependentActionChar" : "RETURN",
               "BTTShortcutToSend" : "36",
               "BTTEnabled" : 1,
@@ -237,14 +340,6 @@
     {
       "BTTAppBundleIdentifier" : "BT.L",
       "BTTAppName" : "Recently Used",
-      "BTTAppAutoInvertIcon" : 1,
-      "BTTTriggers" : [
-
-      ]
-    },
-    {
-      "BTTAppBundleIdentifier" : "com.apple.finder",
-      "BTTAppName" : "Finder",
       "BTTAppAutoInvertIcon" : 1,
       "BTTTriggers" : [
 
