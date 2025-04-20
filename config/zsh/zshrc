@@ -40,6 +40,20 @@ alias j='jobs -l'
 alias vi='vim'
 alias grep='grep --color=auto'
 
+# Git
+alias gs='git status -sb'
+alias gb='git branch'
+alias ga='git add'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gco='git checkout'
+alias gsw='git switch'
+alias gg='git graph'
+alias gl='git log'
+alias gst='git stash'
+alias gsp='git stash pop'
+
 # グローバルエイリアス設定
 alias -g L='| less'
 alias -g G='| grep'
